@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <children>
+<HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" spacing="10.0" style="-fx-background-color: #F5F4F0;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <padding>
+        <Insets top="15.0" />
+    </padding>
+    <children>
+        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@IMG_0034.png"/>
+            </image>
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </ImageView>
+        <Label text="TOUR PLANNER" textAlignment="CENTER" textFill="#292929">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <HBox.margin>
+                <Insets top="25.0"/>
+            </HBox.margin>
+        </Label>
+        <TextField maxWidth="1.7976931348623157E308" promptText="search tours..." style="-fx-background-radius: 25;">
+            <HBox.margin>
+                <Insets left="500.0" top="25.0"/>
+            </HBox.margin>
+        </TextField>
+        <Button mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="Search" textFill="#f5f4f0">
+            <HBox.margin>
+                <Insets top="25.0"/>
+            </HBox.margin>
+        </Button>
+        <MenuButton mnemonicParsing="false" style="-fx-background-color: #297860; -fx-background-radius: 25;" text="Filter" textFill="#f5f4f0">
+            <items>
+                <MenuItem text="Popularity">
+                    <graphic>
+                        <CheckBox/>
+                    </graphic>
+                </MenuItem>
+                <MenuItem text="Child-friendliness">
+                    <graphic>
+                        <CheckBox/>
+                    </graphic>
+                </MenuItem>
+            </items>
+            <HBox.margin>
+                <Insets top="25.0"/>
+            </HBox.margin>
+        </MenuButton>
+    </children>
+</HBox>
+    </children>
+</AnchorPane>
