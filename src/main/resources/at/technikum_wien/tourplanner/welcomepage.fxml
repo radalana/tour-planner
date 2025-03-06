@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: #F5F4F0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.Welcomepage">
+<AnchorPane prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: #F5F4F0;" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.Welcomepage">
    <children>
       <ImageView fitHeight="500.0" fitWidth="500.0" layoutX="281.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="281.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="60.0">
          <image>
