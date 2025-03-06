@@ -1,5 +1,5 @@
 module at.technikum_wien.tourplanner {
-    //requires javafx.controls;
+    requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
 
