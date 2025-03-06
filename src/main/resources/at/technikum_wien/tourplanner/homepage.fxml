@@ -2,20 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <fx:include source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-      <Label alignment="CENTER" layoutX="495.0" layoutY="120.0" text="TOUR LIST" underline="true">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <fx:include source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
       <Button mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="Delete Tour" textFill="WHITE" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="120.0">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -26,16 +18,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TableView layoutX="68.0" layoutY="231.0" maxWidth="1.7976931348623157E308" style="-fx-background-radius: 25;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="170.0">
-         <columns>
-            <TableColumn minWidth="40.0" prefWidth="175.20000839233398" text="Tour Name" />
-            <TableColumn prefWidth="154.3999786376953" text="Transport Type" />
-            <TableColumn prefWidth="134.39987182617188" text="From" />
-            <TableColumn prefWidth="135.46658325195312" text="To" />
-            <TableColumn prefWidth="91.199951171875" text="Distance" />
-            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="456.79998779296875" text="Estimated Time" />
-         </columns>
-      </TableView>
+      <fx:include source="tourTable.fxml" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="705.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="NEW TOUR" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="20.0">
          <font>
             <Font name="System Bold" size="18.0" />

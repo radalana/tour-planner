@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx">
+    <children>
+    <StackPane AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label text="TOUR LIST" underline="true">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+    </StackPane>
+    <TableView maxWidth="1.7976931348623157E308" style="-fx-background-radius: 25.0;"
+               AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
+        <columns>
+            <TableColumn text="Tour Name" prefWidth="175.0" />
+            <TableColumn text="Transport Type" prefWidth="154.0"/>
+            <TableColumn text="From" prefWidth="134.0"/>
+            <TableColumn text="To" prefWidth="135.0"/>
+            <TableColumn text="Distance" prefWidth="91.0"/>
+            <TableColumn text="Estimated Time" prefWidth="456.0"/>
+        </columns>
+    </TableView>
+    </children>
+</AnchorPane>
