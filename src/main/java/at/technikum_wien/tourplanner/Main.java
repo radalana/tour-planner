@@ -11,13 +11,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("homepage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 768);
+        stage.setTitle("R&R tour planner");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
+        System.out.println(System.getProperty("javafx.runtime.version"));
+
         launch();
     }
 }
