@@ -1,4 +1,4 @@
-package at.technikum_wien.tourplanner;
+package at.technikum_wien.tourplanner.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
