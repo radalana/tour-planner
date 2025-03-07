@@ -2,25 +2,25 @@ package at.technikum_wien.tourplanner;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("homepage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080, 768);
-        stage.setTitle("R&R tour planner");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLDependencyInjection.load("homepage.fxml", Locale.ENGLISH);
+        Scene scene = new Scene(root, 1080, 768);
+        primaryStage.setTitle("R&R tour planner");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("javafx.runtime.version"));
-
         launch();
     }
 }
