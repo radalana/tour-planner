@@ -8,16 +8,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <fx:include source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-      <Button mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="Delete Tour" textFill="WHITE" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="120.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="978.0" layoutY="118.0" mnemonicParsing="false" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="Edit Tour" textFill="#f5f4f0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
       <fx:include source="tourTable.fxml" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="705.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="NEW TOUR" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="20.0">
          <font>
