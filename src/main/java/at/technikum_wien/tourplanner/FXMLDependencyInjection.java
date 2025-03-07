@@ -14,15 +14,16 @@ import java.util.ResourceBundle;
  * Copied from https://git.technikum-wien.at/swen/swen2/java/medialib.git
  */
 public class FXMLDependencyInjection {
-    public static Parent load(String location, Locale locale) throws IOException {
-        FXMLLoader loader = getLoader(location, locale);
+    public static Parent load(String location) throws IOException {
+        FXMLLoader loader = getLoader(location);
         return loader.load();
     }
 
-    public static FXMLLoader getLoader(String location, Locale locale) {
+    public static FXMLLoader getLoader(String location) {
         return new FXMLLoader(
                 FXMLDependencyInjection.class.getResource("/at/technikum_wien/tourplanner/view/" + location),
-                ResourceBundle.getBundle("at.technikum_wien.tourplanner.view." + "gui_strings", locale),
+                null,
+                //ResourceBundle.getBundle("at.technikum_wien.tourplanner.view." + "gui_strings", locale), //for languages
                 new JavaFXBuilderFactory(),
                 controllerClass-> ControllerFactory.getInstance().create(controllerClass)
         );
