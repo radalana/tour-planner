@@ -3,6 +3,7 @@ module at.technikum_wien.tourplanner {
     requires javafx.fxml;
     requires javafx.web;
     requires javafx.graphics;
+    requires static lombok;
 
     //requires org.controlsfx.controls;
     //requires com.dlsc.formsfx;
