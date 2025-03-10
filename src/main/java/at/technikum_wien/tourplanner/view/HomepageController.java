@@ -1,14 +1,18 @@
 package at.technikum_wien.tourplanner.view;
 
+import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 public class HomepageController {
-    @FXML
-    private Label welcomeText;
+    @FXML private TourTableController tourTableController;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private final HomepageViewModel homepageViewModel;
+    public HomepageController(HomepageViewModel homepageViewModel) {
+        this.homepageViewModel = homepageViewModel;
     }
+
+    @FXML public void initialize() {
+
+    }
+
 }

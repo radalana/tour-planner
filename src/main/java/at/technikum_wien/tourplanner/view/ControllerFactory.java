@@ -13,7 +13,7 @@ public class ControllerFactory {
     //Factory-Method Pattern
     public Object create(Class<?> controllerClass) {
         //TODO if (controllerClass == HomepageViewModel.class) {
-            return new HomepageController();
+            return new HomepageController(homepageViewModel);
     }
 
     // Singleton-Pattern with early-binding
