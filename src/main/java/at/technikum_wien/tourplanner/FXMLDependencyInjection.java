@@ -6,9 +6,6 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 /**
  * FXMLLoader with Dependency-Injection
  * Copied from https://git.technikum-wien.at/swen/swen2/java/medialib.git
