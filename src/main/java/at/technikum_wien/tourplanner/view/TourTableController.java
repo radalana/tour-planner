@@ -27,13 +27,6 @@ public class TourTableController {
     }
     @FXML
     public void initialize() {
-        System.out.println("TourTableController — initialize start");
-
         tourTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        ObservableList<Tour> testData = FXCollections.observableArrayList(
-                new Tour("Test Tour", "Car", "Vienna", "Graz", 200.0, "2h 30m")
-        );
-        tourTableView.setItems(testData);
-        System.out.println("TourTableController — initialize end");
     }
 }

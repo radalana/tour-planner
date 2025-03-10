@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Locale;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -20,6 +19,5 @@ public class Main extends Application {
         primaryStage.setTitle("R&R tour planner");
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 }
