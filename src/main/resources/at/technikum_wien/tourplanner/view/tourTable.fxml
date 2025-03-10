@@ -15,15 +15,15 @@
             </font>
         </Label>
     </StackPane>
-    <TableView maxWidth="1.7976931348623157E308" style="-fx-background-radius: 25.0;"
+    <TableView fx:id="tourTableView" maxWidth="1.7976931348623157E308" style="-fx-background-radius: 25.0;"
                AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
         <columns>
-            <TableColumn text="Tour Name"/>
-            <TableColumn text="Transport Type"/>
-            <TableColumn text="From"/>
-            <TableColumn text="To"/>
-            <TableColumn text="Distance"/>
-            <TableColumn text="Estimated Time"/>
+            <TableColumn fx:id="tourNameColumn" text="Tour Name" prefWidth="100"/>
+            <TableColumn fx:id="transportTypeColumn" text="Transport Type" prefWidth="100"/>
+            <TableColumn fx:id="fromColumn" text="From" prefWidth="100"/>
+            <TableColumn fx:id="toColumn" text="To" prefWidth="100"/>
+            <TableColumn fx:id="distanceColumn" text="Distance" prefWidth="100"/>
+            <TableColumn fx:id="estimatedTimeColumn" text="Estimated Time" prefWidth="100"/>
         </columns>
     </TableView>
     </children>

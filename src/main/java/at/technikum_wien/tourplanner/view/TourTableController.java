@@ -1,20 +1,22 @@
 package at.technikum_wien.tourplanner.view;
 
+import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.viewmodel.TourTableViewModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class TourTableController {
     //references used to setup data-binding
-    //TODO private or public
-    public TableView tableView;
-    public TableColumn tourNameColumn;
-    public TableColumn transportTypeColumn;
-    public TableColumn fromColumn;
-    public TableColumn toColumn;
-    public TableColumn distanceColumn;
-    public TableColumn estimatedTimeColumn;
+    @FXML private TableView tourTableView;
+    @FXML private TableColumn tourNameColumn;
+    @FXML private TableColumn transportTypeColumn;
+    @FXML private TableColumn fromColumn;
+    @FXML private TableColumn toColumn;
+    @FXML private TableColumn distanceColumn;
+    @FXML private TableColumn estimatedTimeColumn;
 
 
 
@@ -25,6 +27,13 @@ public class TourTableController {
     }
     @FXML
     public void initialize() {
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        System.out.println("TourTableController — initialize start");
+
+        tourTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        ObservableList<Tour> testData = FXCollections.observableArrayList(
+                new Tour("Test Tour", "Car", "Vienna", "Graz", 200.0, "2h 30m")
+        );
+        tourTableView.setItems(testData);
+        System.out.println("TourTableController — initialize end");
     }
 }
