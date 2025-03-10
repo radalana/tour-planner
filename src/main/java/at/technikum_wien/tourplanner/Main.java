@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class Main extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLDependencyInjection.load("homepage.fxml");
@@ -18,9 +21,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
