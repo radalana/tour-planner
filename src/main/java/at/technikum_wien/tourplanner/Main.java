@@ -15,9 +15,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLDependencyInjection.load("homepage.fxml");
-        Scene scene = new Scene(root, 1080, 768);
+        Scene scene = new Scene(root);
         primaryStage.setTitle("R&R tour planner");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 }
