@@ -5,6 +5,9 @@ import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -22,7 +25,12 @@ public class HomepageController {
 
     public void navigateToAddTour(ActionEvent actionEvent) {
         try{
-            Parent addTourParent = FXMLDependencyInjection.load("newTour.fxml");
+            Parent newTourParent = FXMLDependencyInjection.load("newTour.fxml");
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);//Block parent window
+            popupStage.setTitle("Add New Tour");
+            popupStage.setScene(new Scene(newTourParent));
+            popupStage.showAndWait();
         }catch (IOException e) {
             e.printStackTrace();
         }
