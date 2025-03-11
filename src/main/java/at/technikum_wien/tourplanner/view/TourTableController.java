@@ -18,9 +18,6 @@ public class TourTableController {
     @FXML private TableColumn distanceColumn;
     @FXML private TableColumn estimatedTimeColumn;
 
-
-
-
     private final TourTableViewModel tourTableViewModel;
     public TourTableController(TourTableViewModel tourTableViewModel) {
         this.tourTableViewModel = tourTableViewModel;
