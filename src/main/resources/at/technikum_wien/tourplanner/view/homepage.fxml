@@ -12,14 +12,24 @@
    <children>
       <!-- Header -->
       <fx:include source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+
       <fx:include source="tourTable.fxml" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
-         <Button onAction="#navigateToAddTour" alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="705.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="NEW TOUR" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="20.0">
-            <font>
-               <Font name="System Bold" size="18.0" />
-            </font>
-            <padding>
-               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-            </padding>
-         </Button>
+      <Button onAction="#navigateToAddTour" alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="705.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="NEW TOUR" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </Button>
+      <AnchorPane fx:id="popupContainer"
+                  visible="false"
+                  style="-fx-background-color: rgba(0,0,0,0.5);"
+                  AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <StackPane>
+            <fx:include source="newTour.fxml"/>
+         </StackPane>
+      </AnchorPane>
    </children>
 </AnchorPane>
