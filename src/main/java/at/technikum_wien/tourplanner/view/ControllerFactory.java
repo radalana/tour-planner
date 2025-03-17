@@ -8,19 +8,23 @@ public class ControllerFactory {
     private final HomepageViewModel homepageViewModel;
     private final TourTableViewModel tourTableViewModel;
     private final NewTourViewModel newTourViewModel;
+    private final HeaderController headerController;
 
 
     public ControllerFactory() {
         homepageViewModel = new HomepageViewModel();
         tourTableViewModel = new TourTableViewModel();
         newTourViewModel = new NewTourViewModel();
+        headerController = new HeaderController();
     }
 
     //Factory-Method Pattern
     public Object create(Class<?> controllerClass) {
         if (controllerClass == HomepageController.class) {
             return new HomepageController(homepageViewModel);
-        }else if (controllerClass == TourTableController.class) {
+        }else if (controllerClass == HeaderController.class) {
+            return new HeaderController();
+        } else if (controllerClass == TourTableController.class) {
             return new TourTableController(tourTableViewModel);
         }else if (controllerClass == NewTourController.class) {
             return new NewTourController(newTourViewModel);
