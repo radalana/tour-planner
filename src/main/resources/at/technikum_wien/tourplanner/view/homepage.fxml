@@ -12,10 +12,10 @@
    <children>
       <!-- Header -->
       <fx:include source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-
+      <!-- Table -->
       <fx:include source="tourTable.fxml" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
       <!-- Button to open pop-up form to add new Tour -->
-      <Button onAction="#navigateToAddTour" alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="705.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="NEW TOUR" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="20.0">
+      <Button onAction="#showPopupNewTour" alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="705.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="NEW TOUR" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="20.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -27,18 +27,17 @@
       <!-- TODO resize/make smaller -->
       <!-- TODO make in own column??? (ask Gabriela -_-) -->
       <!-- TODO add functionality to "SAVE" Button -->
-      <!-- TODO add functionality to "CANCEL" Button -->
+      <!-- DARK OVERLAY for modal -->
+      <AnchorPane fx:id="overlayPane"
+                  style="-fx-background-color: rgba(0,0,0,0.4);"
+                  visible="false"
+                  AnchorPane.topAnchor="0.0"
+                  AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0"/>
       <!-- Button to open pop-up form to add new Tour -->
       <!-- Invisible tour till "NEW TOUR" button pressed -->
-      <AnchorPane fx:id="popupContainer"
-                  visible="false"
-                  pickOnBounds="false"
-                  style="-fx-background-color: rgba(0,0,0,0.5);"
-                  AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <StackPane>
-            <fx:include source="newTour.fxml"/>
-         </StackPane>
-      </AnchorPane>
+      <fx:include  source="newTour.fxml" fx:id="newTour"/>
+
    </children>
 </AnchorPane>
