@@ -6,45 +6,18 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-
 <AnchorPane prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.Tourdetails">
     <children>
-        <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" style="-fx-background-color: #F5F4F0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
-                    <image>
-                        <Image url="@IMG_0034.png" />
-                    </image>
-                    <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                    </HBox.margin>
-                </ImageView>
-                <Label text="TOUR PLANNER" textAlignment="CENTER" HBox.hgrow="NEVER">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="10.0" top="25.0" />
-                    </HBox.margin>
-                </Label>
-            </children>
-            <padding>
-                <Insets top="15.0" />
-            </padding>
-        </HBox>
-        <VBox layoutX="68.0" layoutY="178.0" prefHeight="400.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: #F5F4F0; -fx-background-radius: 25; -fx-border-color: #292929; -fx-border-radius: 25;">
+        <VBox layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: #F5F4F0; -fx-border-color: #292929;">
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
@@ -108,13 +81,13 @@
                 </GridPane>
             </children>
         </VBox>
-        <WebView fx:id="mapView" layoutX="512.0" layoutY="174.0" prefHeight="400.0" prefWidth="400.0" />
-        <Button layoutX="25.0" layoutY="117.0" mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="&lt;- BACK" textFill="WHITE">
+        <WebView fx:id="mapView" layoutX="550.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0" />
+        <Button layoutX="27.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="&lt;- BACK" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
         </Button>
-        <TableView layoutX="70.0" layoutY="598.0" prefHeight="150.0" prefWidth="845.0" style="-fx-border-color: #292929;">
+        <TableView layoutX="104.0" layoutY="520.0" prefHeight="150.0" prefWidth="845.0" style="-fx-border-color: #292929;">
             <columns>
                 <TableColumn prefWidth="245.0" text="NAME" />
                 <TableColumn prefWidth="200.0" text="DATE" />
@@ -122,29 +95,26 @@
                 <TableColumn prefWidth="200.0" text="DISTANCE" />
             </columns>
         </TableView>
-        <VBox layoutX="950.0" layoutY="600.0" prefHeight="130.0" prefWidth="120.0" spacing="15.0">
-            <children>
-                <Button mnemonicParsing="false" style="-fx-background-color: #297860; -fx-background-radius: 25;" text="Create Log" textFill="#f5f4f0">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="Edit Log" textFill="#f5f4f0">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="Delete Log" textFill="#f5f4f0">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Button>
-            </children>
-        </VBox>
-        <Text fill="#999696" layoutX="661.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAP">
+        <VBox layoutX="950.0" layoutY="600.0" prefHeight="130.0" prefWidth="120.0" spacing="15.0" />
+        <Text fill="#999696" layoutX="690.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAP">
             <font>
                 <Font size="53.0" />
             </font>
         </Text>
+        <Button layoutX="350.0" layoutY="700.0" mnemonicParsing="false" style="-fx-background-color: #297860; -fx-background-radius: 25;" text="Create Log" textFill="#f5f4f0">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button layoutX="492.0" layoutY="700.0" mnemonicParsing="false" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="Edit Log" textFill="#f5f4f0">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button layoutX="600.0" layoutY="700.0" mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="Delete Log" textFill="#f5f4f0">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>
