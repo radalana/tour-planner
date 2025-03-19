@@ -16,4 +16,9 @@ public class Tour {
     private String to;
     private double distance;
     private String estimatedTime;
+
+    //temporary
+    public Tour(String name) {
+        this.name = name;
+    }
 }
