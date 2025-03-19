@@ -1,7 +1,5 @@
 package at.technikum_wien.tourplanner;
 
-import at.technikum_wien.tourplanner.view.HeaderController;
-import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
 import at.technikum_wien.tourplanner.viewmodel.TourTableViewModel;
 import javafx.collections.FXCollections;
@@ -23,6 +21,7 @@ public class AppMediatorViewModel implements Mediator {
     @Override
     public void addTour(Tour tour) {
         tours.add(tour);
+        System.out.println("Tour added in ObservableList: " + tour);
     }
 
 
