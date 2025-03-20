@@ -13,152 +13,172 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.view.NewTourController" fx:id="newTourContainer">
-    <children>
-        <Label alignment="CENTER" layoutX="495.0" layoutY="120.0" text="NEW TOUR" underline="true">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
-        <GridPane alignment="CENTER" hgap="40.0" prefWidth="600.0" vgap="10.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="130.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-            </padding>
-            <children>
-                <Label text="Tour Name" GridPane.rowIndex="1">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="nameTextField" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px;" GridPane.rowIndex="2">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextField>
-                <Label text="Tour Description" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextArea fx:id="descriptionTextArea" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px; -fx-background-color: #ffffff;" wrapText="true" GridPane.rowIndex="4">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextArea>
-                <Label text="From" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <Label text="To" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="fromTextField" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px;" GridPane.rowIndex="6">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextField>
-                <TextField fx:id="toTextField" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px;" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextField>
-                <Label text="Transport Type" GridPane.rowIndex="7">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <Label text="Tour Distance" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <ComboBox fx:id="transportTypeComboBox" prefHeight="40.0" prefWidth="470.0" promptText="---" style="-fx-background-radius: 15; -fx-border-radius: 15;           -fx-border-color: #297860; -fx-border-width: 1px;           -fx-background-color: #ffffff;" GridPane.rowIndex="8">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Walking" />
-                            <String fx:value="Bicycle" />
-                            <String fx:value="Car" />
-                            <String fx:value="Public Transport" />
-                            <String fx:value="Train" />
-                            <String fx:value="Airplane" />
-                        </FXCollections>
-                    </items>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </ComboBox>
+<?import javafx.scene.layout.VBox?>
 
-                <TextField fx:id="distanceTextField" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px;" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextField>
-                <Label text="Estimated Time" GridPane.rowIndex="9">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="estTimeTextField" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px; -fx-background-color: #ffffff;" GridPane.rowIndex="10">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextField>
-                <Label text="Route Information" GridPane.rowIndex="11">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextArea fx:id="routeInfoTextArea" prefHeight="40.0" prefWidth="470.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #297860; -fx-border-width: 1px; -fx-background-color: #ffffff;" wrapText="true" GridPane.rowIndex="12">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </TextArea>
-            </children>
-        </GridPane>
-        <Button onAction="#saveNewTour" alignment="CENTER" contentDisplay="CENTER" layoutX="394.0" layoutY="690.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="SAVE" textAlignment="CENTER" textFill="#f5f4f0" AnchorPane.bottomAnchor="27.600000000000023">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-            <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-            </padding>
-        </Button>
-        <Button onAction="#closeNewTour" alignment="CENTER" contentDisplay="CENTER" layoutX="560.0" layoutY="688.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #F5F4F0; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: #292929;" text="CANCEL" textAlignment="CENTER" textFill="#292929">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-            <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-            </padding>
-        </Button>
-    </children>
-</AnchorPane>
+<?import javafx.scene.layout.Pane?>
+<StackPane fx:id="newTourContainer"
+           alignment="CENTER"
+           style="-fx-background-color: rgba(0, 0, 0, 0.5);"
+           xmlns="http://javafx.com/javafx/23.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="at.technikum_wien.tourplanner.view.NewTourController">
+
+    <VBox alignment="TOP_CENTER"
+          spacing="15"
+          prefWidth="420"
+          prefHeight="750"
+          style="-fx-background-color: #F5F4F0;
+                 -fx-padding: 25px;">
+
+        <!-- header with import button -->
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Label text="NEW TOUR"
+                   style="-fx-font-size: 30px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1C1C1C;" />
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="+"
+                    style="-fx-background-color: #C8EADF;
+                           -fx-text-fill: white;
+                           -fx-font-size: 24px;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 20px;
+                           -fx-border-radius: 20px;
+                           -fx-padding: 10px;"
+                    prefWidth="40" prefHeight="40">
+            </Button>
+        </HBox>
+
+        <!--input Fields -->
+        <VBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="TOUR NAME" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+            <TextField fx:id="nameTextField"
+                       style="-fx-background-color: #DEDBD6;
+                              -fx-border-radius: 25px;
+                              -fx-background-radius: 25px;
+                              -fx-padding: 12px;
+                              -fx-font-size: 16px;"
+                       prefWidth="380"/>
+
+            <Label text="TOUR DESCRIPTION" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+            <TextArea fx:id="descriptionTextArea"
+                      prefHeight="80"
+                      style="-fx-background-color: #DEDBD6;
+                             -fx-border-radius: 25px;
+                             -fx-background-radius: 25px;
+                             -fx-padding: 12px;
+                             -fx-font-size: 16px;"
+                      prefWidth="380"/>
+
+            <!-- from and to-->
+            <HBox spacing="10">
+                <VBox>
+                    <Label text="FROM" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <TextField fx:id="fromTextField"
+                               style="-fx-background-color: #DEDBD6;
+                                      -fx-border-radius: 25px;
+                                      -fx-background-radius: 25px;
+                                      -fx-padding: 12px;
+                                      -fx-font-size: 16px;"
+                               prefWidth="180"/>
+                </VBox>
+                <VBox>
+                    <Label text="TO" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <TextField fx:id="toTextField"
+                               style="-fx-background-color: #DEDBD6;
+                                      -fx-border-radius: 25px;
+                                      -fx-background-radius: 25px;
+                                      -fx-padding: 12px;
+                                      -fx-font-size: 16px;"
+                               prefWidth="180"/>
+                </VBox>
+            </HBox>
+
+            <Label text="TRANSPORT TYPE" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+            <ComboBox fx:id="transportTypeComboBox"
+                      promptText="Select Transport"
+                      style="-fx-background-color: #DEDBD6;
+                             -fx-border-radius: 25px;
+                             -fx-background-radius: 25px;
+                             -fx-padding: 12px;
+                             -fx-font-size: 16px;"
+                      prefWidth="380">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Walking"/>
+                        <String fx:value="Bicycle"/>
+                        <String fx:value="Car"/>
+                        <String fx:value="Public Transport"/>
+                        <String fx:value="Train"/>
+                        <String fx:value="Airplane"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <!--distance & estimated Time -->
+            <HBox spacing="10">
+                <VBox>
+                    <Label text="DISTANCE" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <TextField fx:id="distanceTextField"
+                               style="-fx-background-color: #DEDBD6;
+                                      -fx-border-radius: 25px;
+                                      -fx-background-radius: 25px;
+                                      -fx-padding: 12px;
+                                      -fx-font-size: 16px;"
+                               prefWidth="180"/>
+                </VBox>
+                <VBox>
+                    <Label text="ESTIMATED TIME (H)" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <TextField fx:id="estTimeTextField"
+                               style="-fx-background-color: #DEDBD6;
+                                      -fx-border-radius: 25px;
+                                      -fx-background-radius: 25px;
+                                      -fx-padding: 12px;
+                                      -fx-font-size: 16px;"
+                               prefWidth="180"/>
+                </VBox>
+            </HBox>
+
+            <Label text="ROUTE INFORMATION" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
+            <TextArea fx:id="routeInfoTextArea"
+                      prefHeight="80"
+                      style="-fx-background-color: #DEDBD6;
+                             -fx-border-radius: 25px;
+                             -fx-background-radius: 25px;
+                             -fx-padding: 12px;
+                             -fx-font-size: 16px;"
+                      prefWidth="380"/>
+        </VBox>
+
+        <!-- Save , cancel-->
+        <VBox spacing="10" alignment="CENTER">
+            <Button onAction="#saveNewTour" text="SAVE"
+                    prefHeight="50" prefWidth="220"
+                    style="-fx-background-color: #C8EADF;
+                           -fx-text-fill: black;
+                           -fx-background-radius: 25px;
+                           -fx-border-radius: 25px;
+                           -fx-font-size: 18px;
+                           -fx-font-weight: bold;"/>
+
+            <Button onAction="#closeNewTour" text="CANCEL"
+                    prefHeight="50" prefWidth="220"
+                    style="-fx-background-color: #F8F6F2;
+                           -fx-text-fill: black;
+                           -fx-background-radius: 25px;
+                           -fx-border-radius: 25px;
+                           -fx-font-size: 18px;
+                           -fx-font-weight: bold;
+                           -fx-border-color: #C8EADF;
+                           -fx-border-width: 2px;"/>
+        </VBox>
+
+    </VBox>
+</StackPane>
