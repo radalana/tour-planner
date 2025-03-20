@@ -1,6 +1,7 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
-import at.technikum_wien.tourplanner.AppMediatorViewModel;
+import at.technikum_wien.tourplanner.AppEventAggregator;
+import at.technikum_wien.tourplanner.TourAddedEvent;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -8,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class NewTourViewModel {
-    private final AppMediatorViewModel mediatorViewModel;
+    private final AppEventAggregator mediatorViewModel;
 
     //values from form
     private final StringProperty name = new SimpleStringProperty();
@@ -20,7 +21,7 @@ public class NewTourViewModel {
     private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty routInfo = new SimpleStringProperty();
 
-    public NewTourViewModel(AppMediatorViewModel mediatorViewModel) {
+    public NewTourViewModel(AppEventAggregator mediatorViewModel) {
         this.mediatorViewModel = mediatorViewModel;
     }
     public StringProperty nameProperty() { return name; }
@@ -48,7 +49,7 @@ public class NewTourViewModel {
                 routInfo.get()
                 );
         System.out.println("Tour object created: " + tour);
-        mediatorViewModel.addTour(tour);
+        mediatorViewModel.publish(new TourAddedEvent(tour));
 
         //clean form
         name.set("");
