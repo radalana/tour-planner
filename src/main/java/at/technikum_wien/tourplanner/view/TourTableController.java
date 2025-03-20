@@ -28,6 +28,14 @@ public class TourTableController {
         tourTableView.setItems(tourTableViewModel.getTours());
         //adjust column widths
         tourTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        bindTableColumnsToProperties();
+        //debug
+        tourTableView.getItems().addListener((ListChangeListener<Tour>) change -> {
+            System.out.println("Table item count changed: " + tourTableView.getItems().size());
+        });
+    }
+
+    private void bindTableColumnsToProperties() {
         //how/what to show in each column
         tourNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         transportTypeColumn.setCellValueFactory(new PropertyValueFactory<>("transportType"));
@@ -35,9 +43,5 @@ public class TourTableController {
         toColumn.setCellValueFactory(new PropertyValueFactory<>("to"));
         distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
         estimatedTimeColumn.setCellValueFactory(new PropertyValueFactory<>("estimatedTime"));
-        //debug
-        tourTableView.getItems().addListener((ListChangeListener<Tour>) change -> {
-            System.out.println("Table item count changed: " + tourTableView.getItems().size());
-        });
     }
 }
