@@ -8,11 +8,12 @@ import javafx.collections.ObservableList;
 import at.technikum_wien.tourplanner.model.Tour;
 import lombok.Getter;
 
+@Getter
 public class AppMediatorViewModel implements Mediator {
-    @Getter private final ObservableList<Tour> tours = FXCollections.observableArrayList();
+    private final ObservableList<Tour> tours = FXCollections.observableArrayList();
 
-    @Getter private final TourTableViewModel tourTableViewModel;
-    @Getter private final NewTourViewModel newTourViewModel;
+    private final TourTableViewModel tourTableViewModel;
+    private final NewTourViewModel newTourViewModel;
 
     public AppMediatorViewModel() {
         this.tourTableViewModel = new TourTableViewModel(this);
