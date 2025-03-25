@@ -27,7 +27,6 @@ public class NewTourController {
     @FXML private ComboBox<String> transportTypeComboBox;
     @FXML private TextField distanceTextField;
     @FXML private TextField estTimeTextField;
-    @FXML private TextArea routeInfoTextArea;
 
     public NewTourController(NewTourViewModel newTourViewModel) {
         this.newTourViewModel = newTourViewModel;
@@ -74,6 +73,5 @@ public class NewTourController {
                new NumberStringConverter()
        );
        estTimeTextField.textProperty().bindBidirectional(newTourViewModel.estTimeProperty());
-       routeInfoTextArea.textProperty().bindBidirectional(newTourViewModel.routInfoProperty());
    }
 }

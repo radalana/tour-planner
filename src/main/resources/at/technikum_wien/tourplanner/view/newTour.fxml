@@ -145,16 +145,6 @@
                                prefWidth="180"/>
                 </VBox>
             </HBox>
-
-            <Label text="ROUTE INFORMATION" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-            <TextArea fx:id="routeInfoTextArea"
-                      prefHeight="80"
-                      style="-fx-background-color: #DEDBD6;
-                             -fx-border-radius: 25px;
-                             -fx-background-radius: 25px;
-                             -fx-padding: 12px;
-                             -fx-font-size: 16px;"
-                      prefWidth="380"/>
         </VBox>
 
         <!-- Save , cancel-->
