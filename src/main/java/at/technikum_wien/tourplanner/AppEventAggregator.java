@@ -1,7 +1,5 @@
 package at.technikum_wien.tourplanner;
 
-import at.technikum_wien.tourplanner.events.AppEvent;
-import at.technikum_wien.tourplanner.events.TourSelectedEvent;
 import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
 import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
@@ -11,15 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
 import lombok.Getter;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 @Getter
 public class AppEventAggregator {

@@ -1,7 +1,6 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.AppEventAggregator;
-import at.technikum_wien.tourplanner.events.TourAddedEvent;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
