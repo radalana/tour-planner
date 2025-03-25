@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.NumberStringConverter;
 import lombok.Getter;
@@ -32,12 +31,8 @@ public class NewTourController {
     }
 
     @FXML public void initialize() {
-        /*
-        newTourContainer.setVisible(false);
-        newTourContainer.setPickOnBounds(false);
-         */
-
-        bindFieldsToViewModel();
+        newTourContainer.visibleProperty().bindBidirectional(newTourViewModel.isNewTourContainerVisibleProperty());
+        bindTableColumnsToViewModel();
 
     }
 
@@ -60,8 +55,8 @@ public class NewTourController {
 
    }
 
-   private void bindFieldsToViewModel() {
-        newTourContainer.visibleProperty().bindBidirectional(newTourViewModel.isNewTourContainerVisibleProperty());
+   private void bindTableColumnsToViewModel() {
+
        //binding on live data check/validation
        nameTextField.textProperty().bindBidirectional(newTourViewModel.nameProperty());
        descriptionTextArea.textProperty().bindBidirectional(newTourViewModel.descriptionProperty());
