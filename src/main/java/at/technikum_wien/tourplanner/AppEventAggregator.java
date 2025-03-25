@@ -42,22 +42,6 @@ public class AppEventAggregator {
         tours.add(tour);
     }
 
-
-
-    private final Map<Class<? extends AppEvent>, List<Consumer<AppEvent>>> listeners = new HashMap<>();
-    public <T extends AppEvent> void subscribe(Class<T> eventType, Consumer<T> listener) {
-        listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add((Consumer<AppEvent>) listener);
-    }
-
-    public void publish(AppEvent event) {
-        List<Consumer<AppEvent>> eventListeners = listeners.get(event.getClass());
-        if (eventListeners != null) {
-            for (Consumer<AppEvent> listener : eventListeners) {
-                listener.accept(event);
-            }
-        }
-    }
-
     private final TourTableViewModel tourTableViewModel;
     private final NewTourViewModel newTourViewModel;
     private final TourDetailsViewModel tourDetailsViewModel;

@@ -35,10 +35,11 @@ public class HomepageController {
                 overlayPane.setMouseTransparent(true);
             }
         });
-
+        /*
         homepageViewModel.getAppEventAggregator().subscribe(TourSelectedEvent.class, event -> {
             loadTourDetailsView();
-        });
+        })
+         */
     }
 
     @FXML private void showPopupNewTour(ActionEvent actionEvent) {
