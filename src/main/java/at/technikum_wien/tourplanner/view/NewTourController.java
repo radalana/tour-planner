@@ -1,6 +1,5 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.NewTourCloseListener;
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -14,8 +13,6 @@ import lombok.Setter;
 
 public class NewTourController {
     private final NewTourViewModel newTourViewModel;
-    @Setter private NewTourCloseListener listener;
-
     @Getter @FXML private StackPane newTourContainer;
     //input fields
     @FXML private TextField nameTextField;
@@ -44,14 +41,9 @@ public class NewTourController {
    @FXML private void saveNewTour() {
 
        if (!newTourViewModel.saveTour()) {
-           System.out.println("bla bla sm notification in view");
+           System.out.println("not valid");
        }
-
-       if (listener != null) {
-           listener.onNewTourClosed();
-           //TODO refactor close functionality
-           //closeNewTour();
-       }
+       closeNewTour();
 
    }
 
