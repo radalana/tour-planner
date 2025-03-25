@@ -1,21 +1,21 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.viewmodel.Mediator;
+import at.technikum_wien.tourplanner.viewmodel.HomepageMediator;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class HomepageController {
-    private final Mediator mediatorViewModel;
+    private final HomepageMediator homepageMediatorViewModel;
     //Elements
     @FXML private AnchorPane overlayPane;
-    public HomepageController(Mediator homepageViewModel) {
-        this.mediatorViewModel = homepageViewModel;
+    public HomepageController(HomepageMediator homepageViewModel) {
+        this.homepageMediatorViewModel = homepageViewModel;
 
     }
 
     @FXML public void initialize() {
-        overlayPane.visibleProperty().bindBidirectional(mediatorViewModel.isNewTourFormOpenedProperty());
+        overlayPane.visibleProperty().bindBidirectional(homepageMediatorViewModel.isNewTourFormOpenedProperty());
     }
 
     @FXML private void showPopupNewTour(ActionEvent actionEvent) {
