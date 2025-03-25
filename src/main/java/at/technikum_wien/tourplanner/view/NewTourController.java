@@ -18,7 +18,6 @@ public class NewTourController {
     @Setter private NewTourCloseListener listener;
 
     @Getter @FXML private StackPane newTourContainer;
-
     //input fields
     @FXML private TextField nameTextField;
     @FXML private TextArea descriptionTextArea;
@@ -33,8 +32,10 @@ public class NewTourController {
     }
 
     @FXML public void initialize() {
+        /*
         newTourContainer.setVisible(false);
         newTourContainer.setPickOnBounds(false);
+         */
 
         bindFieldsToViewModel();
 
@@ -60,6 +61,7 @@ public class NewTourController {
    }
 
    private void bindFieldsToViewModel() {
+        newTourContainer.visibleProperty().bindBidirectional(newTourViewModel.isNewTourContainerVisibleProperty());
        //binding on live data check/validation
        nameTextField.textProperty().bindBidirectional(newTourViewModel.nameProperty());
        descriptionTextArea.textProperty().bindBidirectional(newTourViewModel.descriptionProperty());

@@ -1,10 +1,7 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.model.Tour;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class NewTourViewModel {
     private final Mediator mediatorViewModel;
@@ -22,6 +19,9 @@ public class NewTourViewModel {
     public NewTourViewModel(Mediator mediatorViewModel) {
         this.mediatorViewModel = mediatorViewModel;
     }
+    public BooleanProperty isNewTourContainerVisibleProperty() {
+        return mediatorViewModel.getIsNewTourFormOpened(); }
+
     public StringProperty nameProperty() { return name; }
     public StringProperty descriptionProperty() { return description; }
     public StringProperty fromProperty() { return from; }
