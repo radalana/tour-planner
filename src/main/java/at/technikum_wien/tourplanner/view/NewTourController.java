@@ -42,7 +42,6 @@ public class NewTourController {
 
     @FXML
     private void closeNewTour() {
-        if (listener != null) listener.onNewTourClosed();
         newTourContainer.setVisible(false);
     }
 
@@ -55,7 +54,7 @@ public class NewTourController {
        if (listener != null) {
            listener.onNewTourClosed();
            //TODO refactor close functionality
-           closeNewTour();
+           //closeNewTour();
        }
 
    }

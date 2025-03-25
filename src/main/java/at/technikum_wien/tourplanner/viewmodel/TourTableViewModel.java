@@ -1,34 +1,19 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
-import at.technikum_wien.tourplanner.Mediator;
 import at.technikum_wien.tourplanner.model.Tour;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lombok.Getter;
 
 public class TourTableViewModel {
-    private final Mediator eventAggregator;
+    private final Mediator mediatorViewModel;
 
-    @Getter
-    private final ObservableList<Tour> tours = FXCollections.observableArrayList();
-    public TourTableViewModel(Mediator eventAggregator) {
-        this.eventAggregator = eventAggregator;
-
-        //subscripttions
-//        eventAggregator.subscribe(TourAddedEvent.class, event -> {
-//            tours.add(event.getNewTour()); // ⬅ добавляем в таблицу
-//        });
+    public TourTableViewModel(Mediator mediatorViewModel) {
+        this.mediatorViewModel = mediatorViewModel;
     }
     public ObservableList<Tour> getTours() {
-        return eventAggregator.getTours();
+        return mediatorViewModel.getTours();
     }
     //устианавливает новое значение
     public void selectTour(Tour tour) {
-        eventAggregator.selectedTourProperty().set(tour);
+        mediatorViewModel.selectedTourProperty().set(tour);
     }
-    /*
-    public void publishTourSelected(Tour selectedTour) {
-        eventAggregator.publish(new TourSelectedEvent(selectedTour));
-    }
-     */
 }

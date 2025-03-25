@@ -1,6 +1,5 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
-import at.technikum_wien.tourplanner.Mediator;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -33,7 +32,7 @@ public class NewTourViewModel {
     public StringProperty routInfoProperty() { return routInfo; }
 
     public void cancel() {
-        mediatorViewModel.closeNewTourOverlay();
+        //mediatorViewModel.closeNewTourOverlay();
     }
     public boolean saveTour() {
         //if (!valid) false

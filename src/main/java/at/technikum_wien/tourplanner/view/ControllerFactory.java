@@ -1,36 +1,36 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.Mediator;
-import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
+import at.technikum_wien.tourplanner.viewmodel.Mediator;
+import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
+import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
+import at.technikum_wien.tourplanner.viewmodel.TourTableViewModel;
 
 public class ControllerFactory {
-    private final Mediator eventAggregator;
     //ToDO maybe should not be here, and all logic in homapageviewmodel??
-    private final HomepageViewModel homepageViewModel;
+    private final Mediator mediatorViewModel;
+    private final NewTourViewModel newTourViewModel;
+    private final TourDetailsViewModel tourDetailsViewModel;
+    private final TourTableViewModel tourTableViewModel;
 
     public ControllerFactory() {
-        eventAggregator = new Mediator();
-        homepageViewModel = new HomepageViewModel(
-                //TODO review maybe viewModels dont needed anymore here
-                eventAggregator.getNewTourViewModel(),
-                eventAggregator.getTourTableViewModel(),
-                eventAggregator.getTourDetailsViewModel(),
-                eventAggregator
-        );
+        mediatorViewModel = new Mediator();
+        newTourViewModel = new NewTourViewModel(mediatorViewModel);
+        tourTableViewModel = new TourTableViewModel(mediatorViewModel);
+        tourDetailsViewModel = new TourDetailsViewModel(mediatorViewModel);
     }
 
     //Factory-Method Pattern
     public Object create(Class<?> controllerClass) {
         if (controllerClass == HomepageController.class) {
-            return new HomepageController(homepageViewModel);
+            return new HomepageController(mediatorViewModel);
         }else if (controllerClass == HeaderController.class) {
             return new HeaderController();
         } else if (controllerClass == TourTableController.class) {
-            return new TourTableController(eventAggregator.getTourTableViewModel());
+            return new TourTableController(tourTableViewModel);
         }else if (controllerClass == NewTourController.class) {
-            return new NewTourController(eventAggregator.getNewTourViewModel());
+            return new NewTourController(newTourViewModel);
         }else if (controllerClass == TourDetailsController.class) {
-            return new TourDetailsController(eventAggregator.getTourDetailsViewModel());
+            return new TourDetailsController(tourDetailsViewModel);
         }
         else {
             throw new IllegalArgumentException("Unknown controller class: " + controllerClass);

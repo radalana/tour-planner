@@ -1,7 +1,6 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.NewTourCloseListener;
-import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
+import at.technikum_wien.tourplanner.viewmodel.Mediator;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,20 +15,14 @@ public class HomepageController {
     @FXML private AnchorPane rootLayout;
     @FXML private AnchorPane overlayPane;
 
-    private final HomepageViewModel homepageViewModel;
-    public HomepageController(HomepageViewModel homepageViewModel) {
+    private final Mediator homepageViewModel;
+    public HomepageController(Mediator homepageViewModel) {
         this.homepageViewModel = homepageViewModel;
 
     }
 
     @FXML public void initialize() {
-        newTourController.setListener(new NewTourCloseListener() {
-            @Override
-            public void onNewTourClosed() {
-                overlayPane.setVisible(false);
-                overlayPane.setMouseTransparent(true);
-            }
-        });
+
     }
 
     @FXML private void showPopupNewTour(ActionEvent actionEvent) {
