@@ -1,17 +1,17 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
-import at.technikum_wien.tourplanner.AppEventAggregator;
+import at.technikum_wien.tourplanner.Mediator;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 
 public class TourTableViewModel {
-    private final AppEventAggregator eventAggregator;
+    private final Mediator eventAggregator;
 
     @Getter
     private final ObservableList<Tour> tours = FXCollections.observableArrayList();
-    public TourTableViewModel(AppEventAggregator eventAggregator) {
+    public TourTableViewModel(Mediator eventAggregator) {
         this.eventAggregator = eventAggregator;
 
         //subscripttions

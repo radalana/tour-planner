@@ -1,15 +1,15 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.AppEventAggregator;
+import at.technikum_wien.tourplanner.Mediator;
 import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
 
 public class ControllerFactory {
-    private final AppEventAggregator eventAggregator;
+    private final Mediator eventAggregator;
     //ToDO maybe should not be here, and all logic in homapageviewmodel??
     private final HomepageViewModel homepageViewModel;
 
     public ControllerFactory() {
-        eventAggregator = new AppEventAggregator();
+        eventAggregator = new Mediator();
         homepageViewModel = new HomepageViewModel(
                 //TODO review maybe viewModels dont needed anymore here
                 eventAggregator.getNewTourViewModel(),
