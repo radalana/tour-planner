@@ -20,7 +20,6 @@ public class HomepageMediator {
                 new Tour("Trip in Sibirien", "Urlaub in Russland", "Wien", "Ulan-Use", "Plain", 9000.0, "2 Days", "bla-bla"));
     }
     public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
-
     public BooleanProperty isNewTourFormOpenedProperty() {return isNewTourFormOpened;}
     public void addTour(Tour tour) {
         tours.add(tour);
