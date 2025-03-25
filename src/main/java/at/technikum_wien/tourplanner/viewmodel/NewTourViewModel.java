@@ -49,7 +49,7 @@ public class NewTourViewModel {
                 routInfo.get()
                 );
         System.out.println("Tour object created: " + tour);
-        mediatorViewModel.publish(new TourAddedEvent(tour));
+        mediatorViewModel.addTour(tour);
 
         //clean form
         name.set("");

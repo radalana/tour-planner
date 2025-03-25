@@ -28,7 +28,7 @@ public class AppEventAggregator {
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
     //для binding подписки
     public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
-
+    public ObservableList<Tour> getTours() {return tours;}
     public AppEventAggregator() {
         this.tourTableViewModel = new TourTableViewModel(this);
         this.newTourViewModel = new NewTourViewModel(this);
@@ -37,6 +37,11 @@ public class AppEventAggregator {
         tours.addAll(new Tour("Vienna Bratislava", "Weekend in Bratislaba", "Vienna", "Bratislaba", "Train", 40.0, "1 hour", "bla-bla"),
                 new Tour("Trip in Sibirien", "Urlaub in Russland", "Wien", "Ulan-Use", "Plain", 9000.0, "2 Days", "bla-bla"));
     }
+
+    public void addTour(Tour tour) {
+        tours.add(tour);
+    }
+
 
 
     private final Map<Class<? extends AppEvent>, List<Consumer<AppEvent>>> listeners = new HashMap<>();
