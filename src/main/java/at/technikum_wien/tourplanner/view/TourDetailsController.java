@@ -2,12 +2,10 @@ package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
 import javafx.fxml.FXML;
-
-import java.awt.*;
+import javafx.scene.control.TextField;
 
 public class TourDetailsController {
     private final TourDetailsViewModel tourDetailsViewModel;
-
     // FXML-injected components
     @FXML private TextField nameDetails;
     @FXML private TextField descriptionDetails;

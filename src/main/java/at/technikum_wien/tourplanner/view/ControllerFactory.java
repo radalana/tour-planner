@@ -4,15 +4,18 @@ import at.technikum_wien.tourplanner.AppEventAggregator;
 import at.technikum_wien.tourplanner.viewmodel.HomepageViewModel;
 
 public class ControllerFactory {
-    private final AppEventAggregator mediatorViewModel;
+    private final AppEventAggregator eventAggregator;
     //ToDO maybe should not be here, and all logic in homapageviewmodel??
     private final HomepageViewModel homepageViewModel;
 
     public ControllerFactory() {
-        mediatorViewModel = new AppEventAggregator();
+        eventAggregator = new AppEventAggregator();
         homepageViewModel = new HomepageViewModel(
-                mediatorViewModel.getNewTourViewModel(),
-                mediatorViewModel.getTourTableViewModel()
+                //TODO review maybe viewModels dont needed anymore here
+                eventAggregator.getNewTourViewModel(),
+                eventAggregator.getTourTableViewModel(),
+                eventAggregator.getTourDetailsViewModel(),
+                eventAggregator
         );
     }
 
@@ -23,10 +26,13 @@ public class ControllerFactory {
         }else if (controllerClass == HeaderController.class) {
             return new HeaderController();
         } else if (controllerClass == TourTableController.class) {
-            return new TourTableController(mediatorViewModel.getTourTableViewModel());
+            return new TourTableController(eventAggregator.getTourTableViewModel());
         }else if (controllerClass == NewTourController.class) {
-            return new NewTourController(mediatorViewModel.getNewTourViewModel());
-        }else {
+            return new NewTourController(eventAggregator.getNewTourViewModel());
+        }else if (controllerClass == TourDetailsController.class) {
+            return new TourDetailsController(eventAggregator.getTourDetailsViewModel());
+        }
+        else {
             throw new IllegalArgumentException("Unknown controller class: " + controllerClass);
         }
     }

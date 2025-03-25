@@ -1,10 +1,20 @@
 package at.technikum_wien.tourplanner;
 
+import at.technikum_wien.tourplanner.events.AppEvent;
+import at.technikum_wien.tourplanner.events.TourSelectedEvent;
+import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
+import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
 import at.technikum_wien.tourplanner.viewmodel.TourTableViewModel;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import lombok.Getter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +23,22 @@ import java.util.function.Consumer;
 
 @Getter
 public class AppEventAggregator {
-    //private final ObservableList<Tour> tours = FXCollections.observableArrayList();
+    //Mediator
+    private ObservableList<Tour> tours = FXCollections.observableArrayList();
+    private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
+    //для binding подписки
+    public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
+
+    public AppEventAggregator() {
+        this.tourTableViewModel = new TourTableViewModel(this);
+        this.newTourViewModel = new NewTourViewModel(this);
+        this.tourDetailsViewModel = new TourDetailsViewModel(this);
+
+        tours.addAll(new Tour("Vienna Bratislava", "Weekend in Bratislaba", "Vienna", "Bratislaba", "Train", 40.0, "1 hour", "bla-bla"),
+                new Tour("Trip in Sibirien", "Urlaub in Russland", "Wien", "Ulan-Use", "Plain", 9000.0, "2 Days", "bla-bla"));
+    }
+
+
     private final Map<Class<? extends AppEvent>, List<Consumer<AppEvent>>> listeners = new HashMap<>();
     public <T extends AppEvent> void subscribe(Class<T> eventType, Consumer<T> listener) {
         listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add((Consumer<AppEvent>) listener);
@@ -30,11 +55,9 @@ public class AppEventAggregator {
 
     private final TourTableViewModel tourTableViewModel;
     private final NewTourViewModel newTourViewModel;
+    private final TourDetailsViewModel tourDetailsViewModel;
 
-    public AppEventAggregator() {
-        this.tourTableViewModel = new TourTableViewModel(this);
-        this.newTourViewModel = new NewTourViewModel(this);
-    }
+
 
 
 

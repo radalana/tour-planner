@@ -14,5 +14,7 @@ module at.technikum_wien.tourplanner {
     exports at.technikum_wien.tourplanner.view;
     exports at.technikum_wien.tourplanner.viewmodel;
     exports at.technikum_wien.tourplanner.model;
+    exports at.technikum_wien.tourplanner.events;
+    opens at.technikum_wien.tourplanner.events to javafx.fxml;
 
 }

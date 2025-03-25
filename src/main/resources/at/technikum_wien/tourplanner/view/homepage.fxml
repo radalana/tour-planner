@@ -7,7 +7,7 @@
 
 <?import javafx.scene.layout.VBox?>
 <AnchorPane
-        maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+        fx:id="rootLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="at.technikum_wien.tourplanner.view.HomepageController">
    <children>
       <!-- Header -->

@@ -1,4 +1,4 @@
-package at.technikum_wien.tourplanner;
+package at.technikum_wien.tourplanner.events;
 
 import at.technikum_wien.tourplanner.model.Tour;
 

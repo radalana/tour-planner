@@ -1,7 +1,8 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.AppEventAggregator;
-import at.technikum_wien.tourplanner.TourAddedEvent;
+import at.technikum_wien.tourplanner.events.TourAddedEvent;
+import at.technikum_wien.tourplanner.events.TourSelectedEvent;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +15,22 @@ public class TourTableViewModel {
     private final ObservableList<Tour> tours = FXCollections.observableArrayList();
     public TourTableViewModel(AppEventAggregator eventAggregator) {
         this.eventAggregator = eventAggregator;
-        eventAggregator.subscribe(TourAddedEvent.class, event -> {
-            tours.add(event.getNewTour()); // ⬅ добавляем в таблицу
-        });
+
+        //subscripttions
+//        eventAggregator.subscribe(TourAddedEvent.class, event -> {
+//            tours.add(event.getNewTour()); // ⬅ добавляем в таблицу
+//        });
     }
+    public ObservableList<Tour> getTours() {
+        return eventAggregator.getTours();
+    }
+    //устианавливает новое значение
+    public void selectTour(Tour tour) {
+        eventAggregator.selectedTourProperty().set(tour);
+    }
+    /*
+    public void publishTourSelected(Tour selectedTour) {
+        eventAggregator.publish(new TourSelectedEvent(selectedTour));
+    }
+     */
 }

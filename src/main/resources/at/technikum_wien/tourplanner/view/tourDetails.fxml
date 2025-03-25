@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.Tourdetails">
+<AnchorPane prefHeight="768.0" prefWidth="1080.0" style="-fx-background-color: C8EADF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.view.TourDetailsController">
     <children>
         <VBox layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: #F5F4F0; -fx-border-color: #292929;">
             <padding>
@@ -72,12 +72,12 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <TextField editable="false" GridPane.columnIndex="1" />
-                        <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="nameDetails" editable="false" GridPane.columnIndex="1" />
+                        <TextField fx:id="descriptionDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     </children>
                 </GridPane>
             </children>
