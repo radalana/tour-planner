@@ -83,11 +83,6 @@
             </children>
         </VBox>
         <WebView fx:id="mapView" layoutX="550.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0" />
-        <Button layoutX="27.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="&lt;- BACK" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-        </Button>
         <TableView layoutX="104.0" layoutY="520.0" prefHeight="150.0" prefWidth="845.0" style="-fx-border-color: #292929;">
             <columns>
                 <TableColumn prefWidth="245.0" text="NAME" />
