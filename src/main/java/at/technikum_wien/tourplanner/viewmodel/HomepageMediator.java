@@ -24,5 +24,8 @@ public class HomepageMediator {
     public void addTour(Tour tour) {
         tours.add(tour);
     }
+    public void removeTour(Tour tour) {
+        tours.remove(tour);
+    }
 
 }

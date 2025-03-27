@@ -2,9 +2,15 @@ package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class TourDetailsController {
     private final TourDetailsViewModel tourDetailsViewModel;
@@ -31,5 +37,11 @@ public class TourDetailsController {
                 Bindings.convert(tourDetailsViewModel.distanceProperty())
         );
         estimatedTimeDetails.textProperty().bind(tourDetailsViewModel.estimatedTimeProperty());
+    }
+
+    public void deleteTour(ActionEvent actionEvent) {
+        tourDetailsViewModel.deleteTour();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

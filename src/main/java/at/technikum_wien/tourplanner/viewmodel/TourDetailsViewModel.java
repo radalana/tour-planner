@@ -3,6 +3,7 @@ package at.technikum_wien.tourplanner.viewmodel;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.beans.property.*;
 
+
 public class TourDetailsViewModel {
     private final HomepageMediator homepageMediatorViewModel;
 
@@ -34,6 +35,14 @@ public class TourDetailsViewModel {
             distance.set(selected.getDistance());
             estimatedTime.set(selected.getEstimatedTime());
         }
+    }
+
+    public void deleteTour() {
+        Tour selected = homepageMediatorViewModel.getSelectedTour().get();
+        if (selected != null) {
+            homepageMediatorViewModel.removeTour(selected);
+        }
+
     }
 
 
