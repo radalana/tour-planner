@@ -38,28 +38,71 @@ public class NewTourController {
         newTourContainer.setVisible(false);
     }
 
-   @FXML private void saveNewTour() {
+    @FXML private void saveNewTour() {
 
-       if (!newTourViewModel.saveTour()) {
-           System.out.println("not valid");
-       }
-       closeNewTour();
+        if (!newTourViewModel.validate()) {
+            System.out.println("not valid");
+            highlightInvalidFields();
+            return;
+        }
+        if (newTourViewModel.saveTour()) {
+            resetFieldStyles();
+            closeNewTour();
+        }
 
-   }
+    }
 
-   private void bindTableColumnsToViewModel() {
+    //binding on live data check/validation
+    private void bindTableColumnsToViewModel() {
+        nameTextField.textProperty().bindBidirectional(newTourViewModel.nameProperty());
+        descriptionTextArea.textProperty().bindBidirectional(newTourViewModel.descriptionProperty());
+        fromTextField.textProperty().bindBidirectional(newTourViewModel.fromProperty());
+        toTextField.textProperty().bindBidirectional(newTourViewModel.toProperty());
+        transportTypeComboBox.valueProperty().bindBidirectional(newTourViewModel.transportTypeProperty());
+        Bindings.bindBidirectional(distanceTextField.textProperty(), newTourViewModel.distanceProperty(), new NumberStringConverter());
+        estTimeTextField.textProperty().bindBidirectional(newTourViewModel.estTimeProperty());
+    }
 
-       //binding on live data check/validation
-       nameTextField.textProperty().bindBidirectional(newTourViewModel.nameProperty());
-       descriptionTextArea.textProperty().bindBidirectional(newTourViewModel.descriptionProperty());
-       fromTextField.textProperty().bindBidirectional(newTourViewModel.fromProperty());
-       toTextField.textProperty().bindBidirectional(newTourViewModel.toProperty());
-       transportTypeComboBox.valueProperty().bindBidirectional(newTourViewModel.transportTypeProperty());
-       Bindings.bindBidirectional(
-               distanceTextField.textProperty(),
-               newTourViewModel.distanceProperty(),
-               new NumberStringConverter()
-       );
-       estTimeTextField.textProperty().bindBidirectional(newTourViewModel.estTimeProperty());
-   }
+    private void highlightInvalidFields() {
+        highlightField(nameTextField, newTourViewModel.nameProperty().get());
+        highlightField(descriptionTextArea, newTourViewModel.descriptionProperty().get());
+        highlightField(fromTextField, newTourViewModel.fromProperty().get());
+        highlightField(toTextField, newTourViewModel.toProperty().get());
+        highlightField(estTimeTextField, newTourViewModel.estTimeProperty().get());
+
+        if (transportTypeComboBox.getValue() == null || transportTypeComboBox.getValue().isEmpty()) {
+            transportTypeComboBox.setStyle("-fx-border-color: red;");
+        } else {
+            transportTypeComboBox.setStyle("");
+        }
+
+        try {
+            double d = Double.parseDouble(distanceTextField.getText());
+            if (d <= 0) {
+                distanceTextField.setStyle("-fx-border-color: red;");
+            } else {
+                distanceTextField.setStyle("");
+            }
+        } catch (NumberFormatException e) {
+            distanceTextField.setStyle("-fx-border-color: red;");
+        }
+    }
+
+    private void highlightField(javafx.scene.control.Control field, String value) {
+        if (value == null || value.trim().isEmpty()) {
+            field.setStyle("-fx-border-color: red;");
+        } else {
+            field.setStyle("");
+        }
+    }
+
+    private void resetFieldStyles() {
+        nameTextField.setStyle("");
+        descriptionTextArea.setStyle("");
+        fromTextField.setStyle("");
+        toTextField.setStyle("");
+        estTimeTextField.setStyle("");
+        distanceTextField.setStyle("");
+        transportTypeComboBox.setStyle("");
+    }
 }
