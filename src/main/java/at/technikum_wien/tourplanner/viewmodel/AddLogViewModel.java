@@ -25,8 +25,8 @@ public class AddLogViewModel {
     public StringProperty commentProperty() {return comment;}
     public StringProperty difficultyProperty() {return difficulty;}
 
-    public AddLogViewModel(HomepageMediator homepageMediator){
-        this.selectedTour = homepageMediator.getSelectedTour();
+    public AddLogViewModel(MainViewModel mainViewModel){
+        this.selectedTour = mainViewModel.getSelectedTour();
     }
     public boolean addLog() {
         if (!validateFields()) {

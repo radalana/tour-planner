@@ -4,16 +4,16 @@ import at.technikum_wien.tourplanner.model.Tour;
 import javafx.collections.ObservableList;
 
 public class TourTableViewModel {
-    private final HomepageMediator homepageMediatorViewModel;
+    private final MainViewModel mainViewModelViewModel;
 
-    public TourTableViewModel(HomepageMediator homepageMediatorViewModel) {
-        this.homepageMediatorViewModel = homepageMediatorViewModel;
+    public TourTableViewModel(MainViewModel mainViewModelViewModel) {
+        this.mainViewModelViewModel = mainViewModelViewModel;
     }
     public ObservableList<Tour> getTours() {
-        return homepageMediatorViewModel.getTours();
+        return mainViewModelViewModel.getTours();
     }
     //set new selceted Tour
     public void selectTour(Tour tour) {
-        homepageMediatorViewModel.selectedTourProperty().set(tour);
+        mainViewModelViewModel.selectedTourProperty().set(tour);
     }
 }

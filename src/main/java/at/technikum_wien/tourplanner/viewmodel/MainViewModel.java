@@ -2,7 +2,6 @@ package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.FXMLDependencyInjection;
 import at.technikum_wien.tourplanner.model.Tour;
-import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,14 +16,14 @@ import lombok.Getter;
 import java.io.IOException;
 
 @Getter
-public class HomepageMediator {
+public class MainViewModel {
     //Tour
     private final ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();//for delete/modify/details
 
     private final BooleanProperty isNewTourFormOpened = new SimpleBooleanProperty(false);
 
-    public HomepageMediator() {
+    public MainViewModel() {
         tours.addAll(new Tour("Vienna Bratislava", "Weekend in Bratislaba", "Vienna", "Bratislaba", "Train", 40.0, "1 hour", "bla-bla"),
                 new Tour("Trip in Sibirien", "Urlaub in Russland", "Wien", "Ulan-Use", "Plain", 9000.0, "2 Days", "bla-bla"));
     }
@@ -36,7 +35,7 @@ public class HomepageMediator {
     public void removeTour(Tour tour) {
         tours.remove(tour);
     }
-
+    //maybe extract
     public void openTourLogsView() {
         try {
             Parent root = FXMLDependencyInjection.load("logs.fxml");

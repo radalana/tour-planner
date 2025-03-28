@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 
 
 public class TourDetailsViewModel {
-    private final HomepageMediator homepageMediatorViewModel;
+    private final MainViewModel mainViewModelViewModel;
 
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
@@ -21,12 +21,12 @@ public class TourDetailsViewModel {
     public DoubleProperty distanceProperty() {return distance;}
     public StringProperty estimatedTimeProperty() {return estimatedTime;}
 
-    public TourDetailsViewModel(HomepageMediator homepageMediatorViewModel) {
-        this.homepageMediatorViewModel = homepageMediatorViewModel;
+    public TourDetailsViewModel(MainViewModel mainViewModelViewModel) {
+        this.mainViewModelViewModel = mainViewModelViewModel;
     }
     //is it data-binding
     public void loadTourData() {
-        Tour selected = homepageMediatorViewModel.getSelectedTour().get();
+        Tour selected = mainViewModelViewModel.getSelectedTour().get();
         if (selected != null) {
             name.set(selected.getName());
             description.set(selected.getDescription());
@@ -38,15 +38,15 @@ public class TourDetailsViewModel {
     }
 
     public void deleteTour() {
-        Tour selected = homepageMediatorViewModel.getSelectedTour().get();
+        Tour selected = mainViewModelViewModel.getSelectedTour().get();
         if (selected != null) {
-            homepageMediatorViewModel.removeTour(selected);
+            mainViewModelViewModel.removeTour(selected);
         }
 
     }
 
     public void openLogs() {
-        homepageMediatorViewModel.openTourLogsView();
+        mainViewModelViewModel.openTourLogsView();
     }
 
 

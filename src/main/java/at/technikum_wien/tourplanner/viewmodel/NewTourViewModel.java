@@ -4,7 +4,7 @@ import at.technikum_wien.tourplanner.model.Tour;
 import javafx.beans.property.*;
 
 public class NewTourViewModel {
-    private final HomepageMediator homepageMediatorViewModel;
+    private final MainViewModel mainViewModelViewModel;
 
     //values from form
     private final StringProperty name = new SimpleStringProperty();
@@ -16,11 +16,11 @@ public class NewTourViewModel {
     private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty routInfo = new SimpleStringProperty();
 
-    public NewTourViewModel(HomepageMediator homepageMediatorViewModel) {
-        this.homepageMediatorViewModel = homepageMediatorViewModel;
+    public NewTourViewModel(MainViewModel mainViewModelViewModel) {
+        this.mainViewModelViewModel = mainViewModelViewModel;
     }
     public BooleanProperty isNewTourContainerVisibleProperty() {
-        return homepageMediatorViewModel.getIsNewTourFormOpened(); }
+        return mainViewModelViewModel.getIsNewTourFormOpened(); }
 
     public StringProperty nameProperty() { return name; }
     public StringProperty descriptionProperty() { return description; }
@@ -75,7 +75,7 @@ public class NewTourViewModel {
         );
 
         System.out.println("Tour object created: " + tour);
-        homepageMediatorViewModel.addTour(tour);
+        mainViewModelViewModel.addTour(tour);
 
         // Clean the form
         name.set("");

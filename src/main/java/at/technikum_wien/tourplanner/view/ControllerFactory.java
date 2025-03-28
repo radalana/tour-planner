@@ -4,7 +4,7 @@ import at.technikum_wien.tourplanner.viewmodel.*;
 
 public class ControllerFactory {
     //ToDO maybe should not be here, and all logic in homapageviewmodel??
-    private final HomepageMediator homepageMediatorViewModel;
+    private final MainViewModel mainViewModelViewModel;
     private final NewTourViewModel newTourViewModel;
     private final TourDetailsViewModel tourDetailsViewModel;
     private final TourTableViewModel tourTableViewModel;
@@ -12,18 +12,18 @@ public class ControllerFactory {
     private final AddLogViewModel addLogViewModel;
 
     public ControllerFactory() {
-        homepageMediatorViewModel = new HomepageMediator();
-        newTourViewModel = new NewTourViewModel(homepageMediatorViewModel);
-        tourTableViewModel = new TourTableViewModel(homepageMediatorViewModel);
-        tourDetailsViewModel = new TourDetailsViewModel(homepageMediatorViewModel);
-        tourLogViewModel = new TourLogViewModel(homepageMediatorViewModel);
-        addLogViewModel = new AddLogViewModel(homepageMediatorViewModel);
+        mainViewModelViewModel = new MainViewModel();
+        newTourViewModel = new NewTourViewModel(mainViewModelViewModel);
+        tourTableViewModel = new TourTableViewModel(mainViewModelViewModel);
+        tourDetailsViewModel = new TourDetailsViewModel(mainViewModelViewModel);
+        tourLogViewModel = new TourLogViewModel(mainViewModelViewModel);
+        addLogViewModel = new AddLogViewModel(mainViewModelViewModel);
     }
 
     //Factory-Method Pattern
     public Object create(Class<?> controllerClass) {
         if (controllerClass == HomepageController.class) {
-            return new HomepageController(homepageMediatorViewModel);
+            return new HomepageController(mainViewModelViewModel);
         }else if (controllerClass == HeaderController.class) {
             return new HeaderController();
         } else if (controllerClass == TourTableController.class) {
