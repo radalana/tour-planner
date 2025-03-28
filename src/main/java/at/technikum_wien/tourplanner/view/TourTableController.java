@@ -51,6 +51,8 @@ public class TourTableController {
             System.out.println("Table item count changed: " + tourTableView.getItems().size());
         });
     }
+
+    //TODO for clean mvvm change to Mediator
     private void openDetailView() {
         try {
             Parent root = FXMLDependencyInjection.load("tourDetails.fxml");

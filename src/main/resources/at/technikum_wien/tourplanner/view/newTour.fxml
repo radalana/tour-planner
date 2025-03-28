@@ -44,7 +44,7 @@
                           -fx-font-weight: bold;
                           -fx-text-fill: #1C1C1C;" />
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="+"
+            <Button onAction="#handleImport" text="+"
                     style="-fx-background-color: #C8EADF;
                            -fx-text-fill: white;
                            -fx-font-size: 24px;

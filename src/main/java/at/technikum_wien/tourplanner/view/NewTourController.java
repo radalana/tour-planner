@@ -2,6 +2,7 @@ package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -50,6 +51,8 @@ public class NewTourController {
             closeNewTour();
         }
 
+    }
+    public void handleImport(ActionEvent actionEvent) {
     }
 
     //binding on live data check/validation

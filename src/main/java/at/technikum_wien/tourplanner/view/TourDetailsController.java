@@ -7,10 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
-import javafx.event.ActionEvent;
-import javafx.stage.Stage;
-import javafx.scene.Node;
 
 public class TourDetailsController {
     private final TourDetailsViewModel tourDetailsViewModel;
@@ -43,5 +39,9 @@ public class TourDetailsController {
         tourDetailsViewModel.deleteTour();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    public void openLogs(ActionEvent actionEvent) {
+        tourDetailsViewModel.openLogs();
     }
 }

@@ -21,4 +21,5 @@ public class HomepageController {
     @FXML private void showPopupNewTour(ActionEvent actionEvent) {
         overlayPane.setVisible(true);
     }
+
 }

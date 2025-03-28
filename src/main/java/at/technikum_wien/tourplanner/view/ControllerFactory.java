@@ -1,9 +1,6 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.viewmodel.HomepageMediator;
-import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
-import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
-import at.technikum_wien.tourplanner.viewmodel.TourTableViewModel;
+import at.technikum_wien.tourplanner.viewmodel.*;
 
 public class ControllerFactory {
     //ToDO maybe should not be here, and all logic in homapageviewmodel??
@@ -11,12 +8,14 @@ public class ControllerFactory {
     private final NewTourViewModel newTourViewModel;
     private final TourDetailsViewModel tourDetailsViewModel;
     private final TourTableViewModel tourTableViewModel;
+    private final TourLogViewModel tourLogViewModel;
 
     public ControllerFactory() {
         homepageMediatorViewModel = new HomepageMediator();
         newTourViewModel = new NewTourViewModel(homepageMediatorViewModel);
         tourTableViewModel = new TourTableViewModel(homepageMediatorViewModel);
         tourDetailsViewModel = new TourDetailsViewModel(homepageMediatorViewModel);
+        tourLogViewModel = new TourLogViewModel(homepageMediatorViewModel);
     }
 
     //Factory-Method Pattern
@@ -31,6 +30,8 @@ public class ControllerFactory {
             return new NewTourController(newTourViewModel);
         }else if (controllerClass == TourDetailsController.class) {
             return new TourDetailsController(tourDetailsViewModel);
+        } else if (controllerClass == TourLogController.class) {
+            return new TourLogController(tourLogViewModel);
         }
         else {
             throw new IllegalArgumentException("Unknown controller class: " + controllerClass);

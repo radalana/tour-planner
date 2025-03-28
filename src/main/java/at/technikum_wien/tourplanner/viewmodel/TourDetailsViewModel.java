@@ -45,5 +45,9 @@ public class TourDetailsViewModel {
 
     }
 
+    public void openLogs() {
+        homepageMediatorViewModel.openTourLogsView();
+    }
+
 
 }
