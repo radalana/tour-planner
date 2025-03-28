@@ -21,16 +21,8 @@ public class HomepageMediator {
     //Tour
     private final ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();//for delete/modify/details
-    //Logs
-    private final ObservableList<TourLog> logs = FXCollections.observableArrayList();
-    private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
-
 
     private final BooleanProperty isNewTourFormOpened = new SimpleBooleanProperty(false);
-
-
-
-
 
     public HomepageMediator() {
         tours.addAll(new Tour("Vienna Bratislava", "Weekend in Bratislaba", "Vienna", "Bratislaba", "Train", 40.0, "1 hour", "bla-bla"),
@@ -56,10 +48,6 @@ public class HomepageMediator {
             e.printStackTrace();
         }
 
-    }
-
-    public void addLog(TourLog tourLog) {
-        logs.add(tourLog);
     }
 
 }

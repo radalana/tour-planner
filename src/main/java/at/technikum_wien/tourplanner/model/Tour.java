@@ -4,6 +4,9 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import lombok.Getter;
 
 public class Tour {
     private StringProperty name = new SimpleStringProperty();
@@ -14,6 +17,8 @@ public class Tour {
     private DoubleProperty distance = new SimpleDoubleProperty();
     private StringProperty estimatedTime = new SimpleStringProperty();
     private StringProperty routInfo = new SimpleStringProperty();
+   @Getter
+   private final ObservableList<TourLog> logs = FXCollections.observableArrayList();
 
     public Tour(String name, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
         this.name = new SimpleStringProperty(name);

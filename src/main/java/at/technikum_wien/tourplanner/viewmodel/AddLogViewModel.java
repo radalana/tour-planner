@@ -1,16 +1,13 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 public class AddLogViewModel {
-    private final HomepageMediator homepageMediator;
+    private final ObjectProperty<Tour> selectedTour;
     //TODO here?
     //values from form
     private final StringProperty rating = new SimpleStringProperty();
@@ -29,7 +26,7 @@ public class AddLogViewModel {
     public StringProperty difficultyProperty() {return difficulty;}
 
     public AddLogViewModel(HomepageMediator homepageMediator){
-        this.homepageMediator = homepageMediator;
+        this.selectedTour = homepageMediator.getSelectedTour();
     }
     public boolean addLog() {
         if (!validateFields()) {
@@ -43,7 +40,7 @@ public class AddLogViewModel {
                 duration.get(),
                 rating.get()
         );
-        homepageMediator.addLog(newLog);
+        selectedTour.get().getLogs().add(newLog);
         return true;
     }
 
