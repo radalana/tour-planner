@@ -24,7 +24,7 @@ public class TourDetailsViewModel {
     public TourDetailsViewModel(HomepageMediator homepageMediatorViewModel) {
         this.homepageMediatorViewModel = homepageMediatorViewModel;
     }
-
+    //is it data-binding
     public void loadTourData() {
         Tour selected = homepageMediatorViewModel.getSelectedTour().get();
         if (selected != null) {

@@ -13,12 +13,18 @@ public class AddLogController {
     @FXML private TextField durationTextField;
     @FXML private TextField distanceTextField;
     @FXML private TextArea commentTextArea;
-    @FXML private TextField difficulty;
+    @FXML private TextField difficultyTextField;
     public AddLogController(AddLogViewModel addLogViewModel) {
         this.addLogViewModel = addLogViewModel;
     }
 
     @FXML public void initialize() {
+        ratingTextField.textProperty().bindBidirectional(addLogViewModel.ratingProperty());
+        dateTextField.textProperty().bindBidirectional(addLogViewModel.dateProperty());
+        durationTextField.textProperty().bindBidirectional(addLogViewModel.durationProperty());
+        distanceTextField.textProperty().bindBidirectional(addLogViewModel.distanceProperty());
+        commentTextArea.textProperty().bindBidirectional(addLogViewModel.commentProperty());
+        difficultyTextField.textProperty().bindBidirectional(addLogViewModel.difficultyProperty());
 
     }
     @FXML private void handleAddLog() {

@@ -58,4 +58,8 @@ public class HomepageMediator {
 
     }
 
+    public void addLog(TourLog tourLog) {
+        logs.add(tourLog);
+    }
+
 }

@@ -24,8 +24,10 @@ public class TourLog {
 
     //for table view in Controller
     public String getDateTime() {return dateTime.get();}
-    public void setDateTime(String dateTime) {this.dateTime.set(dateTime);}
     public String getComment() {return comment.get();}
-    public void setComment(String comment) {this.comment.set(comment);}
     public String getDifficulty() {return difficulty.get();}
+    public String getTotalDistance() {return totalDistance.get();}
+    public String getTotalTime() {return totalTime.get();}
+    public String getRating() {return rating.get();}
+
 }

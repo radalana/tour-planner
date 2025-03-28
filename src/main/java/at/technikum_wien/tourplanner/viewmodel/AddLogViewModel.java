@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 public class AddLogViewModel {
     private final HomepageMediator homepageMediator;
     //TODO here?
-    private final ObservableList<TourLog> logs = FXCollections.observableArrayList();
     //values from form
     private final StringProperty rating = new SimpleStringProperty();
     private final StringProperty date = new SimpleStringProperty();
@@ -21,6 +20,7 @@ public class AddLogViewModel {
     private final StringProperty comment = new SimpleStringProperty();
     private final StringProperty difficulty = new SimpleStringProperty();
     //for binding
+
     public StringProperty ratingProperty() {return rating;}
     public StringProperty dateProperty() {return date;}
     public StringProperty durationProperty() {return duration;}
@@ -36,14 +36,14 @@ public class AddLogViewModel {
             return false;
         }
         TourLog newLog = new TourLog(
-                rating.get(),
                 date.get(),
-                duration.get(),
-                distance.get(),
                 comment.get(),
-                difficulty.get()
+                difficulty.get(),
+                distance.get(),
+                duration.get(),
+                rating.get()
         );
-        logs.add(newLog);
+        homepageMediator.addLog(newLog);
         return true;
     }
 

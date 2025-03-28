@@ -12,7 +12,7 @@ public class TourTableViewModel {
     public ObservableList<Tour> getTours() {
         return homepageMediatorViewModel.getTours();
     }
-    //устианавливает новое значение
+    //set new selceted Tour
     public void selectTour(Tour tour) {
         homepageMediatorViewModel.selectedTourProperty().set(tour);
     }
