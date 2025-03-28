@@ -15,28 +15,41 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                 <children>
                     <Label text="Rating" />
-                    <TextField />
+                    <TextField fx:id="ratingTextField"/>
                 </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                 <children>
-                    <TextField />
+                    <TextField fx:id="dateTextField"/>
                     <Label text="Date" />
                 </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                 <children>
-                    <Label text="Dzration" />
-                    <TextField />
+                    <Label text="Duration" />
+                    <TextField fx:id="durationTextField"/>
                 </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                 <children>
-                    <Label text="Distance" />
-                    <TextField />
+                    <Label text="Difficulty" />
+                    <TextField fx:id="difficultyTextField"/>
                 </children>
             </HBox>
-            <Button mnemonicParsing="false"  text="add log" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Label text="Comment" />
+                    <TextArea fx:id="commentTextArea"/>
+                </children>
+            </HBox>
+
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Label text="Distance" />
+                    <TextField fx:id="distanceTextField"/>
+                </children>
+            </HBox>
+            <Button onAction="#handleAddLog" mnemonicParsing="false"  text="add log" />
         </children>
     </VBox>
 </AnchorPane>
