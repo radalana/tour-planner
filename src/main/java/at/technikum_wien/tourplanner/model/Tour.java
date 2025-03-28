@@ -14,7 +14,7 @@ public class Tour {
     private DoubleProperty distance = new SimpleDoubleProperty();
     private StringProperty estimatedTime = new SimpleStringProperty();
     private StringProperty routInfo = new SimpleStringProperty();
-    //temporary
+
     public Tour(String name, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
         this.name = new SimpleStringProperty(name);
         this.description = new SimpleStringProperty(description);

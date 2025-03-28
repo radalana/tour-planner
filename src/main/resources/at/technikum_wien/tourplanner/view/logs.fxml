@@ -14,5 +14,5 @@
             <TableColumn prefWidth="200.0" text="DISTANCE" />
         </columns>
     </TableView>
-   <Button fx:id="addLog" layoutX="186.0" layoutY="316.0" mnemonicParsing="false" text="add log" />
+   <Button onAction="#handleAddLog" layoutX="186.0" layoutY="316.0" mnemonicParsing="false" text="add log" />
 </AnchorPane>

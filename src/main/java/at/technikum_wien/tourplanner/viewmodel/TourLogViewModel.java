@@ -5,4 +5,5 @@ public class TourLogViewModel {
     public TourLogViewModel(HomepageMediator homepageMediator) {
         this.homepageMediator = homepageMediator;
     }
+
 }
