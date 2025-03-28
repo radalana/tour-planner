@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.technikum_wien.tourplanner.view.AddLogController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox prefHeight="200.0" prefWidth="291.0">
+        <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Label text="Rating" />
+                    <TextField />
+                </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <TextField />
+                    <Label text="Date" />
+                </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Label text="Dzration" />
+                    <TextField />
+                </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Label text="Distance" />
+                    <TextField />
+                </children>
+            </HBox>
+            <Button mnemonicParsing="false"  text="add log" />
+        </children>
+    </VBox>
+</AnchorPane>

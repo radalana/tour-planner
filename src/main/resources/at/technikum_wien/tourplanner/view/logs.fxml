@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="505.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.view.TourLogController">
+   <HBox prefHeight="503.0" prefWidth="992.0">
+      <children>
+          <TableView prefHeight="503.0" prefWidth="1047.0" style="-fx-border-color: #292929;">
+              <columns>
+                  <TableColumn prefWidth="164.00002539157867" text=" Stars pusheen cats" />
+                  <TableColumn prefWidth="150.0000762939453" text="DATE" />
+                  <TableColumn prefWidth="108.6666259765625" text="DURATION" />
+                  <TableColumn prefWidth="422.6666564941406" text="DISTANCE" />
+              </columns>
+          </TableView>
+          <!-- log form-->
+         <fx:include source="addLog.fxml" />
+
+      </children>
+   </HBox>
+</AnchorPane>

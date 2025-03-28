@@ -9,6 +9,7 @@ public class ControllerFactory {
     private final TourDetailsViewModel tourDetailsViewModel;
     private final TourTableViewModel tourTableViewModel;
     private final TourLogViewModel tourLogViewModel;
+    private final AddLogViewModel addLogViewModel;
 
     public ControllerFactory() {
         homepageMediatorViewModel = new HomepageMediator();
@@ -16,6 +17,7 @@ public class ControllerFactory {
         tourTableViewModel = new TourTableViewModel(homepageMediatorViewModel);
         tourDetailsViewModel = new TourDetailsViewModel(homepageMediatorViewModel);
         tourLogViewModel = new TourLogViewModel(homepageMediatorViewModel);
+        addLogViewModel = new AddLogViewModel(homepageMediatorViewModel);
     }
 
     //Factory-Method Pattern
@@ -32,6 +34,8 @@ public class ControllerFactory {
             return new TourDetailsController(tourDetailsViewModel);
         } else if (controllerClass == TourLogController.class) {
             return new TourLogController(tourLogViewModel);
+        } else if (controllerClass == AddLogController.class) {
+            return new AddLogController(addLogViewModel);
         }
         else {
             throw new IllegalArgumentException("Unknown controller class: " + controllerClass);

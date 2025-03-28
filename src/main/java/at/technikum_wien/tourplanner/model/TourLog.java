@@ -6,8 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class TourLog {
-    //TODO
-    private ObjectProperty<Tour> tour = new SimpleObjectProperty<>();
     private StringProperty dateTime = new SimpleStringProperty();
     private StringProperty comment = new SimpleStringProperty();
     private StringProperty difficulty = new SimpleStringProperty();
@@ -15,8 +13,7 @@ public class TourLog {
     private StringProperty totalTime= new SimpleStringProperty();
     private StringProperty rating = new SimpleStringProperty();
 
-    public TourLog(Tour tour, String dateTime, String comment, String difficulty, String totalDistance, String totalTime, String rating) {
-        this.tour = new SimpleObjectProperty<>(tour); //i'm not sure
+    public TourLog(String dateTime, String comment, String difficulty, String totalDistance, String totalTime, String rating) {
         this.dateTime = new SimpleStringProperty(dateTime);
         this.comment = new SimpleStringProperty(comment);
         this.difficulty = new SimpleStringProperty(difficulty);
