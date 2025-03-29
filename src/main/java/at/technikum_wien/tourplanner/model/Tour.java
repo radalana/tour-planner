@@ -41,4 +41,14 @@ public class Tour {
     public String getEstimatedTime() {return estimatedTime.get();}
     public String getRoutInfo() {return routInfo.get();}
 
+    public void setName(String newName) {name.set(newName);}
+    public void setDescription(String newDescription) {description.set(newDescription);}
+    public void setFrom(String newFrom) {from.set(newFrom);}
+    public void setTo(String newTo) {to.set(newTo);}
+    public void setTransportType(String newTransportType) {transportType.set(newTransportType);}
+    public void setDistance(double newDistance) {distance.set(newDistance);}
+    public void setEstimatedTime(String newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
+    public void setRoutInfo(String newRoutInfo) {routInfo.set(newRoutInfo);}
+
+
 }

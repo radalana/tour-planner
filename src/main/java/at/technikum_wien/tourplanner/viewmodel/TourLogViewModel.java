@@ -20,6 +20,4 @@ public class TourLogViewModel {
         return tour != null ? tour.getLogs() : FXCollections.emptyObservableList();
     }
 
-
-
 }

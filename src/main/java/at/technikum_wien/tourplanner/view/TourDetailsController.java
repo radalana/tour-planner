@@ -77,14 +77,22 @@ public class TourDetailsController {
         });
     }
 
-
     public void openLogs(ActionEvent actionEvent) {
         tourDetailsViewModel.openLogs();
     }
 
     @FXML private void handleUpdateTourDetails() {
         //logic for update
+        tourDetailsViewModel.updateTour();
 
+        //set back to not editable
+        nameDetails.setEditable(false);
+        descriptionDetails.setEditable(false);
+        fromDetails.setEditable(false);
+        toDetails.setEditable(false);
+        distanceDetails.setEditable(false);
+        estimatedTimeDetails.setEditable(false);
 
+        updateButton.setVisible(false);
     }
 }

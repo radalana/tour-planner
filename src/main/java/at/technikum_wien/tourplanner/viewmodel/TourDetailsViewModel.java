@@ -49,5 +49,18 @@ public class TourDetailsViewModel {
         mainViewModelViewModel.openTourLogsView();
     }
 
+    public void updateTour() {
+        Tour selected = mainViewModelViewModel.getSelectedTour().get();
+        if (selected != null) {
+            selected.setName(name.get());
+            selected.setDescription(description.get());
+            selected.setFrom(from.get());
+            selected.setTo(to.get());
+            selected.setDistance(distance.get());
+            selected.setEstimatedTime(estimatedTime.get());
+
+        }
+    }
+
 
 }
