@@ -27,13 +27,13 @@ public class TourLogController {
         //get lists of logs
         logsTableView.setItems(viewModel.getLogs());
         logsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        //one-way binding to columns
-        ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
-        distanceColumn.setCellValueFactory(new PropertyValueFactory<>("totalDistance"));
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("totalTime"));
-        commentColumn.setCellValueFactory(new PropertyValueFactory<>("comment"));
-        difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
+        //binding
+        ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateTimeProperty());
+        distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
+        durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
+        commentColumn.setCellValueFactory(commentData -> commentData.getValue().commentProperty());
+        difficultyColumn.setCellValueFactory(cellData -> cellData.getValue().difficultyProperty());
 
         //right-click
         logsTableView.setRowFactory(tv -> {

@@ -10,7 +10,6 @@ import lombok.Getter;
 public class AddLogViewModel {
     private final ObjectProperty<Tour> selectedTour;
     private final MainViewModel mainViewModel;
-    @Getter
     private TourLog selectedTourLog = null;
     //TODO here?
     //values from form
@@ -83,7 +82,9 @@ public class AddLogViewModel {
     public void setSelectedTourLog(TourLog tourLog) {
         mainViewModel.setSelectedLog(tourLog);
     }
-
+    public TourLog getSelectedTourLog() {
+        return mainViewModel.getSelectedLog();
+    }
     private boolean validateFields() {
         return true;
     }

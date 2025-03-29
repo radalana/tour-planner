@@ -21,6 +21,13 @@ public class TourLog {
         this.totalTime = new SimpleStringProperty(totalTime);
         this.rating = new SimpleStringProperty(rating);
     }
+    public StringProperty ratingProperty() {return this.rating;}
+    public StringProperty dateTimeProperty() {return this.dateTime;}
+    public StringProperty commentProperty() {return this.comment;}
+    public StringProperty difficultyProperty() {return this.difficulty;}
+    public StringProperty totalDistanceProperty() {return this.totalDistance;}
+    public StringProperty totalTimeProperty() {return this.totalTime;}
+
 
     //for table view in Controller
     public String getDateTime() {return dateTime.get();}
