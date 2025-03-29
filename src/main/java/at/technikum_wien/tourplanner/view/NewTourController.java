@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.NumberStringConverter;
 import lombok.Getter;
-import lombok.Setter;
 
 public class NewTourController {
     private final NewTourViewModel newTourViewModel;
@@ -23,6 +22,14 @@ public class NewTourController {
     @FXML private ComboBox<String> transportTypeComboBox;
     @FXML private TextField distanceTextField;
     @FXML private TextField estTimeTextField;
+
+
+    //original field styling
+    private static final String ORIGINAL_STYLE = "-fx-background-color: #DEDBD6;" +
+            "-fx-border-radius: 25px;" +
+            "-fx-background-radius: 25px;" +
+            "-fx-padding: 12px;" +
+            "-fx-font-size: 16px;";
 
     public NewTourController(NewTourViewModel newTourViewModel) {
         this.newTourViewModel = newTourViewModel;
@@ -76,36 +83,36 @@ public class NewTourController {
         if (transportTypeComboBox.getValue() == null || transportTypeComboBox.getValue().isEmpty()) {
             transportTypeComboBox.setStyle("-fx-border-color: red;");
         } else {
-            transportTypeComboBox.setStyle("");
+            transportTypeComboBox.setStyle(ORIGINAL_STYLE);
         }
 
         try {
             double d = Double.parseDouble(distanceTextField.getText());
             if (d <= 0) {
-                distanceTextField.setStyle("-fx-border-color: red;");
+                distanceTextField.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
             } else {
-                distanceTextField.setStyle("");
+                distanceTextField.setStyle(ORIGINAL_STYLE);
             }
         } catch (NumberFormatException e) {
-            distanceTextField.setStyle("-fx-border-color: red;");
+            distanceTextField.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
         }
     }
 
     private void highlightField(javafx.scene.control.Control field, String value) {
         if (value == null || value.trim().isEmpty()) {
-            field.setStyle("-fx-border-color: red;");
+            field.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
         } else {
-            field.setStyle("");
+            field.setStyle(ORIGINAL_STYLE);
         }
     }
 
     private void resetFieldStyles() {
-        nameTextField.setStyle("");
-        descriptionTextArea.setStyle("");
-        fromTextField.setStyle("");
-        toTextField.setStyle("");
-        estTimeTextField.setStyle("");
-        distanceTextField.setStyle("");
-        transportTypeComboBox.setStyle("");
+        nameTextField.setStyle(ORIGINAL_STYLE);
+        descriptionTextArea.setStyle(ORIGINAL_STYLE);
+        fromTextField.setStyle(ORIGINAL_STYLE);
+        toTextField.setStyle(ORIGINAL_STYLE);
+        estTimeTextField.setStyle(ORIGINAL_STYLE);
+        distanceTextField.setStyle(ORIGINAL_STYLE);
+        transportTypeComboBox.setStyle(ORIGINAL_STYLE);;
     }
 }
