@@ -44,16 +44,19 @@
                           -fx-font-weight: bold;
                           -fx-text-fill: #1C1C1C;" />
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button onAction="#handleImport" text="+"
-                    style="-fx-background-color: #C8EADF;
-                           -fx-text-fill: white;
-                           -fx-font-size: 24px;
-                           -fx-font-weight: bold;
-                           -fx-background-radius: 20px;
-                           -fx-border-radius: 20px;
-                           -fx-padding: 10px;"
-                    prefWidth="40" prefHeight="40">
-            </Button>
+            <MenuButton text="+"
+                        style="-fx-background-color: #C8EADF;
+                   -fx-text-fill: white;
+                   -fx-font-size: 16px;
+                   -fx-font-weight: bold;
+                   -fx-background-radius: 20px;
+                   -fx-border-radius: 20px;
+                   -fx-padding: 2px 5px;"
+                        prefWidth="30" prefHeight="30">
+                <items>
+                    <MenuItem text="IMPORT A FILE" onAction="#handleImport"/>
+                </items>
+            </MenuButton>
         </HBox>
 
         <!--input Fields -->
