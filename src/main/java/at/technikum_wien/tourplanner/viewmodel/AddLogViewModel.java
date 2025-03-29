@@ -41,6 +41,13 @@ public class AddLogViewModel {
                 rating.get()
         );
         selectedTour.get().getLogs().add(newLog);
+
+        date.set("");
+        comment.set("");
+        difficulty.set("");
+        distance.set("");
+        duration.set("");
+        rating.set("");
         return true;
     }
 
