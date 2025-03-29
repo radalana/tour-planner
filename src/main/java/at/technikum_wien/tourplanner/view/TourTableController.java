@@ -66,11 +66,11 @@ public class TourTableController {
     }
     private void bindTableColumnsToProperties() {
         //how/what to show in each column
-        tourNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        transportTypeColumn.setCellValueFactory(new PropertyValueFactory<>("transportType"));
-        fromColumn.setCellValueFactory(new PropertyValueFactory<>("from"));
-        toColumn.setCellValueFactory(new PropertyValueFactory<>("to"));
-        distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
-        estimatedTimeColumn.setCellValueFactory(new PropertyValueFactory<>("estimatedTime"));
+        tourNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        transportTypeColumn.setCellValueFactory(cellData -> cellData.getValue().transportTypeProperty());
+        fromColumn.setCellValueFactory(cellData -> cellData.getValue().fromProperty());
+        toColumn.setCellValueFactory(cellData -> cellData.getValue().toProperty());
+        distanceColumn.setCellValueFactory(cellData -> cellData.getValue().distanceProperty().asObject());
+        estimatedTimeColumn.setCellValueFactory(cellData -> cellData.getValue().estimatedTimeProperty());
     }
 }

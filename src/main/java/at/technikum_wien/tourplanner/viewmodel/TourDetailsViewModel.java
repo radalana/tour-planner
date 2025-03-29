@@ -51,6 +51,8 @@ public class TourDetailsViewModel {
 
     public void updateTour() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
+        //TODO validaton!
+
         if (selected != null) {
             selected.setName(name.get());
             selected.setDescription(description.get());
@@ -58,7 +60,6 @@ public class TourDetailsViewModel {
             selected.setTo(to.get());
             selected.setDistance(distance.get());
             selected.setEstimatedTime(estimatedTime.get());
-
         }
     }
 

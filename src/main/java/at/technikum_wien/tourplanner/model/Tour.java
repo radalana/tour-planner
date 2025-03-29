@@ -50,5 +50,35 @@ public class Tour {
     public void setEstimatedTime(String newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
     public void setRoutInfo(String newRoutInfo) {routInfo.set(newRoutInfo);}
 
+    public StringProperty nameProperty() {
+        return name;
+    }
 
+    public StringProperty descriptionProperty() {
+        return description;
+    }
+
+    public StringProperty fromProperty() {
+        return from;
+    }
+
+    public StringProperty toProperty() {
+        return to;
+    }
+
+    public StringProperty transportTypeProperty() {
+        return transportType;
+    }
+
+    public DoubleProperty distanceProperty() {
+        return distance;
+    }
+
+    public StringProperty estimatedTimeProperty() {
+        return estimatedTime;
+    }
+
+    public StringProperty routInfoProperty() {
+        return routInfo;
+    }
 }
