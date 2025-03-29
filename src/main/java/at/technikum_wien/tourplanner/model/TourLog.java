@@ -30,4 +30,10 @@ public class TourLog {
     public String getTotalTime() {return totalTime.get();}
     public String getRating() {return rating.get();}
 
+    public void setDateTime(String dateTime) {this.dateTime.set(dateTime);}
+    public void setComment(String comment) {this.comment.set(comment);}
+    public void setDifficulty(String difficulty) {this.difficulty.set(difficulty);}
+    public void setTotalDistance(String totalDistance) {this.totalDistance.set(totalDistance);}
+    public void setTotalTime(String totalTime) {this.totalTime.set(totalTime);}
+    public void setRating(String rating) {this.rating.set(rating);}
 }

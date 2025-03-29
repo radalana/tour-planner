@@ -49,7 +49,7 @@
                     <TextField fx:id="distanceTextField"/>
                 </children>
             </HBox>
-            <Button onAction="#handleAddLog" mnemonicParsing="false"  text="add log" />
+            <Button fx:id="addLogButton" onAction="#handleAddLog" mnemonicParsing="false"  text="add log" />
         </children>
     </VBox>
 </AnchorPane>

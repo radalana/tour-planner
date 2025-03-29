@@ -2,11 +2,15 @@ package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.AddLogViewModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class AddLogController {
     private final AddLogViewModel addLogViewModel;
+    //add/edit button
+    @FXML private Button addLogButton;
+
     //input fields
     @FXML private TextField ratingTextField;
     @FXML private TextField dateTextField;
@@ -26,6 +30,23 @@ public class AddLogController {
         commentTextArea.textProperty().bindBidirectional(addLogViewModel.commentProperty());
         difficultyTextField.textProperty().bindBidirectional(addLogViewModel.difficultyProperty());
 
+        addLogViewModel.selectedTourLogProperty().addListener((obs, oldLog, newLog) -> {
+            if (newLog != null) {
+                addLogButton.setText("Update");
+            } else {
+                addLogButton.setText("Add Log");
+            }
+        });
+
+    }
+    @FXML private void handleAddOrUpdate() {
+        if (addLogViewModel.getSelectedTourLog() != null) {
+            addLogViewModel.updateLog();
+            addLogViewModel.setSelectedTourLog(null);
+            addLogButton.setText("Add Log");
+        }else {
+            addLogViewModel.addLog();
+        }
     }
     @FXML private void handleAddLog() {
         if (addLogViewModel.addLog()) {

@@ -2,6 +2,7 @@ package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.FXMLDependencyInjection;
 import at.technikum_wien.tourplanner.model.Tour;
+import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -20,6 +21,7 @@ public class MainViewModel {
     //Tour
     private final ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();//for delete/modify/details
+    private final ObjectProperty<TourLog> selectedLog = new SimpleObjectProperty<>();//for edit
 
     private final BooleanProperty isNewTourFormOpened = new SimpleBooleanProperty(false);
 
@@ -27,6 +29,9 @@ public class MainViewModel {
         tours.addAll(new Tour("Vienna Bratislava", "Weekend in Bratislaba", "Vienna", "Bratislaba", "Train", 40.0, "1 hour", "bla-bla"),
                 new Tour("Trip in Sibirien", "Urlaub in Russland", "Wien", "Ulan-Use", "Plain", 9000.0, "2 Days", "bla-bla"));
     }
+    public ObjectProperty<TourLog> selectedLogProperty() { return selectedLog; }
+    public TourLog getSelectedLog() { return selectedLog.get(); }
+    public void setSelectedLog(TourLog log) { this.selectedLog.set(log); }
     public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
     public BooleanProperty isNewTourFormOpenedProperty() {return isNewTourFormOpened;}
     public void addTour(Tour tour) {

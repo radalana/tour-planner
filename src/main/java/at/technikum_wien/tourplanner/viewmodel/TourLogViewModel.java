@@ -10,9 +10,12 @@ import lombok.Getter;
 @Getter
 public class TourLogViewModel {
     private final ObjectProperty<Tour> selectedTour;
+    private final MainViewModel mainViewModel;
 
     public TourLogViewModel(MainViewModel mainViewModel) {
+
         this.selectedTour = mainViewModel.getSelectedTour();
+        this.mainViewModel = mainViewModel;
     }
 
     public ObservableList<TourLog> getLogs() {
@@ -26,6 +29,10 @@ public class TourLogViewModel {
             ObservableList<TourLog> logs = tour.getLogs();
             logs.remove(tourLog);
         }
+    }
+
+    public void editLog(TourLog tourLog) {
+        mainViewModel.setSelectedLog(tourLog);
     }
 
 }

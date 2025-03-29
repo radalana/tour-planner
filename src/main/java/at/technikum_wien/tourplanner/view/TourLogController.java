@@ -44,6 +44,7 @@ public class TourLogController {
             edit.setOnAction((ActionEvent event) -> {
                 TourLog tourLog = row.getItem();
                 System.out.println("edit");
+                viewModel.editLog(tourLog);
             });
 
             delete.setOnAction((ActionEvent event) -> {
