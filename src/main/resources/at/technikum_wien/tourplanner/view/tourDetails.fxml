@@ -81,6 +81,11 @@
                     </children>
                 </GridPane>
             </children>
+            <Button fx:id="updateButton" mnemonicParsing="false" text="Update" visible="false" onAction="#handleUpdateTourDetails">
+                <font>
+                    <Font size="16.0"/>
+                </font>
+            </Button>
         </VBox>
         <WebView fx:id="mapView" layoutX="550.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0" />
 
