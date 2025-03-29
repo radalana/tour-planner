@@ -94,11 +94,6 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <Button layoutX="492.0" layoutY="700.0" mnemonicParsing="false" style="-fx-background-color: #DB2F6B; -fx-background-radius: 25;" text="Edit Log" textFill="#f5f4f0">
-            <font>
-                <Font size="16.0" />
-            </font>
-        </Button>
         <Button onAction="#deleteTour" layoutX="600.0" layoutY="700.0" mnemonicParsing="false" style="-fx-background-color: #292929; -fx-background-radius: 25;" text="Delete Tour" textFill="#f5f4f0">
             <font>
                 <Font size="16.0" />
