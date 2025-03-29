@@ -48,7 +48,7 @@ public class TourLogController {
 
             delete.setOnAction((ActionEvent event) -> {
                 TourLog tourLog = row.getItem();
-                System.out.println("delete");
+                viewModel.deleteLog(tourLog);
 
             });
             contextMenu.getItems().addAll(edit, delete);

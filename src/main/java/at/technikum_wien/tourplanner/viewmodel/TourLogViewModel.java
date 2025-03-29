@@ -20,4 +20,12 @@ public class TourLogViewModel {
         return tour != null ? tour.getLogs() : FXCollections.emptyObservableList();
     }
 
+    public void deleteLog(TourLog tourLog) {
+        Tour tour = selectedTour.get();
+        if (tour != null) {
+            ObservableList<TourLog> logs = tour.getLogs();
+            logs.remove(tourLog);
+        }
+    }
+
 }
