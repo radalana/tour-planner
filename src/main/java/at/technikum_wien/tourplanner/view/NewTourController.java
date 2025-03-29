@@ -39,7 +39,27 @@ public class NewTourController {
         newTourContainer.visibleProperty().bindBidirectional(newTourViewModel.isNewTourContainerVisibleProperty());
         bindTableColumnsToViewModel();
 
+        //automatically reset form every time it's shown
+        newTourContainer.visibleProperty().addListener((obs, wasVisible, isNowVisible) -> {
+            if (isNowVisible) {
+                resetForm();
+            }
+        });
     }
+
+    private void resetForm() {
+        newTourViewModel.nameProperty().set("");
+        newTourViewModel.descriptionProperty().set("");
+        newTourViewModel.fromProperty().set("");
+        newTourViewModel.toProperty().set("");
+        newTourViewModel.transportTypeProperty().set(null);
+        newTourViewModel.distanceProperty().set(0.0);
+        newTourViewModel.estTimeProperty().set("");
+
+        //reset all styles
+        resetFieldStyles();
+    }
+
 
     @FXML
     private void closeNewTour() {
@@ -58,6 +78,23 @@ public class NewTourController {
             closeNewTour();
         }
 
+    }
+
+    public void openNewTourForm() {
+        // Reset ViewModel values
+        newTourViewModel.nameProperty().set("");
+        newTourViewModel.descriptionProperty().set("");
+        newTourViewModel.fromProperty().set("");
+        newTourViewModel.toProperty().set("");
+        newTourViewModel.transportTypeProperty().set(null);
+        newTourViewModel.distanceProperty().set(0.0);
+        newTourViewModel.estTimeProperty().set("");
+
+        // Reset visual styles
+        resetFieldStyles();
+
+        // Show the form
+        newTourContainer.setVisible(true);
     }
     public void handleImport(ActionEvent actionEvent) {
     }
