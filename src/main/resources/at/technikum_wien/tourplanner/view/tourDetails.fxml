@@ -78,7 +78,8 @@
                     style="-fx-background-color: #297860; -fx-background-radius: 25px; -fx-text-fill: #F5F4F0; -fx-font-size: 16px; -fx-font-weight: bold;"
                     prefWidth="120" prefHeight="50"
                     text="LOGS"/>
-            <Button
+            <Button onAction="#activateEditTour"
+                    fx:id="editButton"
                     style="-fx-background-color: #C8EADF; -fx-border-color: #DB2F6B; -fx-border-radius: 25px; -fx-background-radius: 25px;  -fx-border-width: 2px; -fx-text-fill: #292929; -fx-font-size: 16px; -fx-font-weight: bold;"
                     prefWidth="120" prefHeight="50"
                     text="EDIT TOUR"/>

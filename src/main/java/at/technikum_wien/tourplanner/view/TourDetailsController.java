@@ -20,7 +20,7 @@ public class TourDetailsController {
     @FXML private TextField distanceDetails;
     @FXML private TextField estimatedTimeDetails;
 
-    @FXML private Button updateButton;
+    @FXML private Button editButton;
 
     public TourDetailsController(TourDetailsViewModel tourDetailsViewModel) {
         this.tourDetailsViewModel = tourDetailsViewModel;
@@ -49,6 +49,7 @@ public class TourDetailsController {
         tourDetailsViewModel.openLogs();
     }
 
+
     @FXML private void handleUpdateTourDetails() {
         //logic for update
         tourDetailsViewModel.updateTour();
@@ -61,6 +62,31 @@ public class TourDetailsController {
         distanceDetails.setEditable(false);
         estimatedTimeDetails.setEditable(false);
 
-        updateButton.setVisible(false);
+        //updateButton.setVisible(false);
+    }
+
+    public void activateEditTour(ActionEvent actionEvent) {
+        if (editButton.getText().equals("EDIT TOUR")) {
+            nameDetails.setEditable(true);
+            descriptionDetails.setEditable(true);
+            fromDetails.setEditable(true);
+            toDetails.setEditable(true);
+            distanceDetails.setEditable(true);
+            estimatedTimeDetails.setEditable(true);
+
+            editButton.setText("UPDATE");
+        } else {
+            tourDetailsViewModel.updateTour();
+
+            nameDetails.setEditable(false);
+            descriptionDetails.setEditable(false);
+            fromDetails.setEditable(false);
+            toDetails.setEditable(false);
+            distanceDetails.setEditable(false);
+            estimatedTimeDetails.setEditable(false);
+
+            editButton.setText("SAVED");
+        }
+
     }
 }
