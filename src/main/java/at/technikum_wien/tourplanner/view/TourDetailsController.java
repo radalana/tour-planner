@@ -26,13 +26,6 @@ public class TourDetailsController {
         this.tourDetailsViewModel = tourDetailsViewModel;
     }
     @FXML public void initialize() {
-        setupEditableField(nameDetails);
-        setupEditableField(descriptionDetails);
-        setupEditableField(fromDetails);
-        setupEditableField(toDetails);
-        setupEditableField(distanceDetails);
-        setupEditableField(estimatedTimeDetails);
-
         tourDetailsViewModel.loadTourData();
 
         //one-way binding
@@ -50,31 +43,6 @@ public class TourDetailsController {
         tourDetailsViewModel.deleteTour();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-    private void setupEditableField(TextField field) {
-        field.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                System.out.println("Double click detected on: " + field.getId()); // Debug
-                field.setEditable(true);
-                field.requestFocus();
-                field.selectAll();
-                updateButton.setVisible(true);
-            }
-        });
-
-        field.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ENTER:
-                    field.setEditable(false);
-                    updateButton.setVisible(true); // show update Button
-                    break;
-                case ESCAPE:
-                    field.setEditable(false);
-                    updateButton.setVisible(false); // cancel edititing
-                    break;
-            }
-        });
     }
 
     public void openLogs(ActionEvent actionEvent) {
