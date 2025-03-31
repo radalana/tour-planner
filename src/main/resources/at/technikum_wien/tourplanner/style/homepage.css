@@ -1,0 +1,13 @@
+#rootLayout {
+    -fx-background-color: #C8EADF;
+}
+
+#newTourButton {
+    -fx-background-color: #DB2F6B;
+    -fx-background-radius: 25;
+    -fx-text-fill: #f5f4f0;
+}
+
+#overlayPane {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+}

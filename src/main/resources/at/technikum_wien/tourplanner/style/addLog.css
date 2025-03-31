@@ -1,0 +1,46 @@
+#addLogContainer {
+    -fx-background-color: #F5F4F0;
+    -fx-background-radius: 10px;
+    -fx-padding: 20;
+}
+
+#titleLabel {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C1C1C;
+}
+
+.form-label {
+    -fx-text-fill: #6C6C6C;
+    -fx-font-weight: bold;
+}
+
+.form-input {
+    -fx-background-color: #DEDBD6;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 10px;
+}
+
+.date-picker-transparent {
+    -fx-background-color: transparent;
+}
+
+/* rating (invisible but used for state) */
+.rating-input {
+    -fx-background-color: #DEDBD6;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 10px;
+    -fx-text-fill: transparent;
+    -fx-font-weight: bold;
+}
+
+#addLogButton {
+    -fx-background-color: #C8EADF;
+    -fx-text-fill: #292929;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

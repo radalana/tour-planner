@@ -1,0 +1,27 @@
+#mainHeader {
+    -fx-background-color: #F5F4F0;
+}
+
+#titleLabel {
+    -fx-text-fill: #292929;
+}
+
+#searchField {
+    -fx-background-radius: 25;
+}
+
+#searchButton {
+    -fx-background-color: #292929;
+    -fx-background-radius: 25;
+    -fx-text-fill: #f5f4f0;
+}
+
+#subHeader {
+    -fx-background-color: #292929;
+}
+
+#reportButton {
+    -fx-background-color: #292929;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}

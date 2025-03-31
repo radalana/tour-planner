@@ -1,0 +1,57 @@
+#tourDetailsRoot {
+    -fx-background-color: #C8EADF;
+}
+
+#detailsBox {
+    -fx-background-color: #F5F4F0;
+    -fx-background-radius: 10px;
+}
+#detailsTitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C1C1C;
+}
+
+.form-label {
+    -fx-text-fill: #6C6C6C;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.readonly-field {
+    -fx-background-color: #DEDBD6;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+#mapPlaceholder {
+    -fx-fill: #999696;
+}
+
+#logsButton {
+    -fx-background-color: #297860;
+    -fx-background-radius: 25px;
+    -fx-text-fill: #F5F4F0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#editButton {
+    -fx-background-color: #C8EADF;
+    -fx-border-color: #DB2F6B;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #292929;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#deleteButton {
+    -fx-background-color: #292929;
+    -fx-background-radius: 25px;
+    -fx-text-fill: #F5F4F0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

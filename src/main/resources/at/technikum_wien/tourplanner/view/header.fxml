@@ -12,12 +12,13 @@
 <AnchorPane fx:id="headerPane"
             fx:controller="at.technikum_wien.tourplanner.view.HeaderController"
             xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../style/header.css">
 
     <children>
-        <HBox prefHeight="100.0"
+        <HBox fx:id="mainHeader"
+              prefHeight="100.0"
               spacing="10.0"
-              style="-fx-background-color: #F5F4F0;"
               AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
@@ -25,7 +26,8 @@
                 <Insets top="15.0" />
             </padding>
             <children>
-                <ImageView fitHeight="80.0"
+                <ImageView fx:id="logoImage"
+                           fitHeight="80.0"
                            fitWidth="80.0"
                            pickOnBounds="true"
                            preserveRatio="true">
@@ -37,7 +39,9 @@
                     </HBox.margin>
                 </ImageView>
 
-                <Label text="TOUR PLANNER" textAlignment="CENTER" textFill="#292929">
+                <Label fx:id="titleLabel"
+                       text="TOUR PLANNER"
+                       textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>
@@ -48,24 +52,24 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                <HBox fx:id="searchBox"
+                      spacing="10.0"
+                      alignment="CENTER_RIGHT">
                     <HBox.margin>
                         <Insets right="20.0"/>
                     </HBox.margin>
                     <TextField fx:id="searchField"
                                maxWidth="250.0"
-                               promptText="search tours..."
-                               style="-fx-background-radius: 25;"/>
-                    <Button mnemonicParsing="false"
-                            style="-fx-background-color: #292929; -fx-background-radius: 25;"
-                            text="Search"
-                            textFill="#f5f4f0"/>
+                               promptText="search tours..."/>
+                    <Button fx:id="searchButton"
+                            mnemonicParsing="false"
+                            text="Search"/>
                 </HBox>
             </children>
         </HBox>
 
-        <HBox prefHeight="30.0"
-              style="-fx-background-color: #292929;"
+        <HBox fx:id="subHeader"
+              prefHeight="30.0"
               AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="100.0"
@@ -74,10 +78,9 @@
                 <Insets right="20.0"/>
             </padding>
 
-            <MenuButton text="REPORT"
-                        style="-fx-background-color: #292929;
-                               -fx-font-weight: bold;
-                               -fx-font-size: 14px;" textFill="#f5f4f0">
+            <MenuButton fx:id="reportButton"
+                        text="REPORT"
+                        textFill="#f5f4f0">
                 <items>
                     <MenuItem text="SUMMARIZE-REPORT" onAction="#generateSummaryReport"/>
                 </items>

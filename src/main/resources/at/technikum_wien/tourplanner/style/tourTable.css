@@ -1,0 +1,25 @@
+#titleLabel {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #292929;
+    -fx-padding: 10px 30px;
+    -fx-effect: dropshadow(three-pass-box, #E4D8D1, 4, 0, 0, 2);
+    -fx-border-width: 2px;
+    -fx-border-color: white;
+    -fx-border-radius: 25;
+}
+#tourTableView {
+    -fx-background-color: #F5F4F0;
+    -fx-border-color: #C8B8A7;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+
+.table-column {
+    -fx-background-color: #F5F4F0;
+    -fx-text-fill: #292929;
+    -fx-font-weight: bold;
+    -fx-border-color: #E4D8D1;
+}

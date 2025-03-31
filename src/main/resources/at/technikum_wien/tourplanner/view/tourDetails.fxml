@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1080.0" style="-fx-background-color: #C8EADF;"
+<AnchorPane prefHeight="650.0"
+            prefWidth="1080.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="at.technikum_wien.tourplanner.view.TourDetailsController">
+            fx:controller="at.technikum_wien.tourplanner.view.TourDetailsController"
+            stylesheets="@../style/tourDetails.css"
+            fx:id="tourDetailsRoot">
+
     <children>
-        <VBox layoutX="100.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0" spacing="15.0"
-              style="-fx-background-color: #F5F4F0; -fx-background-radius: 10px;">
+        <VBox fx:id="detailsBox"
+              layoutX="100.0"
+              layoutY="100.0"
+              prefHeight="400.0"
+              prefWidth="400.0"
+              spacing="15.0">
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
             </padding>
             <children>
-                <Label text="TOUR DETAILS" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1C1C1C;"/>
+                <Label fx:id="detailsTitle" text="TOUR DETAILS"/>
+
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
                         <ColumnConstraints minWidth="100.0"/>
@@ -40,52 +42,36 @@
                         <RowConstraints minHeight="30.0"/>
                     </rowConstraints>
                     <children>
-                        <Label text="Tour Name" GridPane.rowIndex="0"
-                               style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                        <Label text="Tour Description" GridPane.rowIndex="1"
-                               style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                        <Label text="From" GridPane.rowIndex="2"
-                               style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                        <Label text="To" GridPane.rowIndex="3"
-                               style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                        <Label text="Distance" GridPane.rowIndex="4"
-                               style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                        <Label text="Estimated Time" GridPane.rowIndex="5"
-                               style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                        <Label text="Tour Name" GridPane.rowIndex="0" styleClass="form-label"/>
+                        <Label text="Tour Description" GridPane.rowIndex="1" styleClass="form-label"/>
+                        <Label text="From" GridPane.rowIndex="2" styleClass="form-label"/>
+                        <Label text="To" GridPane.rowIndex="3" styleClass="form-label"/>
+                        <Label text="Distance" GridPane.rowIndex="4" styleClass="form-label"/>
+                        <Label text="Estimated Time" GridPane.rowIndex="5" styleClass="form-label"/>
 
-                        <TextField fx:id="nameDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0"
-                                   style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px; -fx-font-size: 14px;"/>
-                        <TextField fx:id="descriptionDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"
-                                   style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px; -fx-font-size: 14px;"/>
-                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"
-                                   style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px; -fx-font-size: 14px;"/>
-                        <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                                   style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px; -fx-font-size: 14px;"/>
-                        <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"
-                                   style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px; -fx-font-size: 14px;"/>
-                        <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"
-                                   style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px; -fx-font-size: 14px;"/>
+                        <TextField fx:id="nameDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="readonly-field"/>
+                        <TextField fx:id="descriptionDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="readonly-field"/>
+                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="readonly-field"/>
+                        <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="readonly-field"/>
+                        <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="readonly-field"/>
+                        <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="readonly-field"/>
                     </children>
                 </GridPane>
             </children>
         </VBox>
+
         <WebView fx:id="mapView" layoutX="550.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0"/>
-        <Text fill="#999696" layoutX="690.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAP">
+        <Text fx:id="mapPlaceholder" layoutX="690.0" layoutY="322.0" text="MAP">
             <font><Font size="53.0"/></font>
         </Text>
-        <HBox layoutX="300.0" layoutY="560.0" spacing="20.0">
-            <Button onAction="#openLogs"
-                    style="-fx-background-color: #297860; -fx-background-radius: 25px; -fx-text-fill: #F5F4F0; -fx-font-size: 16px; -fx-font-weight: bold;"
-                    prefWidth="120" prefHeight="50"
-                    text="LOGS"/>
-            <Button onAction="#activateEditTour"
-                    fx:id="editButton"
-                    style="-fx-background-color: #C8EADF; -fx-border-color: #DB2F6B; -fx-border-radius: 25px; -fx-background-radius: 25px;  -fx-border-width: 2px; -fx-text-fill: #292929; -fx-font-size: 16px; -fx-font-weight: bold;"
-                    prefWidth="120" prefHeight="50"
-                    text="EDIT TOUR"/>
-            <Button onAction="#deleteTour"
-                    style="-fx-background-color: #292929; -fx-background-radius: 25px; -fx-text-fill: #F5F4F0; -fx-font-size: 16px; -fx-font-weight: bold;"
-                    prefWidth="150" prefHeight="50"
-                    text="DELETE TOUR"/></HBox>
+
+        <HBox fx:id="actionButtons"
+              layoutX="300.0"
+              layoutY="560.0"
+              spacing="20.0">
+            <Button fx:id="logsButton" onAction="#openLogs" text="LOGS" prefWidth="120" prefHeight="50"/>
+            <Button fx:id="editButton" onAction="#activateEditTour" text="EDIT TOUR" prefWidth="120" prefHeight="50"/>
+            <Button fx:id="deleteButton" onAction="#deleteTour" text="DELETE TOUR" prefWidth="150" prefHeight="50"/>
+        </HBox>
     </children>
 </AnchorPane>

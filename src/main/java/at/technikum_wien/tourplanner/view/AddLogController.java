@@ -10,7 +10,7 @@
         private final AddLogViewModel addLogViewModel;
         //add/edit button
         @FXML private Button addLogButton;
-        @FXML private Label formTitle;
+        @FXML private Label titleLabel;
         private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         private static final String ORIGINAL_STYLE = "-fx-background-color: #DEDBD6;" +
                 "-fx-border-radius: 25px;" +
@@ -42,7 +42,7 @@
             addLogViewModel.selectedTourLogProperty().addListener((obs, oldLog, newLog) -> {
                 if (newLog != null) {
                     addLogButton.setText("Update");
-                    formTitle.setText("EDIT LOG");
+                    titleLabel.setText("EDIT LOG");
                 } else {
                     addLogButton.setText("Add Log");
                 }
@@ -60,7 +60,7 @@
                 addLogViewModel.updateLog();
                 addLogViewModel.setSelectedTourLog(null);
                 addLogButton.setText("Add Log");
-                formTitle.setText("ADD LOG");
+                titleLabel.setText("ADD LOG");
                 clearForm();
             }else {
                 handleAddLog();

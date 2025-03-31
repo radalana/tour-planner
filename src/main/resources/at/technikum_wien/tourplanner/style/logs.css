@@ -1,0 +1,22 @@
+#logsRoot {
+    -fx-background-color: #C8EADF;
+}
+
+#logsContainer {
+    -fx-padding: 30;
+}
+
+#logsTableView {
+    -fx-background-color: #F5F4F0;
+    -fx-border-color: #C8B8A7;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-column {
+    -fx-background-color: #F5F4F0;
+    -fx-text-fill: #292929;
+    -fx-font-weight: bold;
+    -fx-border-color: #E4D8D1;
+}

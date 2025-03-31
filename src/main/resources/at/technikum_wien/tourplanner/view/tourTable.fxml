@@ -2,77 +2,39 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="at.technikum_wien.tourplanner.view.TourTableController">
+            fx:controller="at.technikum_wien.tourplanner.view.TourTableController"
+            stylesheets="@../style/tourTable.css">
+
     <children>
-        <StackPane AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <Label text="TOUR LIST"
-                   style="-fx-font-size: 28px;-fx-font-weight: bold;
-                  -fx-text-fill: #292929;
-                  -fx-padding: 10px 30px;
-                  -fx-effect: dropshadow(three-pass-box, #E4D8D1, 4, 0, 0, 2);
-                  -fx-border-width: 2px;
-                  -fx-border-color: white;
-                   -fx-border-radius: 25;">
+        <StackPane fx:id="headerContainer"
+                   AnchorPane.topAnchor="10.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0">
+            <Label fx:id="titleLabel" text="TOUR LIST">
                 <font>
                     <Font size="28.0"/>
                 </font>
             </Label>
         </StackPane>
+
         <TableView fx:id="tourTableView"
-                   maxWidth="Infinity"
                    prefHeight="400"
-                   style="-fx-background-color: #F5F4F0;
-                  -fx-border-color: #C8B8A7;
-                  -fx-border-insets: 0;
-                  -fx-background-insets: 0;
-                  -fx-padding: 0;"
+                   maxWidth="Infinity"
                    AnchorPane.leftAnchor="40.0"
                    AnchorPane.rightAnchor="40.0"
                    AnchorPane.topAnchor="90.0">
-
             <columns>
-                <TableColumn fx:id="tourNameColumn" text="Tour Name" prefWidth="150"
-                             style="-fx-background-color: #F5F4F0;
-                            -fx-text-fill: #292929;
-                            -fx-font-weight: bold;
-                            -fx-border-color: #E4D8D1;"/>
-
-                <TableColumn fx:id="transportTypeColumn" text="Transport Type" prefWidth="150"
-                             style="-fx-background-color: #F5F4F0;
-                            -fx-text-fill: #292929;
-                            -fx-font-weight: bold;
-                            -fx-border-color: #E4D8D1;"/>
-
-                <TableColumn fx:id="fromColumn" text="From" prefWidth="120"
-                             style="-fx-background-color: #F5F4F0;
-                            -fx-text-fill: #292929;
-                            -fx-font-weight: bold;
-                            -fx-border-color: #E4D8D1;"/>
-
-                <TableColumn fx:id="toColumn" text="To" prefWidth="120"
-                             style="-fx-background-color: #F5F4F0;
-                            -fx-text-fill: #292929;
-                            -fx-font-weight: bold;
-                            -fx-border-color: #E4D8D1;"/>
-
-                <TableColumn fx:id="distanceColumn" text="Distance" prefWidth="120"
-                             style="-fx-background-color: #F5F4F0;
-                            -fx-text-fill: #292929;
-                            -fx-font-weight: bold;
-                            -fx-border-color: #E4D8D1;"/>
-
-                <TableColumn fx:id="estimatedTimeColumn" text="Estimated Time" prefWidth="150"
-                             style="-fx-background-color: #F5F4F0;
-                            -fx-text-fill: #292929;
-                            -fx-font-weight: bold;
-                            -fx-border-color: #E4D8D1"/>
+                <TableColumn fx:id="tourNameColumn" text="Tour Name" prefWidth="150"/>
+                <TableColumn fx:id="transportTypeColumn" text="Transport Type" prefWidth="150"/>
+                <TableColumn fx:id="fromColumn" text="From" prefWidth="120"/>
+                <TableColumn fx:id="toColumn" text="To" prefWidth="120"/>
+                <TableColumn fx:id="distanceColumn" text="Distance" prefWidth="120"/>
+                <TableColumn fx:id="estimatedTimeColumn" text="Estimated Time" prefWidth="150"/>
             </columns>
-
         </TableView>
     </children>
 </AnchorPane>

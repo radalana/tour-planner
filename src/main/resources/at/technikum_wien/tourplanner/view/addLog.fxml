@@ -8,86 +8,80 @@
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="at.technikum_wien.tourplanner.view.AddLogController"
-            prefHeight="445.0" prefWidth="300.0">
+            prefHeight="445.0"
+            prefWidth="300.0"
+            fx:id="addLogRoot"
+            stylesheets="@../style/addLog.css">
 
-    <VBox spacing="12" style="-fx-background-color: #F5F4F0; -fx-background-radius: 10px; -fx-padding: 20;"
-          alignment="TOP_CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-          AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+    <VBox fx:id="addLogContainer"
+          spacing="12"
+          alignment="TOP_CENTER"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0">
 
-        <Label fx:id="formTitle" text="ADD LOG" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1C1C1C;"/>
+        <Label fx:id="titleLabel" text="ADD LOG"/>
 
         <VBox spacing="8" prefWidth="260">
-            <Label text="Date" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <Label text="Date" styleClass="form-label"/>
             <StackPane>
-                <TextField fx:id="dateTextField" editable="false" promptText="Select a date..."
-                           style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px;
-                                  -fx-background-radius: 25px; -fx-padding: 10px;"/>
-                <DatePicker fx:id="hiddenDatePicker" opacity="0.0" focusTraversable="false"
-                            style="-fx-background-color: transparent;" />
+                <TextField fx:id="dateTextField"
+                           editable="false"
+                           promptText="Select a date..."
+                           styleClass="form-input"/>
+                <DatePicker fx:id="hiddenDatePicker"
+                            opacity="0.0"
+                            focusTraversable="false"
+                            styleClass="date-picker-transparent"/>
             </StackPane>
 
-            <Label text="Comment" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
-            <TextArea fx:id="commentTextArea" prefHeight="60" style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"/>
+            <Label text="Comment" styleClass="form-label"/>
+            <TextArea fx:id="commentTextArea" prefHeight="60" styleClass="form-input"/>
 
-            <Label text="Difficulty" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <Label text="Difficulty" styleClass="form-label"/>
             <ComboBox fx:id="difficultyComboBox"
-                      style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"
                       promptText="---choose---"
-                      prefHeight="35" />
+                      prefHeight="35"
+                      styleClass="form-input"/>
 
-            <Label text="Total Distance" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
-            <TextField fx:id="distanceTextField" style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"/>
+            <Label text="Total Distance" styleClass="form-label"/>
+            <TextField fx:id="distanceTextField" styleClass="form-input"/>
 
-            <Label text="Total Time" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
-            <TextField fx:id="durationTextField" style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"/>
+            <Label text="Total Time" styleClass="form-label"/>
+            <TextField fx:id="durationTextField" styleClass="form-input"/>
 
-            <Label text="Rating" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <Label text="Rating" styleClass="form-label"/>
             <StackPane prefHeight="40" prefWidth="260">
                 <TextField fx:id="ratingTextField"
                            editable="false"
                            focusTraversable="false"
-                           style="-fx-background-color: #DEDBD6;
-                      -fx-border-radius: 25px;
-                      -fx-background-radius: 25px;
-                      -fx-padding: 10px;
-                      -fx-text-fill: transparent;
-                      -fx-font-weight: bold;" />
+                           styleClass="rating-input"/>
 
                 <HBox spacing="10" alignment="CENTER" maxWidth="220">
                     <ImageView fitWidth="30" fitHeight="30">
-                        <image>
-                            <Image url="@../images/pusheen_active.png" />
-                        </image>
+                        <image><Image url="@../images/pusheen_active.png"/></image>
                     </ImageView>
                     <ImageView fitWidth="30" fitHeight="30">
-                        <image>
-                            <Image url="@../images/pusheen_active.png" />
-                        </image>
+                        <image><Image url="@../images/pusheen_active.png"/></image>
                     </ImageView>
                     <ImageView fitWidth="30" fitHeight="30">
-                        <image>
-                            <Image url="@../images/pusheen_active.png" />
-                        </image>
+                        <image><Image url="@../images/pusheen_active.png"/></image>
                     </ImageView>
                     <ImageView fitWidth="30" fitHeight="30">
-                        <image>
-                            <Image url="@../images/pusheen_active.png" />
-                        </image>
+                        <image><Image url="@../images/pusheen_active.png"/></image>
                     </ImageView>
                     <ImageView fitWidth="30" fitHeight="30">
-                        <image>
-                            <Image url="@../images/pusheen_active.png" />
-                        </image>
+                        <image><Image url="@../images/pusheen_active.png"/></image>
                     </ImageView>
                 </HBox>
             </StackPane>
-
         </VBox>
 
-        <Button text="ADD"
-                fx:id="addLogButton"
+        <Button fx:id="addLogButton"
+                text="ADD"
                 onAction="#handleAddOrUpdate"
-                style="-fx-background-color: #C8EADF; -fx-text-fill: #292929; -fx-background-radius: 25px; -fx-border-radius: 25px; -fx-font-size: 16px; -fx-font-weight: bold;"
-                prefHeight="45" prefWidth="100"/>
+                prefHeight="45"
+                prefWidth="100"/>
     </VBox>
 </AnchorPane>

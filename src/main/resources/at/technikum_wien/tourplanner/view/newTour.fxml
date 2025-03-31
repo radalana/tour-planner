@@ -2,117 +2,52 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.Pane?>
 <StackPane fx:id="newTourContainer"
            alignment="CENTER"
-           style="-fx-background-color: rgba(0, 0, 0, 0.5);"
            xmlns="http://javafx.com/javafx/23.0.1"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="at.technikum_wien.tourplanner.view.NewTourController">
+           fx:controller="at.technikum_wien.tourplanner.view.NewTourController"
+           stylesheets="@../style/newTour.css">
 
-    <VBox alignment="TOP_CENTER"
+    <VBox fx:id="newTourForm"
+          alignment="TOP_CENTER"
           spacing="15"
           prefWidth="420"
-          prefHeight="750"
-          style="-fx-background-color: #F5F4F0;
-                 -fx-padding: 25px;">
+          prefHeight="750">
 
-        <!-- header with import button -->
         <HBox alignment="CENTER_RIGHT" spacing="10">
-            <Label text="NEW TOUR"
-                   style="-fx-font-size: 30px;
-                          -fx-font-weight: bold;
-                          -fx-text-fill: #1C1C1C;" />
+            <Label fx:id="titleLabel" text="NEW TOUR"/>
             <Pane HBox.hgrow="ALWAYS"/>
-            <MenuButton text="+"
-                        style="-fx-background-color: #C8EADF;
-                   -fx-text-fill: white;
-                   -fx-font-size: 16px;
-                   -fx-font-weight: bold;
-                   -fx-background-radius: 20px;
-                   -fx-border-radius: 20px;
-                   -fx-padding: 2px 5px;"
-                        prefWidth="30" prefHeight="30">
+            <MenuButton fx:id="importMenuButton" text="+" prefWidth="30" prefHeight="30">
                 <items>
                     <MenuItem text="IMPORT A FILE" onAction="#handleImport"/>
                 </items>
             </MenuButton>
         </HBox>
 
-        <!--input Fields -->
         <VBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="TOUR NAME" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-            <TextField fx:id="nameTextField"
-                       style="-fx-background-color: #DEDBD6;
-                              -fx-border-radius: 25px;
-                              -fx-background-radius: 25px;
-                              -fx-padding: 12px;
-                              -fx-font-size: 16px;"
-                       prefWidth="380"/>
+            <Label text="TOUR NAME" styleClass="form-label"/>
+            <TextField fx:id="nameTextField" prefWidth="380" styleClass="form-input"/>
 
-            <Label text="TOUR DESCRIPTION" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-            <TextArea fx:id="descriptionTextArea"
-                      prefHeight="80"
-                      style="-fx-background-color: #DEDBD6;
-                             -fx-border-radius: 25px;
-                             -fx-background-radius: 25px;
-                             -fx-padding: 12px;
-                             -fx-font-size: 16px;"
-                      prefWidth="380"/>
+            <Label text="TOUR DESCRIPTION" styleClass="form-label"/>
+            <TextArea fx:id="descriptionTextArea" prefHeight="80" prefWidth="380" styleClass="form-input"/>
 
-            <!-- from and to-->
             <HBox spacing="10">
                 <VBox>
-                    <Label text="FROM" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-                    <TextField fx:id="fromTextField"
-                               style="-fx-background-color: #DEDBD6;
-                                      -fx-border-radius: 25px;
-                                      -fx-background-radius: 25px;
-                                      -fx-padding: 12px;
-                                      -fx-font-size: 16px;"
-                               prefWidth="180"/>
+                    <Label text="FROM" styleClass="form-label"/>
+                    <TextField fx:id="fromTextField" prefWidth="180" styleClass="form-input"/>
                 </VBox>
                 <VBox>
-                    <Label text="TO" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-                    <TextField fx:id="toTextField"
-                               style="-fx-background-color: #DEDBD6;
-                                      -fx-border-radius: 25px;
-                                      -fx-background-radius: 25px;
-                                      -fx-padding: 12px;
-                                      -fx-font-size: 16px;"
-                               prefWidth="180"/>
+                    <Label text="TO" styleClass="form-label"/>
+                    <TextField fx:id="toTextField" prefWidth="180" styleClass="form-input"/>
                 </VBox>
             </HBox>
 
-            <Label text="TRANSPORT TYPE" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-            <ComboBox fx:id="transportTypeComboBox"
-                      promptText="Select Transport"
-                      style="-fx-background-color: #DEDBD6;
-                             -fx-border-radius: 25px;
-                             -fx-background-radius: 25px;
-                             -fx-padding: 12px;
-                             -fx-font-size: 16px;"
-                      prefWidth="380">
+            <Label text="TRANSPORT TYPE" styleClass="form-label"/>
+            <ComboBox fx:id="transportTypeComboBox" prefWidth="380" promptText="Select Transport" styleClass="form-input">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Walking"/>
@@ -125,53 +60,21 @@
                 </items>
             </ComboBox>
 
-            <!--distance & estimated Time -->
             <HBox spacing="10">
                 <VBox>
-                    <Label text="DISTANCE" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-                    <TextField fx:id="distanceTextField"
-                               style="-fx-background-color: #DEDBD6;
-                                      -fx-border-radius: 25px;
-                                      -fx-background-radius: 25px;
-                                      -fx-padding: 12px;
-                                      -fx-font-size: 16px;"
-                               prefWidth="180"/>
+                    <Label text="DISTANCE" styleClass="form-label"/>
+                    <TextField fx:id="distanceTextField" prefWidth="180" styleClass="form-input"/>
                 </VBox>
                 <VBox>
-                    <Label text="ESTIMATED TIME (H)" style="-fx-text-fill: #6C6C6C; -fx-font-size: 14px; -fx-font-weight: bold;" />
-                    <TextField fx:id="estTimeTextField"
-                               style="-fx-background-color: #DEDBD6;
-                                      -fx-border-radius: 25px;
-                                      -fx-background-radius: 25px;
-                                      -fx-padding: 12px;
-                                      -fx-font-size: 16px;"
-                               prefWidth="180"/>
+                    <Label text="ESTIMATED TIME (H)" styleClass="form-label"/>
+                    <TextField fx:id="estTimeTextField" prefWidth="180" styleClass="form-input"/>
                 </VBox>
             </HBox>
         </VBox>
 
-        <!-- Save , cancel-->
         <VBox spacing="10" alignment="CENTER">
-            <Button onAction="#saveNewTour" text="SAVE"
-                    prefHeight="50" prefWidth="220"
-                    style="-fx-background-color: #C8EADF;
-                           -fx-text-fill: black;
-                           -fx-background-radius: 25px;
-                           -fx-border-radius: 25px;
-                           -fx-font-size: 18px;
-                           -fx-font-weight: bold;"/>
-
-            <Button onAction="#closeNewTour" text="CANCEL"
-                    prefHeight="50" prefWidth="220"
-                    style="-fx-background-color: #F8F6F2;
-                           -fx-text-fill: black;
-                           -fx-background-radius: 25px;
-                           -fx-border-radius: 25px;
-                           -fx-font-size: 18px;
-                           -fx-font-weight: bold;
-                           -fx-border-color: #C8EADF;
-                           -fx-border-width: 2px;"/>
+            <Button onAction="#saveNewTour" text="SAVE" prefHeight="50" prefWidth="220" styleClass="primary-button"/>
+            <Button onAction="#closeNewTour" text="CANCEL" prefHeight="50" prefWidth="220" styleClass="secondary-button"/>
         </VBox>
-
     </VBox>
 </StackPane>

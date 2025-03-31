@@ -1,0 +1,58 @@
+#newTourContainer {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+#newTourForm {
+    -fx-background-color: #F5F4F0;
+    -fx-padding: 25px;
+}
+#titleLabel {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C1C1C;
+}
+
+.form-label {
+    -fx-text-fill: #6C6C6C;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.form-input {
+    -fx-background-color: #DEDBD6;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 12px;
+    -fx-font-size: 16px;
+}
+#importMenuButton {
+    -fx-background-color: #C8EADF;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-padding: 2px 5px;
+}
+
+/* SAVE*/
+.primary-button {
+    -fx-background-color: #C8EADF;
+    -fx-text-fill: black;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* CANCEL */
+.secondary-button {
+    -fx-background-color: #F8F6F2;
+    -fx-text-fill: black;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-border-color: #C8EADF;
+    -fx-border-width: 2px;
+}
