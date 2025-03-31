@@ -14,7 +14,7 @@
           alignment="TOP_CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
           AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
 
-        <Label text="ADD LOG" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1C1C1C;"/>
+        <Label fx:id="formTitle" text="ADD LOG" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1C1C1C;"/>
 
         <VBox spacing="8" prefWidth="260">
             <Label text="Date" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
