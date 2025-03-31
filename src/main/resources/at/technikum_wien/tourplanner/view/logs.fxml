@@ -5,22 +5,58 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="505.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.technikum_wien.tourplanner.view.TourLogController">
-   <HBox prefHeight="503.0" prefWidth="992.0">
-      <children>
-          <TableView fx:id="logsTableView" prefHeight="503.0" prefWidth="1047.0" style="-fx-border-color: #292929;">
-              <columns>
-                  <TableColumn fx:id="ratingColumn" prefWidth="100" text=" Stars pusheen cats" />
-                  <TableColumn fx:id="dateColumn" prefWidth="100" text="DATE" />
-                  <TableColumn fx:id="durationColumn" prefWidth="100" text="DURATION" />
-                  <TableColumn fx:id="distanceColumn" prefWidth="100" text="DISTANCE" />
-                  <TableColumn fx:id="difficultyColumn" prefWidth="100" text="DIFFICULTY" />
-                  <TableColumn fx:id="commentColumn" prefWidth="100" text="Comment" />
-              </columns>
-          </TableView>
-          <!-- log form-->
-         <fx:include source="addLog.fxml" />
+<AnchorPane prefHeight="505.0" prefWidth="992.0"
+            style="-fx-background-color: #C8EADF;"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="at.technikum_wien.tourplanner.view.TourLogController">
+    <HBox spacing="20" alignment="CENTER"
+          AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          style="-fx-padding: 30;">
 
-      </children>
-   </HBox>
+        <TableView fx:id="logsTableView"
+                   prefHeight="445.0"
+                   prefWidth="650.0"
+                   style="-fx-background-color: #F5F4F0;
+                          -fx-border-color: #C8B8A7;
+                          -fx-border-insets: 0;
+                          -fx-background-insets: 0;
+                          -fx-padding: 0;">
+            <columns>
+                <TableColumn fx:id="dateColumn" prefWidth="100" text="Date"
+                             style="-fx-background-color: #F5F4F0;
+                                    -fx-text-fill: #292929;
+                                    -fx-font-weight: bold;
+                                    -fx-border-color: #E4D8D1;"/>
+                <TableColumn fx:id="commentColumn" prefWidth="150" text="Comment"
+                             style="-fx-background-color: #F5F4F0;
+                                    -fx-text-fill: #292929;
+                                    -fx-font-weight: bold;
+                                    -fx-border-color: #E4D8D1;"/>
+                <TableColumn fx:id="difficultyColumn" prefWidth="100" text="Difficulty"
+                             style="-fx-background-color: #F5F4F0;
+                                    -fx-text-fill: #292929;
+                                    -fx-font-weight: bold;
+                                    -fx-border-color: #E4D8D1;"/>
+                <TableColumn fx:id="distanceColumn" prefWidth="100" text="Distance"
+                             style="-fx-background-color: #F5F4F0;
+                                    -fx-text-fill: #292929;
+                                    -fx-font-weight: bold;
+                                    -fx-border-color: #E4D8D1;"/>
+                <TableColumn fx:id="durationColumn" prefWidth="100" text="Total Time"
+                             style="-fx-background-color: #F5F4F0;
+                                    -fx-text-fill: #292929;
+                                    -fx-font-weight: bold;
+                                    -fx-border-color: #E4D8D1;"/>
+                <TableColumn fx:id="ratingColumn" prefWidth="100" text="Rating"
+                             style="-fx-background-color: #F5F4F0;
+                                    -fx-text-fill: #292929;
+                                    -fx-font-weight: bold;
+                                    -fx-border-color: #E4D8D1;"/>
+            </columns>
+        </TableView>
+        <fx:include source="addLog.fxml"/>
+    </HBox>
 </AnchorPane>
+

@@ -1,55 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="at.technikum_wien.tourplanner.view.AddLogController"
-            prefHeight="400.0" prefWidth="600.0">
-    <VBox prefHeight="200.0" prefWidth="291.0">
-        <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Rating" />
-                    <TextField fx:id="ratingTextField"/>
-                </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <TextField fx:id="dateTextField"/>
-                    <Label text="Date" />
-                </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Duration" />
-                    <TextField fx:id="durationTextField"/>
-                </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Difficulty" />
-                    <TextField fx:id="difficultyTextField"/>
-                </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Comment" />
-                    <TextArea fx:id="commentTextArea"/>
-                </children>
-            </HBox>
+            prefHeight="445.0" prefWidth="300.0">
 
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <children>
-                    <Label text="Distance" />
-                    <TextField fx:id="distanceTextField"/>
-                </children>
-            </HBox>
-            <Button fx:id="addLogButton" onAction="#handleAddOrUpdate" mnemonicParsing="false"  text="add log" />
-        </children>
+    <VBox spacing="12" style="-fx-background-color: #F5F4F0; -fx-background-radius: 10px; -fx-padding: 20;"
+          alignment="TOP_CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+
+        <Label text="ADD LOG" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1C1C1C;"/>
+
+        <VBox spacing="8" prefWidth="260">
+            <Label text="Date" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <StackPane>
+                <TextField fx:id="dateTextField" editable="false" promptText="Select a date..."
+                           style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px;
+                                  -fx-background-radius: 25px; -fx-padding: 10px;"/>
+                <DatePicker fx:id="hiddenDatePicker" opacity="0.0" focusTraversable="false"
+                            style="-fx-background-color: transparent;" />
+            </StackPane>
+
+            <Label text="Comment" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <TextArea fx:id="commentTextArea" prefHeight="60" style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"/>
+
+            <Label text="Difficulty" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <ComboBox fx:id="difficultyComboBox"
+                      style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"
+                      promptText="---choose---"
+                      prefHeight="35" />
+
+            <Label text="Total Distance" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <TextField fx:id="distanceTextField" style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"/>
+
+            <Label text="Total Time" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <TextField fx:id="durationTextField" style="-fx-background-color: #DEDBD6; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px;"/>
+
+            <Label text="Rating" style="-fx-text-fill: #6C6C6C; -fx-font-weight: bold;"/>
+            <StackPane prefHeight="40" prefWidth="260">
+                <TextField fx:id="ratingTextField"
+                           editable="false"
+                           focusTraversable="false"
+                           style="-fx-background-color: #DEDBD6;
+                      -fx-border-radius: 25px;
+                      -fx-background-radius: 25px;
+                      -fx-padding: 10px;
+                      -fx-text-fill: transparent;
+                      -fx-font-weight: bold;" />
+
+                <HBox spacing="10" alignment="CENTER" maxWidth="220">
+                    <ImageView fitWidth="30" fitHeight="30">
+                        <image>
+                            <Image url="@../images/pusheen_active.png" />
+                        </image>
+                    </ImageView>
+                    <ImageView fitWidth="30" fitHeight="30">
+                        <image>
+                            <Image url="@../images/pusheen_active.png" />
+                        </image>
+                    </ImageView>
+                    <ImageView fitWidth="30" fitHeight="30">
+                        <image>
+                            <Image url="@../images/pusheen_active.png" />
+                        </image>
+                    </ImageView>
+                    <ImageView fitWidth="30" fitHeight="30">
+                        <image>
+                            <Image url="@../images/pusheen_active.png" />
+                        </image>
+                    </ImageView>
+                    <ImageView fitWidth="30" fitHeight="30">
+                        <image>
+                            <Image url="@../images/pusheen_active.png" />
+                        </image>
+                    </ImageView>
+                </HBox>
+            </StackPane>
+
+        </VBox>
+
+        <Button text="ADD"
+                fx:id="addLogButton"
+                onAction="#handleAddOrUpdate"
+                style="-fx-background-color: #C8EADF; -fx-text-fill: #292929; -fx-background-radius: 25px; -fx-border-radius: 25px; -fx-font-size: 16px; -fx-font-weight: bold;"
+                prefHeight="45" prefWidth="100"/>
     </VBox>
 </AnchorPane>

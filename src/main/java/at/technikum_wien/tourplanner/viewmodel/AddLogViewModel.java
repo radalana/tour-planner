@@ -44,6 +44,7 @@ public class AddLogViewModel {
                 comment.set(newValue.getComment());
             }
         });
+
     }
     public boolean addLog() {
         if (!validateFields()) {
@@ -59,12 +60,7 @@ public class AddLogViewModel {
         );
         selectedTour.get().getLogs().add(newLog);
 
-        date.set("");
-        comment.set("");
-        difficulty.set("");
-        distance.set("");
-        duration.set("");
-        rating.set("");
+        clearForm();
         return true;
     }
     public void updateLog() {
@@ -85,8 +81,24 @@ public class AddLogViewModel {
     public TourLog getSelectedTourLog() {
         return mainViewModel.getSelectedLog();
     }
+
+    public void clearForm() {
+        rating.set("");
+        date.set("");
+        duration.set("");
+        distance.set("");
+        comment.set("");
+        difficulty.set("");
+    }
     private boolean validateFields() {
-        return true;
+        return isNotEmpty(date.get()) &&
+                isNotEmpty(duration.get()) &&
+                isNotEmpty(distance.get()) &&
+                isNotEmpty(comment.get()) &&
+                isNotEmpty(difficulty.get());
     }
 
+    private boolean isNotEmpty(String value) {
+        return value != null && !value.trim().isEmpty() && !value.equals("0");
+    }
 }
