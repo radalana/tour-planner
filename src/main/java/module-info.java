@@ -5,6 +5,7 @@ module at.technikum_wien.tourplanner {
     requires javafx.graphics;
     requires static lombok;
     requires java.desktop;
+    requires java.net.http;
 
     opens at.technikum_wien.tourplanner to javafx.fxml;
     opens at.technikum_wien.tourplanner.model to javafx.base;//for reflection in tourTable
