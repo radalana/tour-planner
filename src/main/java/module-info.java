@@ -8,7 +8,7 @@ module at.technikum_wien.tourplanner {
     requires com.fasterxml.jackson.databind;
 
     opens at.technikum_wien.tourplanner to javafx.fxml;
-    opens at.technikum_wien.tourplanner.model to javafx.base;//for reflection in tourTable
+    opens at.technikum_wien.tourplanner.model to javafx.base, com.fasterxml.jackson.databind;//for reflection in tourTable
     opens at.technikum_wien.tourplanner.view to javafx.fxml;
 
     exports at.technikum_wien.tourplanner;

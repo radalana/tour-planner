@@ -2,6 +2,7 @@ package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 public class TourTableViewModel {
@@ -21,5 +22,14 @@ public class TourTableViewModel {
     }
 
     public void syncTours() {
+        System.out.println("Syncing tours");
+        tourService.fetchAllToursAsync().thenAccept(tours -> {
+            Platform.runLater(() -> {
+                System.out.println("Fetched " + tours.size() + " tours");
+                System.out.println(tours);
+                mainViewModelViewModel.getTours().setAll(tours);
+            });
+        });
+
     }
 }

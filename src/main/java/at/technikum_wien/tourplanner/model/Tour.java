@@ -7,7 +7,9 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class Tour {
     private StringProperty name = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();

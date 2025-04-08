@@ -24,13 +24,17 @@ public class TourTableController {
     @FXML private TableColumn<Tour,String> estimatedTimeColumn;
 
     private final TourTableViewModel tourTableViewModel;
+
     public TourTableController(TourTableViewModel tourTableViewModel) {
         this.tourTableViewModel = tourTableViewModel;
     }
     @FXML
     public void initialize() {
+        System.out.println("Initializing");
         //get list of tours, subscription
+        tourTableViewModel.syncTours();
         tourTableView.setItems(tourTableViewModel.getTours());
+
         //adjust column widths
         tourTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         bindTableColumnsToProperties();
@@ -46,6 +50,7 @@ public class TourTableController {
             });
             return row;
         });
+
         //debug
         tourTableView.getItems().addListener((ListChangeListener<Tour>) change -> {
             System.out.println("Table item count changed: " + tourTableView.getItems().size());
