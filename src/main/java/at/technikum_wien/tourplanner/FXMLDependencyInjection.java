@@ -4,6 +4,7 @@ import at.technikum_wien.tourplanner.view.ControllerFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
+import lombok.Setter;
 
 import java.io.IOException;
 /**
@@ -11,6 +12,9 @@ import java.io.IOException;
  * Copied from https://git.technikum-wien.at/swen/swen2/java/medialib.git
  */
 public class FXMLDependencyInjection {
+    @Setter
+    private static ControllerFactory controllerFactory;
+
     public static Parent load(String location) throws IOException {
         FXMLLoader loader = getLoader(location);
         return loader.load();
@@ -22,7 +26,7 @@ public class FXMLDependencyInjection {
                 null,
                 //ResourceBundle.getBundle("at.technikum_wien.tourplanner.view." + "gui_strings", locale), //for languages
                 new JavaFXBuilderFactory(),
-                controllerClass-> ControllerFactory.getInstance().create(controllerClass)
+                controllerClass-> controllerFactory.create(controllerClass)
         );
     }
 }

@@ -4,8 +4,8 @@ module at.technikum_wien.tourplanner {
     requires javafx.web;
     requires javafx.graphics;
     requires static lombok;
-    requires java.desktop;
     requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
     opens at.technikum_wien.tourplanner to javafx.fxml;
     opens at.technikum_wien.tourplanner.model to javafx.base;//for reflection in tourTable
@@ -15,4 +15,5 @@ module at.technikum_wien.tourplanner {
     exports at.technikum_wien.tourplanner.view;
     exports at.technikum_wien.tourplanner.viewmodel;
     exports at.technikum_wien.tourplanner.model;
+    exports at.technikum_wien.tourplanner.httpClient;
 }

@@ -1,20 +1,28 @@
 package at.technikum_wien.tourplanner.view;
 
+import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.viewmodel.*;
 
 public class ControllerFactory {
-    //ToDO maybe should not be here, and all logic in homapageviewmodel??
     private final MainViewModel mainViewModelViewModel;
+    private final TourService tourService;
+
+    //ToDO maybe should not be here, and all logic in homapageviewmodel??
+
     private final NewTourViewModel newTourViewModel;
     private final TourDetailsViewModel tourDetailsViewModel;
     private final TourTableViewModel tourTableViewModel;
     private final TourLogViewModel tourLogViewModel;
     private final AddLogViewModel addLogViewModel;
 
-    public ControllerFactory() {
+
+
+    public ControllerFactory(TourService tourService) {
+        this.tourService = tourService;
+
         mainViewModelViewModel = new MainViewModel();
         newTourViewModel = new NewTourViewModel(mainViewModelViewModel);
-        tourTableViewModel = new TourTableViewModel(mainViewModelViewModel);
+        tourTableViewModel = new TourTableViewModel(mainViewModelViewModel, tourService);
         tourDetailsViewModel = new TourDetailsViewModel(mainViewModelViewModel);
         tourLogViewModel = new TourLogViewModel(mainViewModelViewModel);
         addLogViewModel = new AddLogViewModel(mainViewModelViewModel);
@@ -41,8 +49,4 @@ public class ControllerFactory {
             throw new IllegalArgumentException("Unknown controller class: " + controllerClass);
         }
     }
-
-    // Singleton-Pattern with early-binding
-    private static final ControllerFactory instance = new ControllerFactory();
-    public static ControllerFactory getInstance() {return instance;}
 }
