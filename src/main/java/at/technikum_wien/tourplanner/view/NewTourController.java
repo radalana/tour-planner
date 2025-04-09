@@ -73,7 +73,7 @@ public class NewTourController {
             highlightInvalidFields();
             return;
         }
-        if (newTourViewModel.saveTour()) {
+        if (newTourViewModel.createTour()) {
             resetFieldStyles();
             closeNewTour();
         }

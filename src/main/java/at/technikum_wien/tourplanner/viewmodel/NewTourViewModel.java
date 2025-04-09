@@ -58,7 +58,7 @@ public class NewTourViewModel {
     public void cancel() {
         //mediatorViewModel.closeNewTourOverlay();
     }
-    public boolean saveTour() {
+    public boolean createTour() {
         if (!validate()) {
             return false;
         }

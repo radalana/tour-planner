@@ -3,7 +3,7 @@ package at.technikum_wien.tourplanner.viewmodel;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 class NewTourViewModelTest {
     private NewTourViewModel viewModel;
     @BeforeEach
@@ -35,7 +35,7 @@ class NewTourViewModelTest {
     }
 
     @Test
-    public void testSaveTourAddsTourToList() {
+    public void testCreateTourAddsTourToList() {
         viewModel.nameProperty().set("Trip");
         viewModel.descriptionProperty().set("desc");
         viewModel.fromProperty().set("from");
@@ -44,7 +44,7 @@ class NewTourViewModelTest {
         viewModel.estTimeProperty().set("1");
         viewModel.distanceProperty().set(10);
 
-        boolean saved = viewModel.saveTour();
+        boolean saved = viewModel.createTour();
         assertTrue(saved);
     }
 }
