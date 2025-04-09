@@ -4,46 +4,28 @@ import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.viewmodel.*;
 
 public class ControllerFactory {
-    private final MainViewModel mainViewModelViewModel;
-    private final TourService tourService;
+    private final ViewModelFactory viewModelFactory;
 
-    //ToDO maybe should not be here, and all logic in homapageviewmodel??
-
-    private final NewTourViewModel newTourViewModel;
-    private final TourDetailsViewModel tourDetailsViewModel;
-    private final TourTableViewModel tourTableViewModel;
-    private final TourLogViewModel tourLogViewModel;
-    private final AddLogViewModel addLogViewModel;
-
-
-
-    public ControllerFactory(TourService tourService) {
-        this.tourService = tourService;
-
-        mainViewModelViewModel = new MainViewModel();
-        newTourViewModel = new NewTourViewModel(mainViewModelViewModel);
-        tourTableViewModel = new TourTableViewModel(mainViewModelViewModel, tourService);
-        tourDetailsViewModel = new TourDetailsViewModel(mainViewModelViewModel);
-        tourLogViewModel = new TourLogViewModel(mainViewModelViewModel);
-        addLogViewModel = new AddLogViewModel(mainViewModelViewModel);
+    public ControllerFactory(ViewModelFactory viewModelFactory) {
+       this.viewModelFactory = viewModelFactory;
     }
 
     //Factory-Method Pattern
     public Object create(Class<?> controllerClass) {
         if (controllerClass == HomepageController.class) {
-            return new HomepageController(mainViewModelViewModel);
+            return new HomepageController(viewModelFactory.getMainViewModel());
         }else if (controllerClass == HeaderController.class) {
             return new HeaderController();
         } else if (controllerClass == TourTableController.class) {
-            return new TourTableController(tourTableViewModel);
+            return new TourTableController(viewModelFactory.getTourTableViewModel());
         }else if (controllerClass == NewTourController.class) {
-            return new NewTourController(newTourViewModel);
+            return new NewTourController(viewModelFactory.getNewTourViewModel());
         }else if (controllerClass == TourDetailsController.class) {
-            return new TourDetailsController(tourDetailsViewModel);
+            return new TourDetailsController(viewModelFactory.getTourDetailsViewModel());
         } else if (controllerClass == TourLogController.class) {
-            return new TourLogController(tourLogViewModel);
+            return new TourLogController(viewModelFactory.getTourLogViewModel());
         } else if (controllerClass == AddLogController.class) {
-            return new AddLogController(addLogViewModel);
+            return new AddLogController(viewModelFactory.getAddLogViewModel());
         }
         else {
             throw new IllegalArgumentException("Unknown controller class: " + controllerClass);

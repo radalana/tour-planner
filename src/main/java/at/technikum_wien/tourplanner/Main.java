@@ -2,6 +2,7 @@ package at.technikum_wien.tourplanner;
 
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.view.ControllerFactory;
+import at.technikum_wien.tourplanner.viewmodel.ViewModelFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,10 +18,8 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws IOException {
-        HttpClient client = HttpClient.newHttpClient();
-        TourService tourService = new TourService(client);
-
-        ControllerFactory controllerFactory = new ControllerFactory(tourService);
+        ServiceProvider serviceProvider = new ServiceProvider();
+        ControllerFactory controllerFactory = new ControllerFactory(new ViewModelFactory(serviceProvider));
         FXMLDependencyInjection.setControllerFactory(controllerFactory);
 
         Parent root = FXMLDependencyInjection.load("homepage.fxml");

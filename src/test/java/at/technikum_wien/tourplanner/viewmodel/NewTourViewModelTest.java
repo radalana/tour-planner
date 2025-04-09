@@ -1,15 +1,21 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
+import at.technikum_wien.tourplanner.httpClient.TourService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class NewTourViewModelTest {
     private NewTourViewModel viewModel;
+    private MainViewModel mockMain;
+    private TourService mockService;
     @BeforeEach
     public void setup() {
-        MainViewModel mockMain = new MainViewModel();
-        viewModel = new NewTourViewModel(mockMain);}
+        mockMain = mock(MainViewModel.class);
+        mockService = mock(TourService.class);
+        viewModel = new NewTourViewModel(mockMain, mockService);}
 
     @Test
     public void testValidationFailsWhenNameIsEmpty() {
