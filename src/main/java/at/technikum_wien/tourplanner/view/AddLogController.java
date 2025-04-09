@@ -4,7 +4,11 @@
     import javafx.fxml.FXML;
     import javafx.scene.control.*;
 
+    import javafx.scene.image.Image;
+    import javafx.scene.image.ImageView;
+
     import java.time.format.DateTimeFormatter;
+    import java.util.Objects;
 
     public class AddLogController {
         private final AddLogViewModel addLogViewModel;
@@ -24,11 +28,21 @@
         @FXML private TextArea commentTextArea;
         @FXML private ComboBox<String> difficultyComboBox;
         @FXML private DatePicker hiddenDatePicker;
+
+        @FXML private ImageView pusheen1, pusheen2, pusheen3, pusheen4, pusheen5;
+        private ImageView[] pusheenViews;
+
+        private Image activeImg;
+        private Image inactiveImg;
+
         public AddLogController(AddLogViewModel addLogViewModel) {
             this.addLogViewModel = addLogViewModel;
         }
 
         @FXML public void initialize() {
+            activeImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/technikum_wien/tourplanner/images/pusheen_active.png")));
+            inactiveImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/technikum_wien/tourplanner/images/pusheen_inactive.png")));
+
             ratingTextField.textProperty().bindBidirectional(addLogViewModel.ratingProperty());
             dateTextField.textProperty().bindBidirectional(addLogViewModel.dateProperty());
             durationTextField.textProperty().bindBidirectional(addLogViewModel.durationProperty());
@@ -54,7 +68,34 @@
                 }
             });
 
+            pusheenViews = new ImageView[] { pusheen1, pusheen2, pusheen3, pusheen4, pusheen5 };
+            updatePusheenImages(0);
+            //click listeners
+            for (int i = 0; i < pusheenViews.length; i++) {
+                final int ratingValue = i + 1;
+                pusheenViews[i].setOnMouseClicked(e -> {
+                    addLogViewModel.ratingProperty().set(String.valueOf(ratingValue));
+                    ratingTextField.setText(String.valueOf(ratingValue));
+                    updatePusheenImages(ratingValue);
+                });
+            }
+            //update image view when rating changes
+            addLogViewModel.ratingProperty().addListener((obs3, oldVal, newVal) -> {
+                try {
+                    int rating = Integer.parseInt(newVal);
+                    updatePusheenImages(rating);
+                } catch (NumberFormatException e) {
+                    updatePusheenImages(0);
+                }
+            });
         }
+
+        private void updatePusheenImages(int rating) {
+            for (int i = 0; i < pusheenViews.length; i++) {
+                pusheenViews[i].setImage(i < rating ? activeImg : inactiveImg);
+            }
+        }
+
         @FXML private void handleAddOrUpdate() {
             if (addLogViewModel.getSelectedTourLog() != null) {
                 addLogViewModel.updateLog();
@@ -85,7 +126,8 @@
         }
 
         private void clearForm() {
-            //addLogViewModel.ratingProperty().set("");
+            addLogViewModel.ratingProperty().set("");
+            updatePusheenImages(0); // visually reset
             addLogViewModel.dateProperty().set("");
             addLogViewModel.durationProperty().set("");
             addLogViewModel.distanceProperty().set("");
@@ -99,7 +141,7 @@
             highlightField(distanceTextField, addLogViewModel.distanceProperty().get());
             highlightField(commentTextArea, addLogViewModel.commentProperty().get());
             highlightField(difficultyComboBox, addLogViewModel.difficultyProperty().get());
-            //highlightField(ratingTextField, addLogViewModel.ratingProperty().get());
+            highlightField(ratingTextField, addLogViewModel.ratingProperty().get());
         }
 
         private void highlightField(javafx.scene.control.Control field, String value) {

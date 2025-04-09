@@ -59,20 +59,20 @@
                            styleClass="rating-input"/>
 
                 <HBox spacing="10" alignment="CENTER" maxWidth="220">
-                    <ImageView fitWidth="30" fitHeight="30">
-                        <image><Image url="@../images/pusheen_active.png"/></image>
+                    <ImageView fx:id="pusheen1" fitWidth="30" fitHeight="30">
+                        <image><Image url="@../images/pusheen_inactive.png"/></image>
                     </ImageView>
-                    <ImageView fitWidth="30" fitHeight="30">
-                        <image><Image url="@../images/pusheen_active.png"/></image>
+                    <ImageView fx:id="pusheen2" fitWidth="30" fitHeight="30">
+                        <image><Image url="@../images/pusheen_inactive.png"/></image>
                     </ImageView>
-                    <ImageView fitWidth="30" fitHeight="30">
-                        <image><Image url="@../images/pusheen_active.png"/></image>
+                    <ImageView fx:id="pusheen3" fitWidth="30" fitHeight="30">
+                        <image><Image url="@../images/pusheen_inactive.png"/></image>
                     </ImageView>
-                    <ImageView fitWidth="30" fitHeight="30">
-                        <image><Image url="@../images/pusheen_active.png"/></image>
+                    <ImageView fx:id="pusheen4" fitWidth="30" fitHeight="30">
+                        <image><Image url="@../images/pusheen_inactive.png"/></image>
                     </ImageView>
-                    <ImageView fitWidth="30" fitHeight="30">
-                        <image><Image url="@../images/pusheen_active.png"/></image>
+                    <ImageView fx:id="pusheen5" fitWidth="30" fitHeight="30">
+                        <image><Image url="@../images/pusheen_inactive.png"/></image>
                     </ImageView>
                 </HBox>
             </StackPane>
