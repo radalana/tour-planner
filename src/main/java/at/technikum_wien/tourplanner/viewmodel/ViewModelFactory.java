@@ -20,7 +20,7 @@ public class ViewModelFactory {
         return new NewTourViewModel(mainViewModel, serviceProvider.getTourService());
     }
     public TourDetailsViewModel getTourDetailsViewModel() {
-        return new TourDetailsViewModel(mainViewModel);
+        return new TourDetailsViewModel(mainViewModel, serviceProvider.getTourService());
     }
 
     public TourLogViewModel getTourLogViewModel() {

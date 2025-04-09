@@ -44,7 +44,7 @@ public class TourService {
                 .exceptionally(ex -> {
             System.err.println("[TourService] Request failed: " + ex.getMessage());
             ex.printStackTrace();
-            return List.of(); // Возвращаем пустой список, чтобы цепочка продолжилась
+            return List.of();
         });
     }
 
@@ -69,4 +69,41 @@ public class TourService {
             throw new RuntimeException(e);
         }
     }
+
+    public CompletableFuture<Boolean> deleteTourAsync(Tour tour) {
+        String url = baseUrl + "/" + tour.getId();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .DELETE()
+                .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.discarding())
+                .thenApply(response -> {
+                    int statusCode = response.statusCode();
+                    System.out.println("[TourService deleteTourAsync] Response status: " + statusCode);
+                    return statusCode == 204;
+                });
+    }
+
+    /* idk, maybe will be needed later, user1 change tour, user2 have actuel data
+    public CompletableFuture<Tour> fetchTourByIdAsync(Tour tour) {
+        String url = baseUrl + "/" + tour.getId();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    try{
+                        return objectMapper.readValue(response.body(), Tour.class);
+                    }catch (IOException e){
+                        throw new RuntimeException(e);
+                    }
+                })
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    return null;
+                });
+
+    }
+     */
 }

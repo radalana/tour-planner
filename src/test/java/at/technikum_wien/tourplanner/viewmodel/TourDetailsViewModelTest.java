@@ -1,19 +1,23 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.httpClient.TourService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class TourDetailsViewModelTest {
-    private MainViewModel mainViewModel;
+    private MainViewModel mockMainViewModel;
+    private TourService mockTourService;
     private TourDetailsViewModel viewModel;
     @BeforeEach
     void setUp() {
-        mainViewModel = new MainViewModel();
-        viewModel = new TourDetailsViewModel(mainViewModel);
-        mainViewModel.setSelectedLog(null);
-        mainViewModel.getSelectedTour().set(mainViewModel.getTours().get(0)); //first default tour
+        mockMainViewModel = mock(MainViewModel.class);
+        mockTourService = mock(TourService.class);
+        viewModel = new TourDetailsViewModel(mockMainViewModel, mockTourService);
+        mockMainViewModel.setSelectedLog(null);
+        mockMainViewModel.getSelectedTour().set(mockMainViewModel.getTours().get(0)); //first default tour
     }
 
     @Test
@@ -25,15 +29,15 @@ class TourDetailsViewModelTest {
 
     @Test
     public void testDeleteTourRemovesTour() {
-        int sizeBefore = mainViewModel.getTours().size();
+        int sizeBefore = mockMainViewModel.getTours().size();
         viewModel.deleteTour();
-        assertEquals(sizeBefore - 1, mainViewModel.getTours().size());
+        assertEquals(sizeBefore - 1, mockMainViewModel.getTours().size());
     }
     @Test
     public void testUpdateTourChangesName() {
         viewModel.loadTourData();
         viewModel.nameProperty().set("updated name");
         viewModel.updateTour();
-        assertEquals("updated name", mainViewModel.getSelectedTour().get().getName());
+        assertEquals("updated name", mockMainViewModel.getSelectedTour().get().getName());
     }
 }

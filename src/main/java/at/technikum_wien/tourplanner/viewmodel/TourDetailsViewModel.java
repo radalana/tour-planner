@@ -1,11 +1,14 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 
 
 public class TourDetailsViewModel {
     private final MainViewModel mainViewModelViewModel;
+    private final TourService tourService;
 
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
@@ -21,8 +24,9 @@ public class TourDetailsViewModel {
     public DoubleProperty distanceProperty() {return distance;}
     public StringProperty estimatedTimeProperty() {return estimatedTime;}
 
-    public TourDetailsViewModel(MainViewModel mainViewModelViewModel) {
+    public TourDetailsViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
         this.mainViewModelViewModel = mainViewModelViewModel;
+        this.tourService = tourService;
     }
     //is it data-binding
     public void loadTourData() {
@@ -40,7 +44,16 @@ public class TourDetailsViewModel {
     public void deleteTour() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
         if (selected != null) {
-            mainViewModelViewModel.removeTour(selected);
+            tourService.deleteTourAsync(selected).thenAccept(succeed -> {
+                if (succeed) {
+                    Platform.runLater(() -> {
+                        mainViewModelViewModel.removeTour(selected);
+                    });
+                }else {
+                    //TODO Gabriela - notify tour not delete/not found etc.
+                    System.out.println("Failed to delete tour");
+                }
+            });
         }
 
     }
