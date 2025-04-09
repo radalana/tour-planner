@@ -1,16 +1,16 @@
 package at.technikum_wien.tourplanner.model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 public class Tour {
+    @Getter @Setter
+    private int id;
     private StringProperty name = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
@@ -21,8 +21,21 @@ public class Tour {
     private StringProperty routInfo = new SimpleStringProperty();
    @Getter
    private final ObservableList<TourLog> logs = FXCollections.observableArrayList();
-
+    //For Create from UI
     public Tour(String name, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
+        this.name = new SimpleStringProperty(name);
+        this.description = new SimpleStringProperty(description);
+        this.from = new SimpleStringProperty(from);
+        this.to = new SimpleStringProperty(to);
+        this.transportType = new SimpleStringProperty(transportType);
+        this.distance = new SimpleDoubleProperty(distance);
+        this.estimatedTime = new SimpleStringProperty(estimatedTime);
+        this.routInfo = new SimpleStringProperty(routInfo);
+    }
+
+    //For Create from POST response (added Id field/not used in UI)
+    public Tour(int id, String name, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
+        this.id = id;
         this.name = new SimpleStringProperty(name);
         this.description = new SimpleStringProperty(description);
         this.from = new SimpleStringProperty(from);
