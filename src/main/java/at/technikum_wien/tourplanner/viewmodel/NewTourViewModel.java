@@ -1,10 +1,13 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 
 public class NewTourViewModel {
     private final MainViewModel mainViewModelViewModel;
+    private final TourService tourService;
 
     //values from form
     private final StringProperty name = new SimpleStringProperty();
@@ -16,8 +19,9 @@ public class NewTourViewModel {
     private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty routInfo = new SimpleStringProperty();
 
-    public NewTourViewModel(MainViewModel mainViewModelViewModel) {
+    public NewTourViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
         this.mainViewModelViewModel = mainViewModelViewModel;
+        this.tourService = tourService;
     }
     public BooleanProperty isNewTourContainerVisibleProperty() {
         return mainViewModelViewModel.getIsNewTourFormOpened(); }
@@ -74,8 +78,16 @@ public class NewTourViewModel {
                 routInfo.get()
         );
 
-        System.out.println("Tour object created: " + tour);
-        mainViewModelViewModel.addTour(tour);
+        tourService.createTourAsync(tour).thenAccept(addedTour -> {
+            Platform.runLater(() -> {
+                mainViewModelViewModel.addTour(addedTour);
+            });
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            //show allert?
+            return null;
+        });
+
 
         // Clean the form
         name.set("");

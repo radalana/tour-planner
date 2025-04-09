@@ -1,6 +1,7 @@
 package at.technikum_wien.tourplanner.httpClient;
 
 import at.technikum_wien.tourplanner.model.Tour;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -45,5 +46,27 @@ public class TourService {
             ex.printStackTrace();
             return List.of(); // Возвращаем пустой список, чтобы цепочка продолжилась
         });
+    }
+
+    public CompletableFuture<Tour> createTourAsync(Tour tour) {
+        try{
+            String body = objectMapper.writeValueAsString(tour); //object -> json
+            System.out.println("[TourService createTourAsync(Tour tour)] Request body: " + body);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(baseUrl))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> {
+                        try {
+                            return objectMapper.readValue(response.body(), Tour.class);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
