@@ -70,7 +70,7 @@ mvnw.cmd
 /src/main/gen/src/main/java/org/openapitools/client/JSON.java
 /src/main/gen/.github/workflows/maven.yml
 /src/main/gen/api/openapi.yaml
-/openapi.yml
+
 /src/main/gen/src/main/java/org/openapitools/client/Pair.java
 /src/main/gen/pom.xml
 /src/main/gen/src/main/java/org/openapitools/client/ProgressRequestBody.java
