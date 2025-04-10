@@ -1,0 +1,119 @@
+openapi: 3.0.1
+info:
+  title: R&R
+  version: 1.0.0
+paths:
+  /routes:
+    get:
+      summary: get list of tours
+      parameters:
+        - name: search
+          in: query
+          description: search string for ex. name of tour
+          required: false
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: filter child-free
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT FOUND
+    post:
+      summary: add new tour
+      responses:
+        '201':
+          description: CREATED
+        '400':
+          description: BAD REQUEST
+  /routes/{tourId}:
+    parameters:
+      - name: tourId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: tour details of specific tour
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT FOUND
+    delete:
+      summary: delete tour
+      responses:
+        '204':
+          description: ACCEPTED
+        '404':
+          description: NOT FOUND
+    put:
+      summary: update tour
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT FOUND
+  /routes/{tourId}/logs/:
+    parameters:
+      - name: tourId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: list of logs of specific tour
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT FOUND
+    post:
+      summary: create new log to specific tour
+      responses:
+        '201':
+          description: CREATED
+        '400':
+          description: BAD REQUEST
+  /routes/{tourId}/logs/{logId}:
+    parameters:
+      - name: tourId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: GET specific tour
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT FOUND
+    delete:
+      summary: delete log
+      responses:
+        '202':
+          description: ACCEPTED
+        '404':
+          description: NOT FOUND
+    put:
+      summary: update log
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: NOT FOUND
+
+
+
+
