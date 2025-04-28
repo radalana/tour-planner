@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class TourService {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final String baseUrl = "https://c7e41eaf-9f72-4f0e-91a3-27a668b2dc9e.mock.pstmn.io/tours";
+    private final String baseUrl = "http://localhost:8080/api/tours";
 
     public TourService(HttpClient httpClient) {
         this.httpClient = httpClient;
