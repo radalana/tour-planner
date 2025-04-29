@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplanner.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,10 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Tour {
     @Getter @Setter
-    private int id;
-    private StringProperty name = new SimpleStringProperty();
+    private Long id; //for correct serialization
+    private StringProperty tourName = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
     private StringProperty to = new SimpleStringProperty();
@@ -22,8 +24,8 @@ public class Tour {
    @Getter
    private final ObservableList<TourLog> logs = FXCollections.observableArrayList();
     //For Create from UI
-    public Tour(String name, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
-        this.name = new SimpleStringProperty(name);
+    public Tour(String tourName, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
+        this.tourName = new SimpleStringProperty(tourName);
         this.description = new SimpleStringProperty(description);
         this.from = new SimpleStringProperty(from);
         this.to = new SimpleStringProperty(to);
@@ -34,9 +36,9 @@ public class Tour {
     }
 
     //For Create from POST response (added Id field/not used in UI)
-    public Tour(int id, String name, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
+    public Tour(long id, String tourName, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
         this.id = id;
-        this.name = new SimpleStringProperty(name);
+        this.tourName = new SimpleStringProperty(tourName);
         this.description = new SimpleStringProperty(description);
         this.from = new SimpleStringProperty(from);
         this.to = new SimpleStringProperty(to);
@@ -47,7 +49,7 @@ public class Tour {
     }
 
     //for tableView in Controller
-    public String getName() {return name.get();}
+    public String getTourName() {return tourName.get();}
     public String getDescription() {return description.get();}
     public String getFrom() {return from.get();}
     public String getTo() {return to.get();}
@@ -56,7 +58,8 @@ public class Tour {
     public String getEstimatedTime() {return estimatedTime.get();}
     public String getRoutInfo() {return routInfo.get();}
 
-    public void setName(String newName) {name.set(newName);}
+    public void setTourName(String newName) {
+        tourName.set(newName);}
     public void setDescription(String newDescription) {description.set(newDescription);}
     public void setFrom(String newFrom) {from.set(newFrom);}
     public void setTo(String newTo) {to.set(newTo);}
@@ -65,8 +68,8 @@ public class Tour {
     public void setEstimatedTime(String newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
     public void setRoutInfo(String newRoutInfo) {routInfo.set(newRoutInfo);}
 
-    public StringProperty nameProperty() {
-        return name;
+    public StringProperty tourNameProperty() {
+        return tourName;
     }
 
     public StringProperty descriptionProperty() {

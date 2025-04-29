@@ -38,6 +38,6 @@ class TourDetailsViewModelTest {
         viewModel.loadTourData();
         viewModel.nameProperty().set("updated name");
         viewModel.updateTour();
-        assertEquals("updated name", mockMainViewModel.getSelectedTour().get().getName());
+        assertEquals("updated name", mockMainViewModel.getSelectedTour().get().getTourName());
     }
 }

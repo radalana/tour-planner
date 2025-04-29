@@ -32,7 +32,7 @@ public class TourDetailsViewModel {
     public void loadTourData() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
         if (selected != null) {
-            name.set(selected.getName());
+            name.set(selected.getTourName());
             description.set(selected.getDescription());
             from.set(selected.getFrom());
             to.set(selected.getTo());
@@ -67,7 +67,7 @@ public class TourDetailsViewModel {
         //TODO validaton!
 
         if (selected != null) {
-            selected.setName(name.get());
+            selected.setTourName(name.get());
             selected.setDescription(description.get());
             selected.setFrom(from.get());
             selected.setTo(to.get());

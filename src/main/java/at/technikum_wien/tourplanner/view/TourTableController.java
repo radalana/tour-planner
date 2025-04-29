@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class TourTableController {
@@ -71,7 +70,7 @@ public class TourTableController {
     }
     private void bindTableColumnsToProperties() {
         //how/what to show in each column
-        tourNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        tourNameColumn.setCellValueFactory(cellData -> cellData.getValue().tourNameProperty());
         transportTypeColumn.setCellValueFactory(cellData -> cellData.getValue().transportTypeProperty());
         fromColumn.setCellValueFactory(cellData -> cellData.getValue().fromProperty());
         toColumn.setCellValueFactory(cellData -> cellData.getValue().toProperty());
