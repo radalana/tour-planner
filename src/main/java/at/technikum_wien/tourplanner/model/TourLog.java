@@ -1,22 +1,22 @@
 package at.technikum_wien.tourplanner.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class TourLog {
     private StringProperty dateTime = new SimpleStringProperty();
     private StringProperty comment = new SimpleStringProperty();
-    private StringProperty difficulty = new SimpleStringProperty();
+    private DoubleProperty difficulty = new SimpleDoubleProperty();
     private StringProperty totalDistance= new SimpleStringProperty();
     private StringProperty totalTime= new SimpleStringProperty();
     private StringProperty rating = new SimpleStringProperty();
 
-    public TourLog(String dateTime, String comment, String difficulty, String totalDistance, String totalTime, String rating) {
+    public TourLog(String dateTime, String comment, double difficulty, String totalDistance, String totalTime, String rating) {
         this.dateTime = new SimpleStringProperty(dateTime);
         this.comment = new SimpleStringProperty(comment);
-        this.difficulty = new SimpleStringProperty(difficulty);
+        this.difficulty = new SimpleDoubleProperty(difficulty);
         this.totalDistance = new SimpleStringProperty(totalDistance);
         this.totalTime = new SimpleStringProperty(totalTime);
         this.rating = new SimpleStringProperty(rating);
@@ -24,7 +24,7 @@ public class TourLog {
     public StringProperty ratingProperty() {return this.rating;}
     public StringProperty dateTimeProperty() {return this.dateTime;}
     public StringProperty commentProperty() {return this.comment;}
-    public StringProperty difficultyProperty() {return this.difficulty;}
+    public DoubleProperty difficultyProperty() {return this.difficulty;}
     public StringProperty totalDistanceProperty() {return this.totalDistance;}
     public StringProperty totalTimeProperty() {return this.totalTime;}
 
@@ -32,14 +32,14 @@ public class TourLog {
     //for table view in Controller
     public String getDateTime() {return dateTime.get();}
     public String getComment() {return comment.get();}
-    public String getDifficulty() {return difficulty.get();}
+    public double getDifficulty() {return difficulty.get();}
     public String getTotalDistance() {return totalDistance.get();}
     public String getTotalTime() {return totalTime.get();}
     public String getRating() {return rating.get();}
 
     public void setDateTime(String dateTime) {this.dateTime.set(dateTime);}
     public void setComment(String comment) {this.comment.set(comment);}
-    public void setDifficulty(String difficulty) {this.difficulty.set(difficulty);}
+    public void setDifficulty(double difficulty) {this.difficulty.set(difficulty);}
     public void setTotalDistance(String totalDistance) {this.totalDistance.set(totalDistance);}
     public void setTotalTime(String totalTime) {this.totalTime.set(totalTime);}
     public void setRating(String rating) {this.rating.set(rating);}

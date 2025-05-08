@@ -1,12 +1,16 @@
 package at.technikum_wien.tourplanner.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,14 +19,23 @@ public class Tour {
     private Long id; //for correct serialization
     private StringProperty tourName = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
+    @JsonProperty("fromLocation")
     private StringProperty from = new SimpleStringProperty();
+    @JsonProperty("toLocation")
     private StringProperty to = new SimpleStringProperty();
     private StringProperty transportType = new SimpleStringProperty();//TODO maybe enum
     private DoubleProperty distance = new SimpleDoubleProperty();
     private StringProperty estimatedTime = new SimpleStringProperty();
     private StringProperty routInfo = new SimpleStringProperty();
+
+    // tourlog list access
+    // backend logs list (for Jackson)
+    @Getter
+    @JsonProperty("tourLogs")
+    private List<TourLog> logs = new ArrayList<>();
+
    @Getter
-   private final ObservableList<TourLog> logs = FXCollections.observableArrayList();
+   private final ObservableList<TourLog> observableLogs = FXCollections.observableArrayList();
     //For Create from UI
     public Tour(String tourName, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
         this.tourName = new SimpleStringProperty(tourName);
@@ -48,6 +61,10 @@ public class Tour {
         this.routInfo = new SimpleStringProperty(routInfo);
     }
 
+    public void syncLogsToObservable() {
+        observableLogs.setAll(logs);
+    }
+
     //for tableView in Controller
     public String getTourName() {return tourName.get();}
     public String getDescription() {return description.get();}
@@ -68,6 +85,7 @@ public class Tour {
     public void setEstimatedTime(String newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
     public void setRoutInfo(String newRoutInfo) {routInfo.set(newRoutInfo);}
 
+    //for binding
     public StringProperty tourNameProperty() {
         return tourName;
     }
@@ -98,5 +116,10 @@ public class Tour {
 
     public StringProperty routInfoProperty() {
         return routInfo;
+    }
+
+    public void setLogs(List<TourLog> logs) {
+        this.logs = logs;
+        syncLogsToObservable();
     }
 }

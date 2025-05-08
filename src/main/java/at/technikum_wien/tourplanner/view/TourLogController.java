@@ -33,7 +33,17 @@ public class TourLogController {
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
         durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
         commentColumn.setCellValueFactory(commentData -> commentData.getValue().commentProperty());
-        difficultyColumn.setCellValueFactory(cellData -> cellData.getValue().difficultyProperty());
+        difficultyColumn.setCellValueFactory(cellData -> {
+            double diff = cellData.getValue().getDifficulty();
+            String label = switch ((int) diff) {
+                case 1 -> "Easy";
+                case 2 -> "Moderate";
+                case 3 -> "Hard";
+                default -> "Unknown";
+            };
+            return new javafx.beans.property.SimpleStringProperty(label);
+        });
+
 
         //right-click
         logsTableView.setRowFactory(tv -> {

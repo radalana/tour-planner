@@ -5,7 +5,6 @@ import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import lombok.Getter;
 
 public class AddLogViewModel {
     private final ObjectProperty<Tour> selectedTour;
@@ -40,12 +39,32 @@ public class AddLogViewModel {
                 date.set(newValue.getDateTime());
                 duration.set(newValue.getTotalTime());
                 distance.set(newValue.getTotalDistance());
-                difficulty.set(newValue.getDifficulty());
                 comment.set(newValue.getComment());
+                setDifficultyFromNumeric(newValue.getDifficulty());
             }
         });
-
     }
+
+    // Convert label to number for backend use
+    public double getNumericDifficulty() {
+        return switch (difficulty.get().toLowerCase()) {
+            case "easy" -> 1.0;
+            case "moderate" -> 2.0;
+            case "hard" -> 3.0;
+            default -> 0.0;
+        };
+    }
+
+    // Convert number to label for UI display
+    public void setDifficultyFromNumeric(double value) {
+        switch ((int) value) {
+            case 1 -> difficulty.set("Easy");
+            case 2 -> difficulty.set("Moderate");
+            case 3 -> difficulty.set("Hard");
+            default -> difficulty.set("");
+        }
+    }
+
     public boolean addLog() {
         if (!validateFields()) {
             return false;
@@ -53,7 +72,7 @@ public class AddLogViewModel {
         TourLog newLog = new TourLog(
                 date.get(),
                 comment.get(),
-                difficulty.get(),
+                getNumericDifficulty(),
                 distance.get(),
                 duration.get(),
                 rating.get()
@@ -71,7 +90,7 @@ public class AddLogViewModel {
             selectedTourLog.setDateTime(date.get());
             selectedTourLog.setTotalTime(duration.get());
             selectedTourLog.setTotalDistance(distance.get());
-            selectedTourLog.setDifficulty(difficulty.get());
+            selectedTourLog.setDifficulty(getNumericDifficulty());
             selectedTourLog.setComment(comment.get());
         }
     }
