@@ -51,7 +51,8 @@ public class TourService {
 
     public CompletableFuture<Tour> createTourAsync(Tour tour) {
         try{
-            String body = objectMapper.writeValueAsString(tour); //object -> json
+
+            String body = objectMapper.writeValueAsString(tour.toDTO()); //object -> json
             System.out.println("[TourService createTourAsync(Tour tour)] Request body: " + body);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl))
@@ -61,7 +62,8 @@ public class TourService {
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
                         try {
-                            return objectMapper.readValue(response.body(), Tour.class);
+                            TourDTO tourDTO = objectMapper.readValue(response.body(), TourDTO.class);
+                            return Tour.fromDTO(tourDTO);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

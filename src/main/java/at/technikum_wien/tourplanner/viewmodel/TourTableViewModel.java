@@ -29,7 +29,7 @@ public class TourTableViewModel {
         tourService.fetchAllToursAsync().thenAccept(tourDTOList -> {
             System.out.println("Syncing tours");
             List<Tour> tours = tourDTOList.stream()
-                    .map(TourDTO::fromDTO)
+                    .map(Tour::fromDTO)
                     .collect(Collectors.toList());
             Platform.runLater(() -> {
                 System.out.println("Fetched " + tours.size() + " tours");

@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplanner.model;
 
+import at.technikum_wien.tourplanner.dto.TourDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.*;
@@ -19,9 +20,8 @@ public class Tour {
     private Long id; //for correct serialization
     private StringProperty tourName = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
-    @JsonProperty("fromLocation")
+
     private StringProperty from = new SimpleStringProperty();
-    @JsonProperty("toLocation")
     private StringProperty to = new SimpleStringProperty();
     private StringProperty transportType = new SimpleStringProperty();//TODO maybe enum
     private DoubleProperty distance = new SimpleDoubleProperty();
@@ -127,5 +127,33 @@ public class Tour {
     public void setLogs(List<TourLog> logs) {
         this.logs = logs;
         syncLogsToObservable();
+    }
+
+    //from UI to data
+    public TourDTO toDTO() {
+        TourDTO dto = new TourDTO();
+        dto.setTourName(getTourName());
+        dto.setDescription(getDescription());
+        dto.setFromLocation(getFrom());
+        dto.setToLocation(getTo());
+        dto.setTransportType(getTransportType());
+        dto.setDistance(getDistance());
+        dto.setEstimatedTime(getEstimatedTime());
+        return dto;
+    }
+    //From data to UI
+    public static Tour fromDTO(TourDTO dto) {
+        Tour tour = new Tour();
+        tour.setId(dto.getId());
+        tour.setTourName(dto.getTourName());
+        tour.setDescription(dto.getDescription());
+        tour.setFrom(dto.getFromLocation());
+        tour.setTo(dto.getToLocation());
+        tour.setTransportType(dto.getTransportType());
+        tour.setDistance(dto.getDistance());
+        tour.setEstimatedTime(dto.getEstimatedTime());
+        tour.setPopularity(dto.getPopularity());
+        tour.setChildFriendliness(dto.getChildFriendliness());
+        return tour;
     }
 }
