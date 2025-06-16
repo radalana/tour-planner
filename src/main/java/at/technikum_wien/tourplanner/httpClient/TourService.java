@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplanner.httpClient;
 
+import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.model.Tour;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +24,7 @@ public class TourService {
         this.objectMapper = new ObjectMapper();
     }
 
-    public CompletableFuture<List<Tour>> fetchAllToursAsync() {
+    public CompletableFuture<List<TourDTO>> fetchAllToursAsync() {
         //create GET request
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl))
@@ -35,7 +36,7 @@ public class TourService {
                     try {
                         System.out.println("[TourService] Response status: " + response.statusCode());
                         System.out.println("[TourService] Response body: " + response.body());
-                        return Arrays.asList(objectMapper.readValue(response.body(), Tour[].class));
+                        return Arrays.asList(objectMapper.readValue(response.body(), TourDTO[].class));
                     }catch(IOException e){
                         e.printStackTrace();
                         throw new RuntimeException(e);

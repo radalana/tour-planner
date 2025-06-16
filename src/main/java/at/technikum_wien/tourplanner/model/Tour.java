@@ -28,6 +28,7 @@ public class Tour {
     private DoubleProperty estimatedTime = new SimpleDoubleProperty();
     private StringProperty routInfo = new SimpleStringProperty();
     private IntegerProperty popularity = new SimpleIntegerProperty();
+    private DoubleProperty childFriendliness = new SimpleDoubleProperty();
 
     // tourlog list access
     // backend logs list (for Jackson)
@@ -87,6 +88,8 @@ public class Tour {
     public void setDistance(double newDistance) {distance.set(newDistance);}
     public void setEstimatedTime(double newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
     public void setRoutInfo(String newRoutInfo) {routInfo.set(newRoutInfo);}
+    public void setPopularity(int newPopularity) {popularity.set(newPopularity);}
+    public void setChildFriendliness(double ChildFriendliness) {childFriendliness.set(ChildFriendliness);}
 
     //for binding
     public StringProperty tourNameProperty() {

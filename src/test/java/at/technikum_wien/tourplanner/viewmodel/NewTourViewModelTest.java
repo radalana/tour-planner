@@ -24,7 +24,7 @@ class NewTourViewModelTest {
         viewModel.fromProperty().set("from");
         viewModel.toProperty().set("to");
         viewModel.transportTypeProperty().set("Train");
-        viewModel.estTimeProperty().set("1");
+        viewModel.estTimeProperty().set(1.0);
         viewModel.distanceProperty().set(10);
         assertFalse(viewModel.validate());
     }
@@ -35,7 +35,7 @@ class NewTourViewModelTest {
         viewModel.fromProperty().set("from");
         viewModel.toProperty().set("to");
         viewModel.transportTypeProperty().set("Train");
-        viewModel.estTimeProperty().set("1");
+        viewModel.estTimeProperty().set(1.0);
         viewModel.distanceProperty().set(10);
         assertTrue(viewModel.validate());
     }
@@ -47,7 +47,7 @@ class NewTourViewModelTest {
         viewModel.fromProperty().set("from");
         viewModel.toProperty().set("to");
         viewModel.transportTypeProperty().set("Train");
-        viewModel.estTimeProperty().set("1");
+        viewModel.estTimeProperty().set(1.0);
         viewModel.distanceProperty().set(10);
 
         boolean saved = viewModel.createTour();

@@ -1,9 +1,13 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TourTableViewModel {
     private final MainViewModel mainViewModelViewModel;
@@ -22,8 +26,11 @@ public class TourTableViewModel {
     }
 
     public void syncTours() {
-        System.out.println("Syncing tours");
-        tourService.fetchAllToursAsync().thenAccept(tours -> {
+        tourService.fetchAllToursAsync().thenAccept(tourDTOList -> {
+            System.out.println("Syncing tours");
+            List<Tour> tours = tourDTOList.stream()
+                    .map(TourDTO::fromDTO)
+                    .collect(Collectors.toList());
             Platform.runLater(() -> {
                 System.out.println("Fetched " + tours.size() + " tours");
                 System.out.println(tours);

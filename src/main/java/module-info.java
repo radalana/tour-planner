@@ -16,4 +16,5 @@ module at.technikum_wien.tourplanner {
     exports at.technikum_wien.tourplanner.viewmodel;
     exports at.technikum_wien.tourplanner.model;
     exports at.technikum_wien.tourplanner.httpClient;
+    exports at.technikum_wien.tourplanner.dto to com.fasterxml.jackson.databind;
 }
