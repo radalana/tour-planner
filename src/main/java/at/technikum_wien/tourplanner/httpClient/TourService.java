@@ -1,6 +1,7 @@
 package at.technikum_wien.tourplanner.httpClient;
 
 import at.technikum_wien.tourplanner.dto.TourDTO;
+import at.technikum_wien.tourplanner.dto.TourUpdateDTO;
 import at.technikum_wien.tourplanner.model.Tour;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,7 +52,6 @@ public class TourService {
 
     public CompletableFuture<Tour> createTourAsync(Tour tour) {
         try{
-
             String body = objectMapper.writeValueAsString(tour.toDTO()); //object -> json
             System.out.println("[TourService createTourAsync(Tour tour)] Request body: " + body);
             HttpRequest request = HttpRequest.newBuilder()
@@ -86,21 +86,26 @@ public class TourService {
                     return statusCode == 204;
                 });
     }
-    /*
-    public CompletableFuture<Tour> updateTourAsync(Tour tour) {
-        String url = baseUrl + "/" + tour.getId();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .PUT(HttpRequest.BodyPublishers.ofString(body))
-                .build();
+
+    public CompletableFuture<TourDTO> updateTourAsync(TourUpdateDTO editedData, Long id) {
+        String url = baseUrl + "/" + id;
+        try{
+            String body = objectMapper.writeValueAsString(editedData);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .PUT(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     try {
-                        return objectMapper.readValue(response.body(), Tour.class);
+                        return objectMapper.readValue(response.body(), TourDTO.class);
                     }catch(IOException e){
                         throw new RuntimeException(e);
                     }
                 });
+        }catch (JsonProcessingException e){
+            throw new RuntimeException(e);
+        }
     }
 
     /* idk, maybe will be needed later, user1 change tour, user2 have actuel data

@@ -27,7 +27,6 @@ public class TourDetailsController {
     }
     @FXML public void initialize() {
         tourDetailsViewModel.loadTourData();
-
         //one-way binding
         nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         descriptionDetails.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());
@@ -35,7 +34,6 @@ public class TourDetailsController {
         toDetails.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
         Bindings.bindBidirectional(distanceDetails.textProperty(), tourDetailsViewModel.distanceProperty(), new NumberStringConverter());
         Bindings.bindBidirectional(estimatedTimeDetails.textProperty(), tourDetailsViewModel.estimatedTimeProperty(), new NumberStringConverter());
-
     }
 
     public void deleteTour(ActionEvent actionEvent) {
@@ -48,21 +46,6 @@ public class TourDetailsController {
         tourDetailsViewModel.openLogs();
     }
 
-
-    @FXML private void handleUpdateTourDetails() {
-        //logic for update
-        tourDetailsViewModel.updateTour();
-
-        //set back to not editable
-        nameDetails.setEditable(false);
-        descriptionDetails.setEditable(false);
-        fromDetails.setEditable(false);
-        toDetails.setEditable(false);
-        distanceDetails.setEditable(false);
-        estimatedTimeDetails.setEditable(false);
-
-        //updateButton.setVisible(false);
-    }
 
     public void activateEditTour(ActionEvent actionEvent) {
         if (editButton.getText().equals("EDIT TOUR")) {

@@ -156,4 +156,23 @@ public class Tour {
         tour.setChildFriendliness(dto.getChildFriendliness());
         return tour;
     }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id=" + id +
+                ", tourName='" + getTourName() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", from='" + getFrom() + '\'' +
+                ", to='" + getTo() + '\'' +
+                ", transportType='" + getTransportType() + '\'' +
+                ", distance=" + getDistance() +
+                ", estimatedTime=" + getEstimatedTime() +
+                ", routInfo='" + getRoutInfo() + '\'' +
+                ", popularity=" + getPopularity() +
+                ", childFriendliness=" + childFriendliness.get() +
+                ", logs=" + logs +
+                '}';
+    }
+
 }

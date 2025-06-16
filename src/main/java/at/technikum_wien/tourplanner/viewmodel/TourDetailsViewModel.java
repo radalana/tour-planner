@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.dto.TourUpdateDTO;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.application.Platform;
@@ -15,6 +16,7 @@ public class TourDetailsViewModel {
     private final StringProperty from = new SimpleStringProperty();
     private final StringProperty to = new SimpleStringProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
+    private final StringProperty transportType = new SimpleStringProperty();
     private final DoubleProperty estimatedTime = new SimpleDoubleProperty();
 
     public StringProperty nameProperty() {return name;}
@@ -63,18 +65,37 @@ public class TourDetailsViewModel {
     }
 
     public void updateTour() {
+        //TODO server sends timestamp, tourDTO doesn have this field --- error!
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
+        System.out.println("Selected tour before: " + selected);
         //TODO validaton!
-
         if (selected != null) {
-            selected.setTourName(name.get());
-            selected.setDescription(description.get());
-            selected.setFrom(from.get());
-            selected.setTo(to.get());
-            selected.setDistance(distance.get());
-            selected.setEstimatedTime(estimatedTime.get());
+            //TODO add transport type in edit field @Gabriela
+            TourUpdateDTO tourUpdateDTO = new TourUpdateDTO(
+                    name.get(),
+                    description.get(),
+                    from.get(),
+                    to.get(),
+                    transportType.get(),
+                    distance.get(),
+                    estimatedTime.get());
+            tourService.updateTourAsync(tourUpdateDTO, selected.getId()).thenAccept(editedTourData -> {
+                Platform.runLater(() -> {
+                    selected.setId(editedTourData.getId());
+                    selected.setTourName(editedTourData.getTourName());
+                    selected.setDescription(editedTourData.getDescription());
+                    selected.setEstimatedTime(editedTourData.getEstimatedTime());
+                    selected.setFrom(editedTourData.getFromLocation());
+                    selected.setTo(editedTourData.getToLocation());
+                    selected.setDistance(editedTourData.getDistance());
+                });
+            }).exceptionally(ex -> {
+                ex.printStackTrace();
+                //show allert?
+                return null;
+            });
         }
+
+
     }
-
-
 }
