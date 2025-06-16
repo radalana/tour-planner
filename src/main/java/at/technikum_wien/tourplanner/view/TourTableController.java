@@ -20,7 +20,7 @@ public class TourTableController {
     @FXML private TableColumn<Tour,String> fromColumn;
     @FXML private TableColumn<Tour,String> toColumn;
     @FXML private TableColumn<Tour,Double> distanceColumn;
-    @FXML private TableColumn<Tour,String> estimatedTimeColumn;
+    @FXML private TableColumn<Tour,Double> estimatedTimeColumn;
 
     private final TourTableViewModel tourTableViewModel;
 
@@ -75,6 +75,6 @@ public class TourTableController {
         fromColumn.setCellValueFactory(cellData -> cellData.getValue().fromProperty());
         toColumn.setCellValueFactory(cellData -> cellData.getValue().toProperty());
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().distanceProperty().asObject());
-        estimatedTimeColumn.setCellValueFactory(cellData -> cellData.getValue().estimatedTimeProperty());
+        estimatedTimeColumn.setCellValueFactory(cellData -> cellData.getValue().estimatedTimeProperty().asObject());
     }
 }

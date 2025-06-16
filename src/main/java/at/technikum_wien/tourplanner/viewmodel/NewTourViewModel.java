@@ -16,7 +16,7 @@ public class NewTourViewModel {
     private final StringProperty to = new SimpleStringProperty();
     private final StringProperty transportType = new SimpleStringProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
-    private final StringProperty estTime = new SimpleStringProperty();
+    private final DoubleProperty estTime = new SimpleDoubleProperty();
     private final StringProperty routInfo = new SimpleStringProperty();
 
     public NewTourViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
@@ -32,7 +32,7 @@ public class NewTourViewModel {
     public StringProperty toProperty() { return to; }
     public StringProperty transportTypeProperty() { return transportType; }
     public DoubleProperty distanceProperty() { return distance; }
-    public StringProperty estTimeProperty() { return estTime; }
+    public DoubleProperty estTimeProperty() { return estTime; }
 
     //input validation
     public boolean validate() {
@@ -41,8 +41,8 @@ public class NewTourViewModel {
         if (from.get() == null || from.get().trim().isEmpty()) return false;
         if (to.get() == null || to.get().trim().isEmpty()) return false;
         if (transportType.get() == null || transportType.get().trim().isEmpty()) return false;
-        if (estTime.get() == null || estTime.get().trim().isEmpty()) return false;
 
+        //TODO refactor convert text to double
         try {
             if (distance.get() <= 0) return false;
         } catch (Exception e) {
@@ -50,9 +50,8 @@ public class NewTourViewModel {
         }
 
         try {
-            double time = Double.parseDouble(estTime.get());
-            if (time <= 0) return false;
-        } catch (NumberFormatException e) {
+            if (estTime.get() <= 0) return false;
+        } catch (Exception e) {
             return false;
         }
 
@@ -96,7 +95,7 @@ public class NewTourViewModel {
         to.set("");
         transportType.set("");
         distance.set(0);
-        estTime.set("");
+        estTime.set(0);
         routInfo.set("");
 
         return true;

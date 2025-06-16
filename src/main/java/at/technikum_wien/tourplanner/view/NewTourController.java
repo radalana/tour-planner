@@ -54,7 +54,7 @@ public class NewTourController {
         newTourViewModel.toProperty().set("");
         newTourViewModel.transportTypeProperty().set(null);
         newTourViewModel.distanceProperty().set(0.0);
-        newTourViewModel.estTimeProperty().set("");
+        newTourViewModel.estTimeProperty().set(0.0);
 
         //reset all styles
         resetFieldStyles();
@@ -88,7 +88,7 @@ public class NewTourController {
         newTourViewModel.toProperty().set("");
         newTourViewModel.transportTypeProperty().set(null);
         newTourViewModel.distanceProperty().set(0.0);
-        newTourViewModel.estTimeProperty().set("");
+        newTourViewModel.estTimeProperty().set(0.0);
 
         // Reset visual styles
         resetFieldStyles();
@@ -107,7 +107,7 @@ public class NewTourController {
         toTextField.textProperty().bindBidirectional(newTourViewModel.toProperty());
         transportTypeComboBox.valueProperty().bindBidirectional(newTourViewModel.transportTypeProperty());
         Bindings.bindBidirectional(distanceTextField.textProperty(), newTourViewModel.distanceProperty(), new NumberStringConverter());
-        estTimeTextField.textProperty().bindBidirectional(newTourViewModel.estTimeProperty());
+        Bindings.bindBidirectional(estTimeTextField.textProperty(), newTourViewModel.estTimeProperty(), new NumberStringConverter());
     }
 
     private void highlightInvalidFields() {
@@ -115,17 +115,28 @@ public class NewTourController {
         highlightField(descriptionTextArea, newTourViewModel.descriptionProperty().get());
         highlightField(fromTextField, newTourViewModel.fromProperty().get());
         highlightField(toTextField, newTourViewModel.toProperty().get());
-        highlightField(estTimeTextField, newTourViewModel.estTimeProperty().get());
+
 
         if (transportTypeComboBox.getValue() == null || transportTypeComboBox.getValue().isEmpty()) {
             transportTypeComboBox.setStyle("-fx-border-color: red;");
         } else {
             transportTypeComboBox.setStyle(ORIGINAL_STYLE);
         }
-
+        //TODO extract time and distance parse
         try {
             double d = Double.parseDouble(distanceTextField.getText());
             if (d <= 0) {
+                distanceTextField.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
+            } else {
+                distanceTextField.setStyle(ORIGINAL_STYLE);
+            }
+        } catch (NumberFormatException e) {
+            distanceTextField.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
+        }
+
+        try {
+            double t = Double.parseDouble(estTimeTextField.getText());
+            if (t <= 0) {
                 distanceTextField.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
             } else {
                 distanceTextField.setStyle(ORIGINAL_STYLE);

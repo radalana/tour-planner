@@ -25,8 +25,9 @@ public class Tour {
     private StringProperty to = new SimpleStringProperty();
     private StringProperty transportType = new SimpleStringProperty();//TODO maybe enum
     private DoubleProperty distance = new SimpleDoubleProperty();
-    private StringProperty estimatedTime = new SimpleStringProperty();
+    private DoubleProperty estimatedTime = new SimpleDoubleProperty();
     private StringProperty routInfo = new SimpleStringProperty();
+    private IntegerProperty popularity = new SimpleIntegerProperty();
 
     // tourlog list access
     // backend logs list (for Jackson)
@@ -37,19 +38,19 @@ public class Tour {
    @Getter
    private final ObservableList<TourLog> observableLogs = FXCollections.observableArrayList();
     //For Create from UI
-    public Tour(String tourName, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
+    public Tour(String tourName, String description, String from, String to, String transportType, Double distance, Double estimatedTime, String routInfo) {
         this.tourName = new SimpleStringProperty(tourName);
         this.description = new SimpleStringProperty(description);
         this.from = new SimpleStringProperty(from);
         this.to = new SimpleStringProperty(to);
         this.transportType = new SimpleStringProperty(transportType);
         this.distance = new SimpleDoubleProperty(distance);
-        this.estimatedTime = new SimpleStringProperty(estimatedTime);
+        this.estimatedTime = new SimpleDoubleProperty(estimatedTime);
         this.routInfo = new SimpleStringProperty(routInfo);
     }
 
     //For Create from POST response (added Id field/not used in UI)
-    public Tour(long id, String tourName, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo) {
+    public Tour(long id, String tourName, String description, String from, String to, String transportType, Double distance, Double estimatedTime, String routInfo, Integer popularity) {
         this.id = id;
         this.tourName = new SimpleStringProperty(tourName);
         this.description = new SimpleStringProperty(description);
@@ -57,8 +58,9 @@ public class Tour {
         this.to = new SimpleStringProperty(to);
         this.transportType = new SimpleStringProperty(transportType);
         this.distance = new SimpleDoubleProperty(distance);
-        this.estimatedTime = new SimpleStringProperty(estimatedTime);
+        this.estimatedTime = new SimpleDoubleProperty(estimatedTime);
         this.routInfo = new SimpleStringProperty(routInfo);
+        this.popularity = new SimpleIntegerProperty(popularity);
     }
 
     public void syncLogsToObservable() {
@@ -72,7 +74,8 @@ public class Tour {
     public String getTo() {return to.get();}
     public String getTransportType() {return transportType.get();}
     public double getDistance() {return distance.get();}
-    public String getEstimatedTime() {return estimatedTime.get();}
+    public double getEstimatedTime() {return estimatedTime.get();}
+    public int getPopularity() {return popularity.get();}
     public String getRoutInfo() {return routInfo.get();}
 
     public void setTourName(String newName) {
@@ -82,7 +85,7 @@ public class Tour {
     public void setTo(String newTo) {to.set(newTo);}
     public void setTransportType(String newTransportType) {transportType.set(newTransportType);}
     public void setDistance(double newDistance) {distance.set(newDistance);}
-    public void setEstimatedTime(String newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
+    public void setEstimatedTime(double newEstimatedTime) {estimatedTime.set(newEstimatedTime);}
     public void setRoutInfo(String newRoutInfo) {routInfo.set(newRoutInfo);}
 
     //for binding
@@ -110,7 +113,7 @@ public class Tour {
         return distance;
     }
 
-    public StringProperty estimatedTimeProperty() {
+    public DoubleProperty estimatedTimeProperty() {
         return estimatedTime;
     }
 

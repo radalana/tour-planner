@@ -10,7 +10,7 @@ class AddLogViewModelTest {
     @BeforeEach
     void setUp() {
         MainViewModel main = new MainViewModel();
-        Tour tour = new Tour("Test", "desc", "from", "to", "car", 10.0, "1h", "info");
+        Tour tour = new Tour("Test", "desc", "from", "to", "car", 10.0, 1.1, "info");
         main.addTour(tour);
         main.getSelectedTour().set(tour);
         viewModel = new AddLogViewModel(main);

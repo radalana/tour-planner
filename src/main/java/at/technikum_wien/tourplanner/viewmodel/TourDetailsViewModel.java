@@ -15,14 +15,14 @@ public class TourDetailsViewModel {
     private final StringProperty from = new SimpleStringProperty();
     private final StringProperty to = new SimpleStringProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
-    private final StringProperty estimatedTime = new SimpleStringProperty();
+    private final DoubleProperty estimatedTime = new SimpleDoubleProperty();
 
     public StringProperty nameProperty() {return name;}
     public StringProperty descriptionProperty() {return description;}
     public StringProperty fromProperty() {return from;}
     public StringProperty toProperty() {return to;}
     public DoubleProperty distanceProperty() {return distance;}
-    public StringProperty estimatedTimeProperty() {return estimatedTime;}
+    public DoubleProperty estimatedTimeProperty() {return estimatedTime;}
 
     public TourDetailsViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
         this.mainViewModelViewModel = mainViewModelViewModel;
