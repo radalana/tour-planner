@@ -33,6 +33,7 @@ public class MainViewModel {
     public void setSelectedLog(TourLog log) { this.selectedLog.set(log); }
     public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
     public BooleanProperty isNewTourFormOpenedProperty() {return isNewTourFormOpened;}
+
     public void addTour(Tour tour) {
         tours.add(tour);
     }

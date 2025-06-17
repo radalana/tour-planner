@@ -32,6 +32,6 @@ public class ViewModelFactory {
     }
 
     public HeaderViewModel getHeaderViewModel() {
-        return new HeaderViewModel(serviceProvider.getTourService());
+        return new HeaderViewModel(mainViewModel, serviceProvider.getTourService());
     }
 }
