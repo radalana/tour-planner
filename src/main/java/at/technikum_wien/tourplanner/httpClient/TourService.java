@@ -83,6 +83,7 @@ public class TourService {
                 .thenApply(response -> {
                     int statusCode = response.statusCode();
                     System.out.println("[TourService deleteTourAsync] Response status: " + statusCode);
+
                     return statusCode == 204;
                 });
     }
@@ -93,11 +94,14 @@ public class TourService {
             String body = objectMapper.writeValueAsString(editedData);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
                     .PUT(HttpRequest.BodyPublishers.ofString(body))
                     .build();
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     try {
+                        System.out.println("[TourService UPDATE] Response status: " + response.statusCode());
+                        System.out.println("[TourService UPDATE] Response body: " + response.body());
                         return objectMapper.readValue(response.body(), TourDTO.class);
                     }catch(IOException e){
                         throw new RuntimeException(e);
