@@ -15,7 +15,7 @@ public class ControllerFactory {
         if (controllerClass == HomepageController.class) {
             return new HomepageController(viewModelFactory.getMainViewModel());
         }else if (controllerClass == HeaderController.class) {
-            return new HeaderController();
+            return new HeaderController(viewModelFactory.getHeaderViewModel());
         } else if (controllerClass == TourTableController.class) {
             return new TourTableController(viewModelFactory.getTourTableViewModel());
         }else if (controllerClass == NewTourController.class) {

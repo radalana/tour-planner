@@ -58,10 +58,11 @@
                     <HBox.margin>
                         <Insets right="20.0"/>
                     </HBox.margin>
-                    <TextField fx:id="searchField"
+                    <TextField fx:id="searchTextField"
                                maxWidth="250.0"
                                promptText="search tours..."/>
                     <Button fx:id="searchButton"
+                            onAction="#handleSearch"
                             mnemonicParsing="false"
                             text="Search"/>
                 </HBox>

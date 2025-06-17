@@ -30,4 +30,8 @@ public class ViewModelFactory {
     public AddLogViewModel getAddLogViewModel() {
         return new AddLogViewModel(mainViewModel);
     }
+
+    public HeaderViewModel getHeaderViewModel() {
+        return new HeaderViewModel(serviceProvider.getTourService());
+    }
 }
