@@ -8,9 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -83,7 +85,6 @@ public class TourService {
                 .thenApply(response -> {
                     int statusCode = response.statusCode();
                     System.out.println("[TourService deleteTourAsync] Response status: " + statusCode);
-
                     return statusCode == 204;
                 });
     }
@@ -110,6 +111,33 @@ public class TourService {
         }catch (JsonProcessingException e){
             throw new RuntimeException(e);
         }
+    }
+
+    public CompletableFuture<List<TourDTO>> searchToursAsync(String query) {
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+        String url = baseUrl + "/search?query=" + encodedQuery;
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    try {
+                        System.out.println("[TourService search] Response status: " + response.statusCode());
+                        System.out.println("[TourService search] Response body: " + response.body());
+                        return Arrays.asList(objectMapper.readValue(response.body(), TourDTO[].class));
+                    }catch(IOException e){
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
+                    }
+                })
+                .exceptionally(ex -> {
+                    System.err.println("[TourService] Request failed: " + ex.getMessage());
+                    ex.printStackTrace();
+                    return List.of();
+                });
+
     }
 
     /* idk, maybe will be needed later, user1 change tour, user2 have actuel data
