@@ -4,12 +4,14 @@ import at.technikum_wien.tourplanner.httpClient.TourLogService;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AddLogViewModel {
     private final TourLogService tourLogService;
@@ -35,6 +37,7 @@ public class AddLogViewModel {
     public StringProperty difficultyProperty() {return difficulty;}
 
     public AddLogViewModel(MainViewModel mainViewModel, TourLogService tourLogService) {
+        // TODO selectedTOUr should not be field of class, bcs object handle a lot of tours
         this.selectedTour = mainViewModel.getSelectedTour();
         this.mainViewModel = mainViewModel;
         this.tourLogService = tourLogService;
@@ -71,14 +74,13 @@ public class AddLogViewModel {
         }
     }
 
-    public boolean addLog() {
+    public CompletableFuture<Boolean> addLogAsync() {
+        Tour tour = selectedTour.get();
         //System.out.println("[AddLogViewModel addLog]: selected tour: " + selectedTour.get());
         if (!validateFields()) {
             //System.out.println("[AddLogViewModel addLog] Invalid fields");
-            return false;
+            return CompletableFuture.completedFuture(false);
         }
-        //System.out.println("[AddLogViewModel addLog] Validating fields");
-
         TourLog newLog = new TourLog(
                 date.get(),
                 comment.get(),
@@ -88,11 +90,23 @@ public class AddLogViewModel {
                 rating.get()
         );
 
-        ObservableList<TourLog> tourLogs = selectedTour.get().getObservableLogs();
-        tourLogs.add(newLog);
-        clearForm();
-        return true;
+        ObservableList<TourLog> tourLogs = tour.getObservableLogs();
+
+        return tourLogService.createLogAsync(newLog, tour.getId()).thenApply(tourLog -> {
+            Platform.runLater(() -> {
+                tourLogs.add(tourLog);
+                clearForm();
+            });
+            return true;
+        }).exceptionally(ex -> {
+            Platform.runLater(() -> {
+                // TODO alert
+                System.err.println("Error by creating TourLog: " + ex.getMessage());
+            });
+            return false;
+        });
     }
+
     public void updateLog() {
         selectedTourLog = mainViewModel.getSelectedLog();
 

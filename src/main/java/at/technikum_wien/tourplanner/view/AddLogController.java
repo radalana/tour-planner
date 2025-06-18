@@ -1,6 +1,7 @@
     package at.technikum_wien.tourplanner.view;
 
     import at.technikum_wien.tourplanner.viewmodel.AddLogViewModel;
+    import javafx.application.Platform;
     import javafx.beans.binding.Bindings;
     import javafx.fxml.FXML;
     import javafx.scene.control.*;
@@ -111,11 +112,13 @@
         }
         private void handleAddLog() {
             resetFieldStyles();
-            if (!addLogViewModel.addLog()) {
-                highlightInvalidFields();
-            }else{
-                clearForm();
-            }
+            addLogViewModel.addLogAsync().thenAccept(success -> {
+                Platform.runLater(() -> {
+                    if (!success) {
+                        highlightInvalidFields();
+                    }
+                });
+            });
         }
 
         private void resetFieldStyles() {
