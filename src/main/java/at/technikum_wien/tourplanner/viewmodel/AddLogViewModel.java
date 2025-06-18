@@ -1,5 +1,7 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.httpClient.TourLogService;
+import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.beans.Observable;
@@ -10,11 +12,11 @@ import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import java.util.List;
 
 public class AddLogViewModel {
+    private final TourLogService tourLogService;
     private final ObjectProperty<Tour> selectedTour;
     private final MainViewModel mainViewModel;
     private TourLog selectedTourLog = null;
-    //TODO here?
-    //values from form
+
     private final StringProperty rating = new SimpleStringProperty();
     private final StringProperty date = new SimpleStringProperty();
     private final StringProperty duration = new SimpleStringProperty();
@@ -32,9 +34,10 @@ public class AddLogViewModel {
     public StringProperty commentProperty() {return comment;}
     public StringProperty difficultyProperty() {return difficulty;}
 
-    public AddLogViewModel(MainViewModel mainViewModel){
+    public AddLogViewModel(MainViewModel mainViewModel, TourLogService tourLogService) {
         this.selectedTour = mainViewModel.getSelectedTour();
         this.mainViewModel = mainViewModel;
+        this.tourLogService = tourLogService;
 
         mainViewModel.selectedLogProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {
@@ -69,12 +72,12 @@ public class AddLogViewModel {
     }
 
     public boolean addLog() {
-        System.out.println("[AddLogViewModel addLog]: selected tour: " + selectedTour.get());
+        //System.out.println("[AddLogViewModel addLog]: selected tour: " + selectedTour.get());
         if (!validateFields()) {
-            System.out.println("[AddLogViewModel addLog] Invalid fields");
+            //System.out.println("[AddLogViewModel addLog] Invalid fields");
             return false;
         }
-        System.out.println("[AddLogViewModel addLog] Validating fields");
+        //System.out.println("[AddLogViewModel addLog] Validating fields");
 
         TourLog newLog = new TourLog(
                 date.get(),
@@ -84,13 +87,9 @@ public class AddLogViewModel {
                 duration.get(),
                 rating.get()
         );
-        System.out.println("[AddLogViewModel addLog] created TourLog: " + newLog);
+
         ObservableList<TourLog> tourLogs = selectedTour.get().getObservableLogs();
-        System.out.println("[AddLogViewModel addLog] Before adding new log:");
-        tourLogs.forEach(System.out::println);
         tourLogs.add(newLog);
-        System.out.println("[AddLogViewModel addLog] after adding new log:");
-        tourLogs.forEach(System.out::println);
         clearForm();
         return true;
     }

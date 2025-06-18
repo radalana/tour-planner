@@ -64,10 +64,6 @@ public class Tour {
         this.popularity = new SimpleIntegerProperty(popularity);
     }
 
-    public void syncLogsToObservable() {
-        observableLogs.setAll(logs);
-    }
-
     //for tableView in Controller
     public String getTourName() {return tourName.get();}
     public String getDescription() {return description.get();}
@@ -125,11 +121,6 @@ public class Tour {
         return routInfo;
     }
 
-    public void setLogs(List<TourLog> logs) {
-        this.logs = logs;
-        syncLogsToObservable();
-    }
-
     //from UI to data
     public TourDTO toDTO() {
         TourDTO dto = new TourDTO();
@@ -172,7 +163,6 @@ public class Tour {
                 ", routInfo='" + getRoutInfo() + '\'' +
                 ", popularity=" + getPopularity() +
                 ", childFriendliness=" + childFriendliness.get() +
-                ", logs=" + logs +
                 '}';
     }
 
