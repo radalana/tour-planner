@@ -23,9 +23,9 @@ public class TourService {
     private final ObjectMapper objectMapper;
     private final String baseUrl = "http://localhost:8080/api/tours";
 
-    public TourService(HttpClient httpClient) {
+    public TourService(HttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = objectMapper;
     }
 
     public CompletableFuture<List<TourDTO>> fetchAllToursAsync() {
@@ -152,8 +152,7 @@ public class TourService {
                         .GET()
                         .build();
 
-                HttpResponse<String> response = HttpClient.newHttpClient()
-                        .send(request, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
                 JSONObject json = new JSONObject(response.body());
 

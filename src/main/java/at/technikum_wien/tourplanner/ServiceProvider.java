@@ -9,12 +9,12 @@ import java.net.http.HttpClient;
 
 @Getter
 public class ServiceProvider {
-    private TourService tourService;
-    private TourLogService tourLogService;
+    private final TourService tourService;
+    private final TourLogService tourLogService;
     public ServiceProvider() {
         ObjectMapper objectMapper = new ObjectMapper();
         HttpClient httpClient = HttpClient.newHttpClient();
-        this.tourService = new TourService(httpClient);
+        this.tourService = new TourService(httpClient, objectMapper);
         this.tourLogService = new TourLogService(httpClient, objectMapper);
     }
 
