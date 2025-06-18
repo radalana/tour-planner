@@ -1,7 +1,10 @@
 package at.technikum_wien.tourplanner.model;
 
+import at.technikum_wien.tourplanner.dto.TourLogDTO;
 import javafx.beans.property.*;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class TourLog {
     private StringProperty dateTime = new SimpleStringProperty();
     private StringProperty comment = new SimpleStringProperty();
@@ -51,5 +54,33 @@ public class TourLog {
                 ", totalTime='" + getTotalTime() + '\'' +
                 ", rating='" + getRating() + '\'' +
                 '}';
+    }
+
+    //From Model to Data
+    public TourLogDTO toDTO() throws NullPointerException {
+        TourLogDTO tourLogDTO = new TourLogDTO();
+        tourLogDTO.setDateTime(getDateTime());
+        tourLogDTO.setComment(getComment());
+        tourLogDTO.setDifficulty(getDifficulty());
+
+        double totalDistance = Double.parseDouble(getTotalDistance());
+        tourLogDTO.setTotalDistance(totalDistance);
+        double totalTime = Double.parseDouble(getTotalTime());
+        tourLogDTO.setTotalDuration(totalTime);
+        int rating = Integer.parseInt(getRating());
+        tourLogDTO.setRating(rating);
+        return tourLogDTO;
+    }
+
+    //From Data to Model
+    public static TourLog fromDTO(TourLogDTO tourLogDTO) {
+        TourLog tourLog = new TourLog();
+        tourLog.setDateTime(tourLogDTO.getDateTime());
+        tourLog.setComment(tourLogDTO.getComment());
+        tourLog.setDifficulty(tourLogDTO.getDifficulty());
+        tourLog.setTotalDistance(String.valueOf(tourLogDTO.getTotalDistance()));
+        tourLog.setTotalTime(String.valueOf(tourLogDTO.getTotalDuration()));
+        tourLog.setRating(String.valueOf(tourLogDTO.getRating()));
+        return tourLog;
     }
 }
