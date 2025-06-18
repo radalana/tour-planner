@@ -46,12 +46,12 @@ public class AddLogViewModel {
     }
 
     // Convert label to number for backend use
-    public double getNumericDifficulty() {
+    public int getNumericDifficulty() {
         return switch (difficulty.get().toLowerCase()) {
-            case "easy" -> 1.0;
-            case "moderate" -> 2.0;
-            case "hard" -> 3.0;
-            default -> 0.0;
+            case "easy" -> 1;
+            case "moderate" -> 2;
+            case "hard" -> 3;
+            default -> 0;
         };
     }
 
@@ -67,8 +67,10 @@ public class AddLogViewModel {
 
     public boolean addLog() {
         if (!validateFields()) {
+            System.out.println("[AddLogViewModel addLog] Invalid fields");
             return false;
         }
+        System.out.println("[AddLogViewModel addLog] Validating fields");
         TourLog newLog = new TourLog(
                 date.get(),
                 comment.get(),
