@@ -24,8 +24,12 @@ public class TourLogController {
         this.viewModel = viewModel;
     }
     @FXML private void initialize() {
-        //get lists of logs
-        logsTableView.setItems(viewModel.getLogs());
+
+
+        if (viewModel.getSelectedTour().get() != null) {
+            logsTableView.setItems(viewModel.getSelectedTour().get().getObservableLogs());
+        }
+
         logsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         //binding
         ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());

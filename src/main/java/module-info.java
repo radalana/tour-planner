@@ -1,13 +1,12 @@
 module at.technikum_wien.tourplanner {
-    requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-    requires javafx.graphics;
     requires static lombok;
-    requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires org.mapstruct;
     requires org.json;
+    requires org.controlsfx.controls;
+    requires java.net.http;
 
     opens at.technikum_wien.tourplanner to javafx.fxml;
     opens at.technikum_wien.tourplanner.model to javafx.base, com.fasterxml.jackson.databind;//for reflection in tourTable

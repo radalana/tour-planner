@@ -32,7 +32,7 @@ public class Tour {
 
     // tourlog list access
     // backend logs list (for Jackson)
-    @Getter
+    //@Getter
     @JsonProperty("tourLogs")
     private List<TourLog> logs = new ArrayList<>();
 
@@ -78,6 +78,7 @@ public class Tour {
     public double getEstimatedTime() {return estimatedTime.get();}
     public int getPopularity() {return popularity.get();}
     public String getRoutInfo() {return routInfo.get();}
+
 
     public void setTourName(String newName) {
         tourName.set(newName);}

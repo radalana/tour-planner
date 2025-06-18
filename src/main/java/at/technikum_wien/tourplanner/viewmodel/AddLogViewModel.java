@@ -2,9 +2,12 @@ package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.Observable;
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
+import java.util.List;
 
 public class AddLogViewModel {
     private final ObjectProperty<Tour> selectedTour;
@@ -66,11 +69,13 @@ public class AddLogViewModel {
     }
 
     public boolean addLog() {
+        System.out.println("[AddLogViewModel addLog]: selected tour: " + selectedTour.get());
         if (!validateFields()) {
             System.out.println("[AddLogViewModel addLog] Invalid fields");
             return false;
         }
         System.out.println("[AddLogViewModel addLog] Validating fields");
+
         TourLog newLog = new TourLog(
                 date.get(),
                 comment.get(),
@@ -79,8 +84,13 @@ public class AddLogViewModel {
                 duration.get(),
                 rating.get()
         );
-        selectedTour.get().getLogs().add(newLog);
-
+        System.out.println("[AddLogViewModel addLog] created TourLog: " + newLog);
+        ObservableList<TourLog> tourLogs = selectedTour.get().getObservableLogs();
+        System.out.println("[AddLogViewModel addLog] Before adding new log:");
+        tourLogs.forEach(System.out::println);
+        tourLogs.add(newLog);
+        System.out.println("[AddLogViewModel addLog] after adding new log:");
+        tourLogs.forEach(System.out::println);
         clearForm();
         return true;
     }
@@ -119,7 +129,14 @@ public class AddLogViewModel {
                 isNotEmpty(difficulty.get());
     }
 
-    private boolean isNotEmpty(String value) {
-        return value != null && !value.trim().isEmpty() && !value.equals("0");
+    private boolean isNotEmpty(Object value) {
+        if (value == null) {
+            return false;
+        } else if (value instanceof String str) {
+            return !str.trim().isEmpty() && !str.equals("0");
+        } else if (value instanceof Number num) {
+            return num.doubleValue() != 0.0 && !Double.isNaN(num.doubleValue());
+        }
+        return true; // для других типов по умолчанию true, можно уточнить при необходимости
     }
 }

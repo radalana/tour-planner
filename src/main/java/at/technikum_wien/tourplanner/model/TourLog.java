@@ -30,7 +30,7 @@ public class TourLog {
     public String getDateTime() {return dateTime.get();}
     public String getComment() {return comment.get();}
     public int getDifficulty() {return difficulty.get();}
-    public String getTotalDistance() {return totalDistance.get();}
+    public String getTotalDistance() { return totalDistance.get();}
     public String getTotalTime() {return totalTime.get();}
     public String getRating() {return rating.get();}
 
@@ -40,4 +40,16 @@ public class TourLog {
     public void setTotalDistance(String totalDistance) {this.totalDistance.set(totalDistance);}
     public void setTotalTime(String totalTime) {this.totalTime.set(totalTime);}
     public void setRating(String rating) {this.rating.set(rating);}
+
+    @Override
+    public String toString() {
+        return "TourLog {" +
+                "dateTime='" + getDateTime() + '\'' +
+                ", comment='" + getComment() + '\'' +
+                ", difficulty=" + getDifficulty() +
+                ", totalDistance='" + getTotalDistance() + '\'' +
+                ", totalTime='" + getTotalTime() + '\'' +
+                ", rating='" + getRating() + '\'' +
+                '}';
+    }
 }

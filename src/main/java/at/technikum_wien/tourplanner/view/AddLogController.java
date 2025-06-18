@@ -1,11 +1,13 @@
     package at.technikum_wien.tourplanner.view;
 
     import at.technikum_wien.tourplanner.viewmodel.AddLogViewModel;
+    import javafx.beans.binding.Bindings;
     import javafx.fxml.FXML;
     import javafx.scene.control.*;
 
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
+    import javafx.util.converter.NumberStringConverter;
 
     import java.time.format.DateTimeFormatter;
     import java.util.Objects;
@@ -144,8 +146,20 @@
             highlightField(ratingTextField, addLogViewModel.ratingProperty().get());
         }
 
-        private void highlightField(javafx.scene.control.Control field, String value) {
-            if (value == null || value.trim().isEmpty()) {
+        private void highlightField(javafx.scene.control.Control field, Object value) {
+            boolean invalid;
+
+            if (value == null) {
+                invalid = true;
+            } else if (value instanceof String str) {
+                invalid = str.trim().isEmpty();
+            } else if (value instanceof Double dbl) {
+                invalid = dbl.isNaN();
+            } else {
+                invalid = true;
+            }
+
+            if (invalid) {
                 field.setStyle(ORIGINAL_STYLE + "-fx-border-color: red;");
             } else {
                 field.setStyle(ORIGINAL_STYLE);
