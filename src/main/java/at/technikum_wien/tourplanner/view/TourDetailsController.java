@@ -15,6 +15,7 @@ public class TourDetailsController {
     // FXML-injected components
     @FXML private TextField nameDetails;
     @FXML private TextField descriptionDetails;
+    @FXML private TextField transportTypeDetails;
     @FXML private TextField fromDetails;
     @FXML private TextField toDetails;
     @FXML private TextField distanceDetails;
@@ -30,6 +31,7 @@ public class TourDetailsController {
         //one-way binding
         nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         descriptionDetails.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());
+        transportTypeDetails.textProperty().bindBidirectional(tourDetailsViewModel.transportTypeProperty());
         fromDetails.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
         toDetails.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
         Bindings.bindBidirectional(distanceDetails.textProperty(), tourDetailsViewModel.distanceProperty(), new NumberStringConverter());
@@ -51,6 +53,7 @@ public class TourDetailsController {
         if (editButton.getText().equals("EDIT TOUR")) {
             nameDetails.setEditable(true);
             descriptionDetails.setEditable(true);
+            transportTypeDetails.setEditable(true);
             fromDetails.setEditable(true);
             toDetails.setEditable(true);
             distanceDetails.setEditable(true);
@@ -62,6 +65,7 @@ public class TourDetailsController {
 
             nameDetails.setEditable(false);
             descriptionDetails.setEditable(false);
+            transportTypeDetails.setEditable(false);
             fromDetails.setEditable(false);
             toDetails.setEditable(false);
             distanceDetails.setEditable(false);

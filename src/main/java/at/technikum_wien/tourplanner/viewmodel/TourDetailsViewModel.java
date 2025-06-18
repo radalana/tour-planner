@@ -24,6 +24,7 @@ public class TourDetailsViewModel {
     public StringProperty fromProperty() {return from;}
     public StringProperty toProperty() {return to;}
     public DoubleProperty distanceProperty() {return distance;}
+    public StringProperty transportTypeProperty() { return transportType; }
     public DoubleProperty estimatedTimeProperty() {return estimatedTime;}
 
     public TourDetailsViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
@@ -36,6 +37,7 @@ public class TourDetailsViewModel {
         if (selected != null) {
             name.set(selected.getTourName());
             description.set(selected.getDescription());
+            transportType.set(selected.getTransportType());
             from.set(selected.getFrom());
             to.set(selected.getTo());
             distance.set(selected.getDistance());

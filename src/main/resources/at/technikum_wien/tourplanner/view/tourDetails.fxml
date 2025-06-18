@@ -40,21 +40,24 @@
                         <RowConstraints minHeight="30.0"/>
                         <RowConstraints minHeight="30.0"/>
                         <RowConstraints minHeight="30.0"/>
+                        <RowConstraints minHeight="30.0"/>
                     </rowConstraints>
                     <children>
                         <Label text="Tour Name" GridPane.rowIndex="0" styleClass="form-label"/>
                         <Label text="Tour Description" GridPane.rowIndex="1" styleClass="form-label"/>
-                        <Label text="From" GridPane.rowIndex="2" styleClass="form-label"/>
-                        <Label text="To" GridPane.rowIndex="3" styleClass="form-label"/>
-                        <Label text="Distance" GridPane.rowIndex="4" styleClass="form-label"/>
-                        <Label text="Estimated Time" GridPane.rowIndex="5" styleClass="form-label"/>
+                        <Label text="Transport Type" GridPane.rowIndex="2" styleClass="form-label"/>
+                        <Label text="From" GridPane.rowIndex="3" styleClass="form-label"/>
+                        <Label text="To" GridPane.rowIndex="4" styleClass="form-label"/>
+                        <Label text="Distance" GridPane.rowIndex="5" styleClass="form-label"/>
+                        <Label text="Estimated Time" GridPane.rowIndex="6" styleClass="form-label"/>
 
                         <TextField fx:id="nameDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="readonly-field"/>
                         <TextField fx:id="descriptionDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="readonly-field"/>
-                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="readonly-field"/>
-                        <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="readonly-field"/>
-                        <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="readonly-field"/>
-                        <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="readonly-field"/>
+                        <TextField fx:id="transportTypeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="readonly-field"/>
+                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="readonly-field"/>
+                        <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="readonly-field"/>
+                        <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="readonly-field"/>
+                        <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="readonly-field"/>
                     </children>
                 </GridPane>
             </children>
