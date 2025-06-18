@@ -24,6 +24,4 @@ public class TourDTO {
     private int popularity;
     private double childFriendliness;
     public List<TourLogDTO> tourLogs;
-
-
 }
