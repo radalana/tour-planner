@@ -7,8 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import javafx.scene.web.WebView;
+
 
 public class TourDetailsController {
     private final TourDetailsViewModel tourDetailsViewModel;
@@ -20,6 +23,9 @@ public class TourDetailsController {
     @FXML private TextField toDetails;
     @FXML private TextField distanceDetails;
     @FXML private TextField estimatedTimeDetails;
+    @FXML private WebView mapView;
+    @FXML private Text mapPlaceholder;
+
 
     @FXML private Button editButton;
 
@@ -36,7 +42,21 @@ public class TourDetailsController {
         toDetails.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
         Bindings.bindBidirectional(distanceDetails.textProperty(), tourDetailsViewModel.distanceProperty(), new NumberStringConverter());
         Bindings.bindBidirectional(estimatedTimeDetails.textProperty(), tourDetailsViewModel.estimatedTimeProperty(), new NumberStringConverter());
+
+        String from = tourDetailsViewModel.fromProperty().get();
+        String to = tourDetailsViewModel.toProperty().get();
+        String mapUrl = "http://localhost:8080/map.html?from=" + from + "&to=" + to;
+        mapView.getEngine().load(mapUrl);
+
+        // Hide the placeholder text once the map loads
+        mapView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
+                mapView.setVisible(true);
+                mapPlaceholder.setVisible(false); // You need to @FXML inject this too!
+            }
+        });
     }
+
 
     public void deleteTour(ActionEvent actionEvent) {
         tourDetailsViewModel.deleteTour();

@@ -31,6 +31,7 @@ public class TourDetailsViewModel {
         this.mainViewModelViewModel = mainViewModelViewModel;
         this.tourService = tourService;
     }
+
     //is it data-binding
     public void loadTourData() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
@@ -42,7 +43,30 @@ public class TourDetailsViewModel {
             to.set(selected.getTo());
             distance.set(selected.getDistance());
             estimatedTime.set(selected.getEstimatedTime());
+
+            updateRouteInfo();
         }
+    }
+
+    // Call backend to get updated distance + estimated time
+    public void updateRouteInfo() {
+        String fromLocation = from.get();
+        String toLocation = to.get();
+
+        tourService.getRouteInfo(fromLocation, toLocation).thenAccept(response -> {
+            if (response != null) {
+                double distanceKm = response.getDouble("distance") / 1000.0;
+                double durationHrs = response.getDouble("duration") / 3600.0;
+
+                Platform.runLater(() -> {
+                    distance.set(distanceKm);
+                    estimatedTime.set(durationHrs);
+                });
+            }
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            return null;
+        });
     }
 
     public void deleteTour() {
@@ -54,7 +78,6 @@ public class TourDetailsViewModel {
                         mainViewModelViewModel.removeTour(selected);
                     });
                 }else {
-                    //TODO Gabriela - notify tour not delete/not found etc.
                     System.out.println("Failed to delete tour");
                 }
             });
@@ -70,9 +93,8 @@ public class TourDetailsViewModel {
         //TODO server sends timestamp, tourDTO doesn have this field --- error!
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
         System.out.println("Selected tour before: " + selected);
-        //TODO validaton!
+
         if (selected != null) {
-            //TODO add transport type in edit field @Gabriela
             TourUpdateDTO tourUpdateDTO = new TourUpdateDTO(
                     name.get(),
                     description.get(),
@@ -90,6 +112,8 @@ public class TourDetailsViewModel {
                     selected.setFrom(editedTourData.getFromLocation());
                     selected.setTo(editedTourData.getToLocation());
                     selected.setDistance(editedTourData.getDistance());
+
+                    updateRouteInfo();
                 });
             }).exceptionally(ex -> {
                 ex.printStackTrace();

@@ -5,6 +5,7 @@ import at.technikum_wien.tourplanner.dto.TourUpdateDTO;
 import at.technikum_wien.tourplanner.model.Tour;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URI;
@@ -139,6 +140,40 @@ public class TourService {
                 });
 
     }
+
+    public CompletableFuture<JSONObject> getRouteInfo(String from, String to) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                String url = "http://localhost:8080/api/route?from=" + URLEncoder.encode(from, StandardCharsets.UTF_8)
+                        + "&to=" + URLEncoder.encode(to, StandardCharsets.UTF_8);
+
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .GET()
+                        .build();
+
+                HttpResponse<String> response = HttpClient.newHttpClient()
+                        .send(request, HttpResponse.BodyHandlers.ofString());
+
+                JSONObject json = new JSONObject(response.body());
+
+                JSONObject summary = json.getJSONArray("features")
+                        .getJSONObject(0)
+                        .getJSONObject("properties")
+                        .getJSONArray("segments")
+                        .getJSONObject(0);
+
+                JSONObject result = new JSONObject();
+                result.put("distance", summary.getDouble("distance"));
+                result.put("duration", summary.getDouble("duration"));
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
+    }
+
 
     /* idk, maybe will be needed later, user1 change tour, user2 have actuel data
     public CompletableFuture<Tour> fetchTourByIdAsync(Tour tour) {

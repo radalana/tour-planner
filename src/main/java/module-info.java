@@ -7,6 +7,7 @@ module at.technikum_wien.tourplanner {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires org.mapstruct;
+    requires org.json;
 
     opens at.technikum_wien.tourplanner to javafx.fxml;
     opens at.technikum_wien.tourplanner.model to javafx.base, com.fasterxml.jackson.databind;//for reflection in tourTable
