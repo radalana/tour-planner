@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TourLogDTO {
     private Long id;
-    private String dateTime;
+    private String date;
     private String comment;
     private int difficulty;
     //TODO change to string HH:mm

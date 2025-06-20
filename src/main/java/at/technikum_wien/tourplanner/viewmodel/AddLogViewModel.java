@@ -45,7 +45,7 @@ public class AddLogViewModel {
         mainViewModel.selectedLogProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {
                 rating.set(newValue.getRating());
-                date.set(newValue.getDateTime());
+                date.set(newValue.getDate());
                 duration.set(newValue.getTotalTime());
                 distance.set(newValue.getTotalDistance());
                 comment.set(newValue.getComment());
@@ -112,7 +112,7 @@ public class AddLogViewModel {
 
         if (selectedTourLog != null) {
             selectedTourLog.setRating(rating.get());
-            selectedTourLog.setDateTime(date.get());
+            selectedTourLog.setDate(date.get());
             selectedTourLog.setTotalTime(duration.get());
             selectedTourLog.setTotalDistance(distance.get());
             selectedTourLog.setDifficulty(getNumericDifficulty());
