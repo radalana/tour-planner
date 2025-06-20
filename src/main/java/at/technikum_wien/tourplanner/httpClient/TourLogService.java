@@ -24,15 +24,17 @@ public class TourLogService {
     }
 
     public CompletableFuture<TourLog> createLogAsync(TourLog tourLog, Long tourId) throws NumberFormatException {
-        String url = baseUrl + "/tours/" + tourId + "/logs";
+        String url = baseUrl +"/" + tourId + "/logs";
         TourLogDTO tourLogDTO = tourLog.toDTO();
         try{
             String body = objectMapper.writeValueAsString(tourLogDTO);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
+            System.out.println("[DEBUG create tour log] Request body: " + body);
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
                         try {
