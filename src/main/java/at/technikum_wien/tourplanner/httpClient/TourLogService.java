@@ -3,6 +3,7 @@ package at.technikum_wien.tourplanner.httpClient;
 import at.technikum_wien.tourplanner.dto.TourLogDTO;
 import at.technikum_wien.tourplanner.model.TourLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -11,7 +12,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class TourLogService {
     private final HttpClient httpClient;
@@ -23,6 +26,32 @@ public class TourLogService {
         this.objectMapper = objectMapper;
     }
 
+    public CompletableFuture<List<TourLog>> fetchLogsByTourIdAsync(Long tourId) {
+        String url = baseUrl +"/" + tourId + "/logs";
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    try{
+                        System.out.println("[TourLogService fetchAllToursByTourId] Response status: " + response.statusCode());
+                        System.out.println("[TourLogService fetchAllToursByTourId] Response body: " + response.body());
+                        List<TourLogDTO> data = objectMapper.readValue(
+                                response.body(),
+                                new TypeReference<List<TourLogDTO>>() {}
+                        );
+                        return data.stream()
+                                .map(TourLog::fromDTO)
+                                .collect(Collectors.toList());
+                    }catch (JsonMappingException e) {
+                        throw new RuntimeException("[ERROR RESPONSE GET/] JSON mapping error: " + e.getMessage());
+                    }catch (JsonProcessingException e) {
+                        throw new RuntimeException("[ERROR RESPONSE GET/] JSON processing error: " + e.getMessage());
+                    }
+                });
+
+    }
     public CompletableFuture<TourLog> createLogAsync(TourLog tourLog, Long tourId) throws NumberFormatException {
         String url = baseUrl +"/" + tourId + "/logs";
         TourLogDTO tourLogDTO = tourLog.toDTO();
