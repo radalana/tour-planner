@@ -25,7 +25,7 @@ public class TourLogController {
     }
     @FXML private void initialize() {
 
-
+        viewModel.syncLogs();
         if (viewModel.getSelectedTour().get() != null) {
             logsTableView.setItems(viewModel.getSelectedTour().get().getObservableLogs());
         }

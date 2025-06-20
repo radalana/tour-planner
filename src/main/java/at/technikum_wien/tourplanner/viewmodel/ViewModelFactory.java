@@ -24,7 +24,7 @@ public class ViewModelFactory {
     }
 
     public TourLogViewModel getTourLogViewModel() {
-        return new TourLogViewModel(mainViewModel);
+        return new TourLogViewModel(mainViewModel, serviceProvider.getTourLogService());
     }
 
     public AddLogViewModel getAddLogViewModel() {
