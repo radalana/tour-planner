@@ -32,21 +32,7 @@ public class TourLogController {
 
         logsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         //binding
-        ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
-        dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateTimeProperty());
-        distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
-        durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
-        commentColumn.setCellValueFactory(commentData -> commentData.getValue().commentProperty());
-        difficultyColumn.setCellValueFactory(cellData -> {
-            double diff = cellData.getValue().getDifficulty();
-            String label = switch ((int) diff) {
-                case 1 -> "Easy";
-                case 2 -> "Moderate";
-                case 3 -> "Hard";
-                default -> "Unknown";
-            };
-            return new javafx.beans.property.SimpleStringProperty(label);
-        });
+        bindTableColumnsToProperties();
 
 
         //right-click
@@ -78,6 +64,23 @@ public class TourLogController {
         });
     }
 
+    private void bindTableColumnsToProperties() {
+        ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateTimeProperty());
+        distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
+        durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
+        commentColumn.setCellValueFactory(commentData -> commentData.getValue().commentProperty());
+        difficultyColumn.setCellValueFactory(cellData -> {
+            double diff = cellData.getValue().getDifficulty();
+            String label = switch ((int) diff) {
+                case 1 -> "Easy";
+                case 2 -> "Moderate";
+                case 3 -> "Hard";
+                default -> "Unknown";
+            };
+            return new javafx.beans.property.SimpleStringProperty(label);
+        });
+    }
 
 
 }

@@ -30,7 +30,11 @@ public class MainViewModel {
     }
     public ObjectProperty<TourLog> selectedLogProperty() { return selectedLog; }
     public TourLog getSelectedLog() { return selectedLog.get(); }
-    public void setSelectedLog(TourLog log) { this.selectedLog.set(log); }
+    public void setSelectedLog(TourLog log) {
+        //не вызывается
+        System.out.println("[DEBUG] Setting selected log: ] + " + log);
+        this.selectedLog.set(log);
+    }
     public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
     public BooleanProperty isNewTourFormOpenedProperty() {return isNewTourFormOpened;}
 
