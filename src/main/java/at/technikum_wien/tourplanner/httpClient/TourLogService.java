@@ -113,4 +113,18 @@ public class TourLogService {
             throw new RuntimeException("[ERROR REQUEST] Failed to serialize TourLogDTO by update", e);
         }
     }
+
+    public CompletableFuture<Boolean> deleteLogAsync(Long id, Long tourId) {
+        String url = baseUrl +"/" + tourId + "/logs/" + id;
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .DELETE()
+                .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.discarding())
+                .thenApply(response -> {
+                    int statusCode = response.statusCode();
+                    System.out.println("[DEBUG delete log] Response status: " + statusCode);
+                    return statusCode == 204;
+                });
+    }
 }

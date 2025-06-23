@@ -53,6 +53,12 @@ public class AddLogViewModel {
                 setDifficultyFromNumeric(newValue.getDifficulty());
             }
         });
+
+        mainViewModel.isLogDeletedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) {
+                clearForm();
+            }
+        });
     }
 
     // Convert label to number for backend use
@@ -146,6 +152,7 @@ public class AddLogViewModel {
 
         }
     }
+
     public void setSelectedTourLog(TourLog tourLog) {
         mainViewModel.setSelectedLog(tourLog);
     }

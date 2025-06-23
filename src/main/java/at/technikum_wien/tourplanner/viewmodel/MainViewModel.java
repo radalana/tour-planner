@@ -24,6 +24,7 @@ public class MainViewModel {
     private final ObjectProperty<TourLog> selectedLog = new SimpleObjectProperty<>();//for edit
 
     private final BooleanProperty isNewTourFormOpened = new SimpleBooleanProperty(false);
+    private final BooleanProperty isLogDeleted = new SimpleBooleanProperty(false);
 
     public MainViewModel() {
 
@@ -37,6 +38,7 @@ public class MainViewModel {
     }
     public ObjectProperty<Tour> selectedTourProperty() {return selectedTour;}
     public BooleanProperty isNewTourFormOpenedProperty() {return isNewTourFormOpened;}
+    public BooleanProperty isLogDeletedProperty() {return isLogDeleted;}
 
     public void addTour(Tour tour) {
         tours.add(tour);

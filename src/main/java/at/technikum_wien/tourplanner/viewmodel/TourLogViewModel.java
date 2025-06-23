@@ -5,6 +5,7 @@ import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
@@ -27,11 +28,23 @@ public class TourLogViewModel {
         return tour != null ? tour.getObservableLogs() : FXCollections.emptyObservableList();
     }
 
-    public void deleteLog(TourLog tourLog) {
+    public void deleteLog(TourLog log) {
         Tour tour = selectedTour.get();
-        if (tour != null) {
-            ObservableList<TourLog> logs = tour.getObservableLogs();
-            logs.remove(tourLog);
+        System.out.println("[DEBUG delete log] " + tour);
+        mainViewModel.setSelectedLog(log);
+        System.out.println("[DEBUG delete log] " + log);
+        if (log != null) {
+            tourLogService.deleteLogAsync(log.getId(), tour.getId()).thenAccept(succeed -> {
+                if (succeed) {
+                    Platform.runLater(() -> {
+                        ObservableList<TourLog> logs = tour.getObservableLogs();
+                        logs.remove(log);
+                        mainViewModel.isLogDeletedProperty().set(true);
+                    });
+                }else {
+                    System.err.println("Failed to delete log");
+                }
+            });
         }
     }
     public void editLog(TourLog tourLog) {
@@ -50,4 +63,6 @@ public class TourLogViewModel {
             System.out.println("No tour selected");
         }
     }
+
+
 }
