@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.dto.TourLogUpdateDTO;
 import at.technikum_wien.tourplanner.httpClient.TourLogService;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
@@ -108,15 +109,41 @@ public class AddLogViewModel {
     }
 
     public void updateLog() {
+        Tour tour = selectedTour.get();
         selectedTourLog = mainViewModel.getSelectedLog();
 
         if (selectedTourLog != null) {
-            selectedTourLog.setRating(rating.get());
-            selectedTourLog.setDate(date.get());
-            selectedTourLog.setTotalTime(duration.get());
-            selectedTourLog.setTotalDistance(distance.get());
-            selectedTourLog.setDifficulty(getNumericDifficulty());
-            selectedTourLog.setComment(comment.get());
+            double newDistance = Double.parseDouble(distance.get());
+            double newDuration = Double.parseDouble(duration.get());
+            int newRating = Integer.parseInt(rating.get());
+            TourLogUpdateDTO editedLogData = new TourLogUpdateDTO(
+                    date.get(),
+                    comment.get(),
+                    getNumericDifficulty(),
+                    newDistance,
+                    newDuration,
+                    newRating
+            );
+            tourLogService.updateLogAsync(editedLogData, selectedTourLog.getId(), tour.getId())
+                    .thenAccept(editedLog -> {
+                        Platform.runLater(() -> {
+                            selectedTourLog.setId(editedLog.getId());
+                            selectedTourLog.setRating(editedLog.getRating());
+                            selectedTourLog.setDate(editedLog.getDate());
+                            selectedTourLog.setTotalTime(editedLog.getTotalTime());
+                            selectedTourLog.setTotalDistance(editedLog.getTotalDistance());
+                            selectedTourLog.setComment(editedLog.getComment());
+                            selectedTourLog.setDifficulty(editedLog.getDifficulty());
+                        });
+                        System.out.println("Tour log updated");
+                    }).exceptionally(ex -> {
+                        Platform.runLater(() -> {
+                            // TODO alert
+                            System.err.println("Error by creating TourLog: " + ex.getMessage());
+                        });
+                        return null;
+                    });
+
         }
     }
     public void setSelectedTourLog(TourLog tourLog) {

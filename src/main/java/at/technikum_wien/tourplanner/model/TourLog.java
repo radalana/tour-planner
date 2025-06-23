@@ -2,10 +2,14 @@ package at.technikum_wien.tourplanner.model;
 
 import at.technikum_wien.tourplanner.dto.TourLogDTO;
 import javafx.beans.property.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 public class TourLog {
+    @Getter @Setter
+    private Long id;
     private StringProperty date = new SimpleStringProperty();
     private StringProperty comment = new SimpleStringProperty();
     private IntegerProperty difficulty = new SimpleIntegerProperty();
@@ -75,6 +79,7 @@ public class TourLog {
     //From Data to Model
     public static TourLog fromDTO(TourLogDTO tourLogDTO) {
         TourLog tourLog = new TourLog();
+        tourLog.setId(tourLogDTO.getId());
         tourLog.setDate(tourLogDTO.getDate());
         tourLog.setComment(tourLogDTO.getComment());
         tourLog.setDifficulty(tourLogDTO.getDifficulty());

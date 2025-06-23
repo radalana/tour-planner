@@ -38,7 +38,7 @@ public class TourService {
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     try {
-                        System.out.println("[TourService] Response status: " + response.statusCode());
+                            System.out.println("[TourService] Response status: " + response.statusCode());
                         System.out.println("[TourService] Response body: " + response.body());
                         return Arrays.asList(objectMapper.readValue(response.body(), TourDTO[].class));
                     }catch(IOException e){

@@ -1,6 +1,8 @@
 package at.technikum_wien.tourplanner.httpClient;
 
+import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.dto.TourLogDTO;
+import at.technikum_wien.tourplanner.dto.TourLogUpdateDTO;
 import at.technikum_wien.tourplanner.model.TourLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,6 +28,7 @@ public class TourLogService {
         this.objectMapper = objectMapper;
     }
 
+    //GET All
     public CompletableFuture<List<TourLog>> fetchLogsByTourIdAsync(Long tourId) {
         String url = baseUrl +"/" + tourId + "/logs";
         HttpRequest request = HttpRequest.newBuilder()
@@ -52,6 +55,8 @@ public class TourLogService {
                 });
 
     }
+
+    //POST
     public CompletableFuture<TourLog> createLogAsync(TourLog tourLog, Long tourId) throws NumberFormatException {
         String url = baseUrl +"/" + tourId + "/logs";
         TourLogDTO tourLogDTO = tourLog.toDTO();
@@ -78,6 +83,34 @@ public class TourLogService {
                     });
         } catch (JsonProcessingException e) {
             throw new RuntimeException("[ERROR REQUEST] Failed to serialize TourLogDTO", e);
+        }
+    }
+
+    public CompletableFuture<TourLog> updateLogAsync(TourLogUpdateDTO data, Long id, Long tourId) throws NumberFormatException {
+        String url = baseUrl +"/" + tourId + "/logs/" + id;
+        try {
+            String body = objectMapper.writeValueAsString(data);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+            System.out.println("[DEBUG update tour log] Request body: " + body);
+            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> {
+                        try {
+                            TourLogDTO editedTourLog = objectMapper.readValue(response.body(), TourLogDTO.class);
+                            System.out.println("[TourLogService UPDATE] Response status: " + response.statusCode());
+                            System.out.println("[TourLogService UPDATE] Response body: " + response.body());
+                            return TourLog.fromDTO(editedTourLog);
+                        }catch (JsonMappingException e) {
+                            throw new RuntimeException("[ERROR RESPONSE] JSON mapping error: " + e.getMessage());
+                        }catch (JsonProcessingException e) {
+                            throw new RuntimeException("[ERROR RESPONSE] JSON processing error: " + e.getMessage());
+                        }
+                    });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("[ERROR REQUEST] Failed to serialize TourLogDTO by update", e);
         }
     }
 }
