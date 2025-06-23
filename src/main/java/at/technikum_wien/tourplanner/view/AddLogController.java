@@ -14,6 +14,7 @@
     import java.util.Objects;
 
     public class AddLogController {
+        private final static String ADD_LOG_TITLE = "Share your experience";
         private final AddLogViewModel addLogViewModel;
         //add/edit button
         @FXML private Button addLogButton;
@@ -62,6 +63,7 @@
                     titleLabel.setText("EDIT LOG");
                 } else {
                     addLogButton.setText("Add Log");
+                    titleLabel.setText(ADD_LOG_TITLE);
                 }
             });
             //when date is selected- update ViewModel
@@ -104,7 +106,7 @@
                 addLogViewModel.updateLog();
                 addLogViewModel.setSelectedTourLog(null);
                 addLogButton.setText("Add Log");
-                titleLabel.setText("ADD LOG");
+                titleLabel.setText(ADD_LOG_TITLE);
                 clearForm();
             }else {
                 handleAddLog();

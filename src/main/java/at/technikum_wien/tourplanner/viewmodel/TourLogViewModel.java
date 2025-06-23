@@ -39,7 +39,8 @@ public class TourLogViewModel {
                     Platform.runLater(() -> {
                         ObservableList<TourLog> logs = tour.getObservableLogs();
                         logs.remove(log);
-                        mainViewModel.isLogDeletedProperty().set(true);
+                        //mainViewModel.isLogDeletedProperty().set(true);
+                        mainViewModel.selectedLogProperty().set(null);
                     });
                 }else {
                     System.err.println("Failed to delete log");

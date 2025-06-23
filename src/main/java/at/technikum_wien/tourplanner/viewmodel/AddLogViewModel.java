@@ -51,11 +51,7 @@ public class AddLogViewModel {
                 distance.set(newValue.getTotalDistance());
                 comment.set(newValue.getComment());
                 setDifficultyFromNumeric(newValue.getDifficulty());
-            }
-        });
-
-        mainViewModel.isLogDeletedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue) {
+            }else {
                 clearForm();
             }
         });
