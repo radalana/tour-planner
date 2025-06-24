@@ -16,7 +16,7 @@
           alignment="TOP_CENTER"
           spacing="15"
           prefWidth="420"
-          prefHeight="750">
+          prefHeight="800">
 
         <HBox alignment="CENTER_RIGHT" spacing="10">
             <Label fx:id="titleLabel" text="NEW TOUR"/>
@@ -59,17 +59,6 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-
-            <HBox spacing="10">
-                <VBox>
-                    <Label text="DISTANCE" styleClass="form-label"/>
-                    <TextField fx:id="distanceTextField" prefWidth="180" styleClass="form-input"/>
-                </VBox>
-                <VBox>
-                    <Label text="ESTIMATED TIME (H)" styleClass="form-label"/>
-                    <TextField fx:id="estTimeTextField" prefWidth="180" styleClass="form-input"/>
-                </VBox>
-            </HBox>
         </VBox>
 
         <VBox spacing="10" alignment="CENTER">

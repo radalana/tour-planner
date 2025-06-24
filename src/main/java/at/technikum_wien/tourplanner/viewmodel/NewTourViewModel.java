@@ -9,7 +9,7 @@ public class NewTourViewModel {
     private final MainViewModel mainViewModelViewModel;
     private final TourService tourService;
 
-    //values from form
+    // Values from form
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
     private final StringProperty from = new SimpleStringProperty();
@@ -23,8 +23,10 @@ public class NewTourViewModel {
         this.mainViewModelViewModel = mainViewModelViewModel;
         this.tourService = tourService;
     }
+
     public BooleanProperty isNewTourContainerVisibleProperty() {
-        return mainViewModelViewModel.getIsNewTourFormOpened(); }
+        return mainViewModelViewModel.getIsNewTourFormOpened();
+    }
 
     public StringProperty nameProperty() { return name; }
     public StringProperty descriptionProperty() { return description; }
@@ -34,69 +36,69 @@ public class NewTourViewModel {
     public DoubleProperty distanceProperty() { return distance; }
     public DoubleProperty estTimeProperty() { return estTime; }
 
-    //input validation
+    // Input validation for required fields only
     public boolean validate() {
         if (name.get() == null || name.get().trim().isEmpty()) return false;
         if (description.get() == null || description.get().trim().isEmpty()) return false;
         if (from.get() == null || from.get().trim().isEmpty()) return false;
         if (to.get() == null || to.get().trim().isEmpty()) return false;
         if (transportType.get() == null || transportType.get().trim().isEmpty()) return false;
-
-        //TODO refactor convert text to double
-        try {
-            if (distance.get() <= 0) return false;
-        } catch (Exception e) {
-            return false;
-        }
-
-        try {
-            if (estTime.get() <= 0) return false;
-        } catch (Exception e) {
-            return false;
-        }
-
         return true;
     }
 
     public void cancel() {
-        //mediatorViewModel.closeNewTourOverlay();
+        // No-op placeholder (optional)
     }
+
     public boolean createTour() {
         if (!validate()) {
             return false;
         }
 
-        Tour tour = new Tour(
-                name.get(),
-                description.get(),
-                from.get(),
-                to.get(),
-                transportType.get(),
-                distance.get(),
-                estTime.get(),
-                routInfo.get()
-        );
+        tourService.getRouteInfo(from.get(), to.get()).thenAccept(routeData -> {
+            if (routeData != null) {
+                double distKm = routeData.getDouble("distance") / 1000.0;
+                double timeHrs = routeData.getDouble("duration") / 3600.0;
 
-        tourService.createTourAsync(tour).thenAccept(addedTour -> {
-            Platform.runLater(() -> {
-                mainViewModelViewModel.addTour(addedTour);
-            });
+                Platform.runLater(() -> {
+                    distance.set(distKm);
+                    estTime.set(timeHrs);
+
+                    Tour tour = new Tour(
+                            name.get(),
+                            description.get(),
+                            from.get(),
+                            to.get(),
+                            transportType.get(),
+                            distKm,
+                            timeHrs,
+                            ""
+                    );
+
+                    tourService.createTourAsync(tour).thenAccept(addedTour -> {
+                        Platform.runLater(() -> {
+                            mainViewModelViewModel.addTour(addedTour);
+                        });
+                    }).exceptionally(ex -> {
+                        ex.printStackTrace();
+                        return null;
+                    });
+
+                    // Clean form values
+                    name.set("");
+                    description.set("");
+                    from.set("");
+                    to.set("");
+                    transportType.set("");
+                    distance.set(0);
+                    estTime.set(0);
+                    routInfo.set("");
+                });
+            }
         }).exceptionally(ex -> {
             ex.printStackTrace();
-            //show allert?
             return null;
         });
-
-
-        // Clean the form
-        name.set("");
-        description.set("");
-        from.set("");
-        to.set("");
-        transportType.set("");
-        distance.set(0);
-        estTime.set(0);
-        routInfo.set("");
 
         return true;
     }
