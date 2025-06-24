@@ -52,12 +52,10 @@
             <ComboBox fx:id="transportTypeComboBox" prefWidth="380" promptText="Select Transport" styleClass="form-input">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Walking"/>
-                        <String fx:value="Bicycle"/>
-                        <String fx:value="Car"/>
-                        <String fx:value="Public Transport"/>
-                        <String fx:value="Train"/>
-                        <String fx:value="Airplane"/>
+                        <String fx:value="foot-walking"/>
+                        <String fx:value="driving-car"/>
+                        <String fx:value="cycling-regular"/>
+                        <String fx:value="foot-hiking"/>
                     </FXCollections>
                 </items>
             </ComboBox>

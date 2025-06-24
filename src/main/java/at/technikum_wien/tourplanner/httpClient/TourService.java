@@ -142,11 +142,11 @@ public class TourService {
                 });
     }
 
-    public CompletableFuture<JSONObject> getRouteInfo(String from, String to) {
+    public CompletableFuture<JSONObject> getRouteInfo(String from, String to, String transportType) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 String url = "http://localhost:8080/api/route?from=" + URLEncoder.encode(from, StandardCharsets.UTF_8)
-                        + "&to=" + URLEncoder.encode(to, StandardCharsets.UTF_8);
+                        + "&to=" + URLEncoder.encode(to, StandardCharsets.UTF_8) + "&transport=" + URLEncoder.encode(transportType, StandardCharsets.UTF_8);
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(url))

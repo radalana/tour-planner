@@ -52,12 +52,13 @@ public class TourDetailsViewModel {
     public void updateRouteInfo() {
         String fromLocation = from.get();
         String toLocation = to.get();
+        String transport = transportType.get();
 
-        tourService.getRouteInfo(fromLocation, toLocation).thenAccept(response -> {
+        tourService.getRouteInfo(fromLocation, toLocation, transport).thenAccept(response -> {
             if (response != null) {
                 double distanceKm = response.getDouble("distance") / 1000.0;
                 double durationHrs = response.getDouble("duration") / 3600.0;
-
+                //TODO check if model real changed not only variables
                 Platform.runLater(() -> {
                     distance.set(distanceKm);
                     estimatedTime.set(durationHrs);
@@ -109,6 +110,7 @@ public class TourDetailsViewModel {
                     selected.setTourName(editedTourData.getTourName());
                     selected.setDescription(editedTourData.getDescription());
                     selected.setEstimatedTime(editedTourData.getEstimatedTime());
+                    selected.setTransportType(editedTourData.getTransportType());
                     selected.setFrom(editedTourData.getFromLocation());
                     selected.setTo(editedTourData.getToLocation());
                     selected.setDistance(editedTourData.getDistance());

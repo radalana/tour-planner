@@ -61,7 +61,7 @@ public class NewTourViewModel {
             return false;
         }
 
-        tourService.getRouteInfo(from.get(), to.get()).thenAccept(routeData -> {
+        tourService.getRouteInfo(from.get(), to.get(), transportType.get()).thenAccept(routeData -> {
             if (routeData != null) {
                 double distKm = routeData.getDouble("distance") / 1000.0;
                 double timeHrs = routeData.getDouble("duration") / 3600.0;
