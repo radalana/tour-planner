@@ -5,6 +5,8 @@ import at.technikum_wien.tourplanner.model.Tour;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 
+import java.util.List;
+
 public class NewTourViewModel {
     private final MainViewModel mainViewModelViewModel;
     private final TourService tourService;
@@ -48,6 +50,10 @@ public class NewTourViewModel {
 
     public void cancel() {
         // No-op placeholder (optional)
+    }
+
+    public List<String> fetchLocationSuggestions(String input) {
+        return tourService.fetchLocationSuggestions(input);
     }
 
     public boolean createTour() {

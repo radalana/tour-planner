@@ -39,10 +39,12 @@
                 <VBox>
                     <Label text="FROM" styleClass="form-label"/>
                     <TextField fx:id="fromTextField" prefWidth="180" styleClass="form-input"/>
+                    <ListView fx:id="fromSuggestions" prefWidth="180" maxHeight="80"/>
                 </VBox>
                 <VBox>
                     <Label text="TO" styleClass="form-label"/>
                     <TextField fx:id="toTextField" prefWidth="180" styleClass="form-input"/>
+                    <ListView fx:id="toSuggestions" prefWidth="180" maxHeight="80"/>
                 </VBox>
             </HBox>
 

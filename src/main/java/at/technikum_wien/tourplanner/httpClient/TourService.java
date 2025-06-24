@@ -5,58 +5,70 @@ import at.technikum_wien.tourplanner.dto.TourUpdateDTO;
 import at.technikum_wien.tourplanner.model.Tour;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 
 public class TourService {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
     private final String baseUrl = "http://localhost:8080/api/tours";
+    private final String openRouteServiceKey;
 
     public TourService(HttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
+        this.openRouteServiceKey = loadApiKeyFromConfig();
+    }
+
+    private String loadApiKeyFromConfig() {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new RuntimeException("config.properties not found");
+            }
+            Properties prop = new Properties();
+            prop.load(input);
+            return prop.getProperty("openrouteservice.api_key");
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load API key from config.properties", e);
+        }
     }
 
     public CompletableFuture<List<TourDTO>> fetchAllToursAsync() {
-        //create GET request
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl))
                 .GET()
                 .build();
-        //Async
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     try {
-                            System.out.println("[TourService] Response status: " + response.statusCode());
-                        System.out.println("[TourService] Response body: " + response.body());
                         return Arrays.asList(objectMapper.readValue(response.body(), TourDTO[].class));
-                    }catch(IOException e){
-                        e.printStackTrace();
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 })
                 .exceptionally(ex -> {
-            System.err.println("[TourService] Request failed: " + ex.getMessage());
-            ex.printStackTrace();
-            return List.of();
-        });
+                    ex.printStackTrace();
+                    return List.of();
+                });
     }
 
     public CompletableFuture<Tour> createTourAsync(Tour tour) {
-        try{
-            String body = objectMapper.writeValueAsString(tour.toDTO()); //object -> json
-            System.out.println("[TourService createTourAsync(Tour tour)] Request body: " + body);
+        try {
+            String body = objectMapper.writeValueAsString(tour.toDTO());
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl))
                     .header("Content-Type", "application/json")
@@ -83,33 +95,27 @@ public class TourService {
                 .DELETE()
                 .build();
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.discarding())
-                .thenApply(response -> {
-                    int statusCode = response.statusCode();
-                    System.out.println("[TourService deleteTourAsync] Response status: " + statusCode);
-                    return statusCode == 204;
-                });
+                .thenApply(response -> response.statusCode() == 204);
     }
 
     public CompletableFuture<TourDTO> updateTourAsync(TourUpdateDTO editedData, Long id) {
         String url = baseUrl + "/" + id;
-        try{
+        try {
             String body = objectMapper.writeValueAsString(editedData);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
                     .PUT(HttpRequest.BodyPublishers.ofString(body))
                     .build();
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
-                    try {
-                        System.out.println("[TourService UPDATE] Response status: " + response.statusCode());
-                        System.out.println("[TourService UPDATE] Response body: " + response.body());
-                        return objectMapper.readValue(response.body(), TourDTO.class);
-                    }catch(IOException e){
-                        throw new RuntimeException(e);
-                    }
-                });
-        }catch (JsonProcessingException e){
+            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> {
+                        try {
+                            return objectMapper.readValue(response.body(), TourDTO.class);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
@@ -125,20 +131,15 @@ public class TourService {
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     try {
-                        System.out.println("[TourService search] Response status: " + response.statusCode());
-                        System.out.println("[TourService search] Response body: " + response.body());
                         return Arrays.asList(objectMapper.readValue(response.body(), TourDTO[].class));
-                    }catch(IOException e){
-                        e.printStackTrace();
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 })
                 .exceptionally(ex -> {
-                    System.err.println("[TourService] Request failed: " + ex.getMessage());
                     ex.printStackTrace();
                     return List.of();
                 });
-
     }
 
     public CompletableFuture<JSONObject> getRouteInfo(String from, String to) {
@@ -173,26 +174,33 @@ public class TourService {
         });
     }
 
+    public List<String> fetchLocationSuggestions(String input) {
+        try {
+            String url = "https://api.openrouteservice.org/geocode/search?api_key=" +
+                    URLEncoder.encode(openRouteServiceKey, StandardCharsets.UTF_8) +
+                    "&text=" + URLEncoder.encode(input, StandardCharsets.UTF_8) +
+                    "&size=5";
 
-    /* idk, maybe will be needed later, user1 change tour, user2 have actuel data
-    public CompletableFuture<Tour> fetchTourByIdAsync(Tour tour) {
-        String url = baseUrl + "/" + tour.getId();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .GET()
-                .build();
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
-                    try{
-                        return objectMapper.readValue(response.body(), Tour.class);
-                    }catch (IOException e){
-                        throw new RuntimeException(e);
-                    }
-                })
-                .exceptionally(ex -> {
-                    ex.printStackTrace();
-                    return null;
-                });
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            JSONObject json = new JSONObject(response.body());
+
+            JSONArray features = json.getJSONArray("features");
+            List<String> suggestions = new ArrayList<>();
+
+            for (int i = 0; i < features.length(); i++) {
+                JSONObject props = features.getJSONObject(i).getJSONObject("properties");
+                suggestions.add(props.getString("label"));
+            }
+            return suggestions;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
-     */
 }

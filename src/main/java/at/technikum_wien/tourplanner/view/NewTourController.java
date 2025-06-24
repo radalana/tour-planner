@@ -1,28 +1,39 @@
 package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.NumberStringConverter;
 import lombok.Getter;
+
+import java.util.List;
 
 public class NewTourController {
     private final NewTourViewModel newTourViewModel;
 
     @Getter
-    @FXML
-    private StackPane newTourContainer;
+    @FXML private StackPane newTourContainer;
 
     @FXML private TextField nameTextField;
     @FXML private TextArea descriptionTextArea;
     @FXML private TextField fromTextField;
     @FXML private TextField toTextField;
     @FXML private ComboBox<String> transportTypeComboBox;
+
+    // Custom autocomplete views
+    @FXML private ListView<String> fromSuggestions;
+    @FXML private ListView<String> toSuggestions;
+
+    private final ObservableList<String> fromSuggestionList = FXCollections.observableArrayList();
+    private final ObservableList<String> toSuggestionList = FXCollections.observableArrayList();
 
     private static final String ORIGINAL_STYLE = "-fx-background-color: #DEDBD6;" +
             "-fx-border-radius: 25px;" +
@@ -37,7 +48,8 @@ public class NewTourController {
     @FXML
     public void initialize() {
         newTourContainer.visibleProperty().bindBidirectional(newTourViewModel.isNewTourContainerVisibleProperty());
-        bindTableColumnsToViewModel();
+        bindFields();
+        initAutocomplete();
 
         newTourContainer.visibleProperty().addListener((obs, wasVisible, isNowVisible) -> {
             if (isNowVisible) {
@@ -52,9 +64,71 @@ public class NewTourController {
         newTourViewModel.fromProperty().set("");
         newTourViewModel.toProperty().set("");
         newTourViewModel.transportTypeProperty().set(null);
-        newTourViewModel.distanceProperty().set(0.0);
-        newTourViewModel.estTimeProperty().set(0.0);
+
+        fromSuggestions.setVisible(false);
+        toSuggestions.setVisible(false);
+
         resetFieldStyles();
+    }
+
+    private void bindFields() {
+        nameTextField.textProperty().bindBidirectional(newTourViewModel.nameProperty());
+        descriptionTextArea.textProperty().bindBidirectional(newTourViewModel.descriptionProperty());
+        fromTextField.textProperty().bindBidirectional(newTourViewModel.fromProperty());
+        toTextField.textProperty().bindBidirectional(newTourViewModel.toProperty());
+        transportTypeComboBox.valueProperty().bindBidirectional(newTourViewModel.transportTypeProperty());
+    }
+
+    private void initAutocomplete() {
+        fromSuggestions.setItems(fromSuggestionList);
+        toSuggestions.setItems(toSuggestionList);
+
+        fromTextField.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            String input = fromTextField.getText();
+            if (input.length() >= 2) fetchAutocomplete(input, fromSuggestionList, fromSuggestions);
+        });
+
+        toTextField.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            String input = toTextField.getText();
+            if (input.length() >= 2) fetchAutocomplete(input, toSuggestionList, toSuggestions);
+        });
+
+        fromSuggestions.setOnMouseClicked(e -> {
+            String selected = fromSuggestions.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                fromTextField.setText(selected);
+                fromSuggestions.setVisible(false);
+            }
+        });
+
+        toSuggestions.setOnMouseClicked(e -> {
+            String selected = toSuggestions.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                toTextField.setText(selected);
+                toSuggestions.setVisible(false);
+            }
+        });
+
+        fromSuggestions.setVisible(false);
+        toSuggestions.setVisible(false);
+    }
+
+    private void fetchAutocomplete(String input, ObservableList<String> suggestionList, ListView<String> listView) {
+        Task<List<String>> task = new Task<>() {
+            @Override
+            protected List<String> call() {
+                return newTourViewModel.fetchLocationSuggestions(input);
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            suggestionList.setAll(task.getValue());
+            listView.setVisible(!suggestionList.isEmpty());
+        });
+
+        task.setOnFailed(e -> listView.setVisible(false));
+
+        new Thread(task).start();
     }
 
     @FXML
@@ -65,38 +139,18 @@ public class NewTourController {
     @FXML
     private void saveNewTour() {
         if (!newTourViewModel.validate()) {
-            System.out.println("not valid");
             highlightInvalidFields();
             return;
         }
+
         if (newTourViewModel.createTour()) {
             resetFieldStyles();
             closeNewTour();
         }
     }
 
-    public void openNewTourForm() {
-        newTourViewModel.nameProperty().set("");
-        newTourViewModel.descriptionProperty().set("");
-        newTourViewModel.fromProperty().set("");
-        newTourViewModel.toProperty().set("");
-        newTourViewModel.transportTypeProperty().set(null);
-        newTourViewModel.distanceProperty().set(0.0);
-        newTourViewModel.estTimeProperty().set(0.0);
-        resetFieldStyles();
-        newTourContainer.setVisible(true);
-    }
-
-    public void handleImport(ActionEvent actionEvent) {
-        // Placeholder for import logic
-    }
-
-    private void bindTableColumnsToViewModel() {
-        nameTextField.textProperty().bindBidirectional(newTourViewModel.nameProperty());
-        descriptionTextArea.textProperty().bindBidirectional(newTourViewModel.descriptionProperty());
-        fromTextField.textProperty().bindBidirectional(newTourViewModel.fromProperty());
-        toTextField.textProperty().bindBidirectional(newTourViewModel.toProperty());
-        transportTypeComboBox.valueProperty().bindBidirectional(newTourViewModel.transportTypeProperty());
+    public void handleImport(ActionEvent event) {
+        // no-op
     }
 
     private void highlightInvalidFields() {
@@ -112,7 +166,7 @@ public class NewTourController {
         }
     }
 
-    private void highlightField(javafx.scene.control.Control field, String value) {
+    private void highlightField(Control field, String value) {
         if (value == null || value.trim().isEmpty()) {
             field.setStyle(ORIGINAL_STYLE + " -fx-border-color: red;");
         } else {
