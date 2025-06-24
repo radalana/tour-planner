@@ -37,6 +37,48 @@
     -fx-padding: 5px 5px;
 }
 
+.suggestion-list {
+    -fx-background-color: #DEDBD6;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-padding: 5px;
+    -fx-border-color: #C8EADF;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.15), 5, 0.0, 0, 2);
+}
+
+.suggestion-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1C1C1C;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 12px;
+}
+
+.suggestion-list .list-cell:hover {
+    -fx-background-color: #C8EADF;
+    -fx-text-fill: #1C1C1C;
+    -fx-background-radius: 20px;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: white;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #1C1C1C;
+    -fx-font-size: 16px;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #F5F4F0;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.1, 0, 2);
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #C8EADF;
+    -fx-text-fill: black;
+}
+
 /* SAVE*/
 .primary-button {
     -fx-background-color: #C8EADF;
