@@ -83,7 +83,7 @@
                         text="REPORT"
                         textFill="#f5f4f0">
                 <items>
-                    <MenuItem text="SUMMARIZE-REPORT" onAction="#generateSummaryReport"/>
+                    <MenuItem text="SUMMARY-REPORT" onAction="#generateSummaryReport"/>
                 </items>
             </MenuButton>
         </HBox>
