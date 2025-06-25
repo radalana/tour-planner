@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.web.WebView;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 
 public class TourDetailsController {
     private final TourDetailsViewModel tourDetailsViewModel;
@@ -45,7 +48,10 @@ public class TourDetailsController {
 
         String from = tourDetailsViewModel.fromProperty().get();
         String to = tourDetailsViewModel.toProperty().get();
-        String mapUrl = "http://localhost:8080/map.html?from=" + from + "&to=" + to;
+
+        String transport = URLEncoder.encode(tourDetailsViewModel.transportTypeProperty().get().toLowerCase().replace(" ", "-"), StandardCharsets.UTF_8);
+
+        String mapUrl = "http://localhost:8080/map.html?from=" + from + "&to=" + to + "&transport=" + transport;
         mapView.getEngine().load(mapUrl);
 
         // Hide the placeholder text once the map loads
