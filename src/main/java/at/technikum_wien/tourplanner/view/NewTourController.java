@@ -43,8 +43,6 @@ public class NewTourController {
     private final ObservableList<String> fromSuggestionList = FXCollections.observableArrayList();
     private final ObservableList<String> toSuggestionList = FXCollections.observableArrayList();
 
-    private final TourService tourService;
-    private final MainViewModel mainViewModel;
 
     private static final String ORIGINAL_STYLE = "-fx-background-color: #DEDBD6;" +
             "-fx-border-radius: 25px;" +
@@ -52,10 +50,8 @@ public class NewTourController {
             "-fx-padding: 12px;" +
             "-fx-font-size: 16px;";
 
-    public NewTourController(NewTourViewModel newTourViewModel, TourService tourService, MainViewModel mainViewModel) {
+    public NewTourController(NewTourViewModel newTourViewModel) {
         this.newTourViewModel = newTourViewModel;
-        this.tourService = tourService;
-        this.mainViewModel = mainViewModel;
     }
 
     @FXML
@@ -169,26 +165,7 @@ public class NewTourController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File file = fileChooser.showOpenDialog(newTourContainer.getScene().getWindow());
 
-        if (file != null) {
-            try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                TourDTO importedTour = objectMapper.readValue(file, TourDTO.class);
-
-                // Call backend to save tour
-                tourService.addTourAsync(importedTour).thenAccept(savedDTO -> {
-                    if (savedDTO != null) {
-                        Platform.runLater(() -> {
-                            Tour tour = Tour.fromDTO(savedDTO);
-                            mainViewModel.addTour(tour);
-                            closeNewTour();
-                        });
-                    }
-                });
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        newTourViewModel.importTour(file);
     }
 
     private void highlightInvalidFields() {

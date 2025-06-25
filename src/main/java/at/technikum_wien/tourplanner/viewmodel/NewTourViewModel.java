@@ -1,10 +1,14 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
+import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class NewTourViewModel {
@@ -107,5 +111,27 @@ public class NewTourViewModel {
         });
 
         return true;
+    }
+
+    public void importTour(File file) {
+        if (file != null) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                TourDTO importedTour = objectMapper.readValue(file, TourDTO.class);
+
+                // Call backend to save tour
+                tourService.addTourAsync(importedTour).thenAccept(savedDTO -> {
+                    if (savedDTO != null) {
+                        Platform.runLater(() -> {
+                            Tour tour = Tour.fromDTO(savedDTO);
+                            mainViewModelViewModel.addTour(tour);
+                        });
+                    }
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
