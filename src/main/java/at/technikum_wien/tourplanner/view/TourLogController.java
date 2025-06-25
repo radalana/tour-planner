@@ -20,11 +20,14 @@ public class TourLogController {
     @FXML private TableColumn<TourLog, String> commentColumn;
     @FXML private TableColumn<TourLog, String> difficultyColumn;
 
+    @FXML private TextField searchLogTextField;
+
+
     public TourLogController(TourLogViewModel viewModel) {
         this.viewModel = viewModel;
     }
     @FXML private void initialize() {
-
+        System.out.println("✅ Controller initialized");
         viewModel.syncLogs();
         if (viewModel.getSelectedTour().get() != null) {
             logsTableView.setItems(viewModel.getSelectedTour().get().getObservableLogs());
@@ -64,6 +67,13 @@ public class TourLogController {
             });
             return row;
         });
+    }
+    @FXML
+    private void handleSearchLogs() {
+        System.out.println("search logs pressed");
+        String query = searchLogTextField.getText();
+        System.out.println(query);
+        viewModel.searchLogs(query);
     }
 
     private void bindTableColumnsToProperties() {

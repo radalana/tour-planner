@@ -11,9 +11,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -125,6 +128,23 @@ public class TourLogService {
                     int statusCode = response.statusCode();
                     System.out.println("[DEBUG delete log] Response status: " + statusCode);
                     return statusCode == 204;
+                });
+    }
+
+    public CompletableFuture<List<TourLogDTO>> getLogsAsync(Long tourId, String query) {
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+        String url = baseUrl +"/" + tourId + "/logs/search?query=" + encodedQuery;
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                        .GET()
+                        .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    try {
+                        return Arrays.asList(objectMapper.readValue(response.body(), TourLogDTO[].class));
+                    }catch (JsonProcessingException e) {
+                        throw new RuntimeException("[ERROR RESPONSE] JSON mapping error: " + e.getMessage());
+                    }
                 });
     }
 }

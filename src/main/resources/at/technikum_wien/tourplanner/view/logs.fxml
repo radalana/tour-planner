@@ -5,14 +5,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane prefHeight="505.0"
             prefWidth="992.0"
-            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="at.technikum_wien.tourplanner.view.TourLogController"
             fx:id="logsRoot"
             stylesheets="@../style/logs.css">
-
+    <VBox>
+    <HBox fx:id="searchLogBox"
+          spacing="20.0"
+          alignment="BOTTOM_RIGHT">
+        <HBox.margin>
+            <Insets right="20.0"/>
+        </HBox.margin>
+        <TextField fx:id="searchLogTextField"
+                   maxWidth="250.0"
+                   promptText="search logs..."/>
+        <Button fx:id="searchLogButton"
+                onAction="#handleSearchLogs"
+                mnemonicParsing="false"
+                text="Search"/>
+    </HBox>
     <HBox spacing="20"
           alignment="CENTER"
           AnchorPane.leftAnchor="0.0"
@@ -36,4 +54,5 @@
 
         <fx:include source="addLog.fxml"/>
     </HBox>
+    </VBox>
 </AnchorPane>

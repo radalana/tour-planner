@@ -10,6 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 public class TourLogViewModel {
     //TODO make local selectedTour
@@ -65,5 +68,22 @@ public class TourLogViewModel {
         }
     }
 
+    public void searchLogs(String query) {
+        if (selectedTour.get() == null) {
+            System.out.println("No tour selected");
+        }
+        Tour tour = selectedTour.get();
+        Long tourId = tour.getId();
+        tourLogService.getLogsAsync(tourId, query).thenAccept(data -> {
+            List<TourLog> logs = data.stream()
+                    .map(TourLog::fromDTO)
+                    .toList();
+            Platform.runLater(() -> {
+                System.out.println("Synch logs search");
+                tour.getObservableLogs().setAll(logs);
+            });
+
+        });
+    }
 
 }

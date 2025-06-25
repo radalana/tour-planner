@@ -53,7 +53,7 @@ public class TourDetailsViewModel {
         String fromLocation = from.get();
         String toLocation = to.get();
         String transport = transportType.get();
-
+        /*
         tourService.getRouteInfo(fromLocation, toLocation, transport).thenAccept(response -> {
             if (response != null) {
                 double distanceKm = response.getDouble("distance") / 1000.0;
@@ -68,6 +68,8 @@ public class TourDetailsViewModel {
             ex.printStackTrace();
             return null;
         });
+
+         */
     }
 
     public void deleteTour() {

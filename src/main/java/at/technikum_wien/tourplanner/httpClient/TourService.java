@@ -179,6 +179,7 @@ public class TourService {
 
                 JSONObject json = new JSONObject(response.body());
 
+
                 JSONObject summary = json.getJSONArray("features")
                         .getJSONObject(0)
                         .getJSONObject("properties")
