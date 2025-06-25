@@ -8,12 +8,22 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.web.WebView;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 
 
 public class TourDetailsController {
@@ -101,4 +111,49 @@ public class TourDetailsController {
         }
 
     }
+
+    @FXML
+    private void generateTourReport() {
+        Long tourId = tourDetailsViewModel.getTourId();
+        if (tourId == null) {
+            System.err.println("Cannot generate report.");
+            return;
+        }
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/reports/tour/" + tourId))
+                    .GET()
+                    .build();
+
+            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+
+            if (response.statusCode() == 200) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Tour Report");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+                fileChooser.setInitialFileName("tour-report-" + tourId + ".pdf");
+
+                File file = fileChooser.showSaveDialog(mapView.getScene().getWindow());
+
+                if (file != null) {
+                    try (FileOutputStream fos = new FileOutputStream(file)) {
+                        fos.write(response.body());
+                    }
+
+                    //open in default viewer
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(file);
+                    }
+                }
+
+            } else {
+                System.err.println("Failed to download report. HTTP Status: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

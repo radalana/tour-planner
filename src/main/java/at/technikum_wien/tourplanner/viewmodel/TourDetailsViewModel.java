@@ -124,6 +124,10 @@ public class TourDetailsViewModel {
             });
         }
 
+    }
 
+    public Long getTourId() {
+        Tour selected = mainViewModelViewModel.getSelectedTour().get();
+        return (selected != null) ? selected.getId() : null;
     }
 }

@@ -7,6 +7,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="650.0"
             prefWidth="1080.0"
             xmlns="http://javafx.com/javafx/23.0.1"
@@ -75,6 +77,15 @@
             <Button fx:id="logsButton" onAction="#openLogs" text="LOGS" prefWidth="120" prefHeight="50"/>
             <Button fx:id="editButton" onAction="#activateEditTour" text="EDIT TOUR" prefWidth="120" prefHeight="50"/>
             <Button fx:id="deleteButton" onAction="#deleteTour" text="DELETE TOUR" prefWidth="150" prefHeight="50"/>
+            <Button fx:id="downloadTourReportButton" onAction="#generateTourReport" prefWidth="60" prefHeight="50" styleClass="report-button">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24">
+                        <image>
+                            <Image url="@../images/download-icon.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
     </children>
 </AnchorPane>

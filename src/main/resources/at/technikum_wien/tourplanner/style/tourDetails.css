@@ -55,3 +55,8 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
+
+.report-button {
+    -fx-background-color: #DB2F6B;
+    -fx-background-radius: 25px;
+}
