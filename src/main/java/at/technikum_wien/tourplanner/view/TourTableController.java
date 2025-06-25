@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.scene.control.TableCell;
 
 public class TourTableController {
     // FXML UI components
@@ -68,13 +69,41 @@ public class TourTableController {
             e.printStackTrace();
         }
     }
+
     private void bindTableColumnsToProperties() {
         //how/what to show in each column
         tourNameColumn.setCellValueFactory(cellData -> cellData.getValue().tourNameProperty());
         transportTypeColumn.setCellValueFactory(cellData -> cellData.getValue().transportTypeProperty());
         fromColumn.setCellValueFactory(cellData -> cellData.getValue().fromProperty());
         toColumn.setCellValueFactory(cellData -> cellData.getValue().toProperty());
+
+        // Distance column: binds to DoubleProperty but displays 2 decimals
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().distanceProperty().asObject());
+        distanceColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("%.2f", item));
+                }
+            }
+        });
+
+        // Estimated Time column: binds to DoubleProperty but displays 2 decimals
         estimatedTimeColumn.setCellValueFactory(cellData -> cellData.getValue().estimatedTimeProperty().asObject());
+        estimatedTimeColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("%.2f", item));
+                }
+            }
+        });
     }
+
 }
