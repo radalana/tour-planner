@@ -1,6 +1,11 @@
 package at.technikum_wien.tourplanner.view;
 
+import at.technikum_wien.tourplanner.dto.TourDTO;
+import at.technikum_wien.tourplanner.httpClient.TourService;
+import at.technikum_wien.tourplanner.model.Tour;
+import at.technikum_wien.tourplanner.viewmodel.MainViewModel;
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -11,9 +16,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.util.converter.NumberStringConverter;
 import lombok.Getter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class NewTourController {
@@ -35,14 +43,19 @@ public class NewTourController {
     private final ObservableList<String> fromSuggestionList = FXCollections.observableArrayList();
     private final ObservableList<String> toSuggestionList = FXCollections.observableArrayList();
 
+    private final TourService tourService;
+    private final MainViewModel mainViewModel;
+
     private static final String ORIGINAL_STYLE = "-fx-background-color: #DEDBD6;" +
             "-fx-border-radius: 25px;" +
             "-fx-background-radius: 25px;" +
             "-fx-padding: 12px;" +
             "-fx-font-size: 16px;";
 
-    public NewTourController(NewTourViewModel newTourViewModel) {
+    public NewTourController(NewTourViewModel newTourViewModel, TourService tourService, MainViewModel mainViewModel) {
         this.newTourViewModel = newTourViewModel;
+        this.tourService = tourService;
+        this.mainViewModel = mainViewModel;
     }
 
     @FXML
@@ -149,8 +162,33 @@ public class NewTourController {
         }
     }
 
-    public void handleImport(ActionEvent event) {
-        // no-op
+    @FXML
+    private void handleImport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import Tour");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        File file = fileChooser.showOpenDialog(newTourContainer.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                TourDTO importedTour = objectMapper.readValue(file, TourDTO.class);
+
+                // Call backend to save tour
+                tourService.addTourAsync(importedTour).thenAccept(savedDTO -> {
+                    if (savedDTO != null) {
+                        Platform.runLater(() -> {
+                            Tour tour = Tour.fromDTO(savedDTO);
+                            mainViewModel.addTour(tour);
+                            closeNewTour();
+                        });
+                    }
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void highlightInvalidFields() {

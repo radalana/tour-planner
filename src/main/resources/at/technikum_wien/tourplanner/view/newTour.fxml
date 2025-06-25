@@ -23,7 +23,7 @@
             <Pane HBox.hgrow="ALWAYS"/>
             <MenuButton fx:id="importMenuButton" text="+" prefWidth="30" prefHeight="30">
                 <items>
-                    <MenuItem text="IMPORT A FILE" onAction="#handleImport"/>
+                    <MenuItem text="IMPORT A TOUR" onAction="#handleImport"/>
                 </items>
             </MenuButton>
         </HBox>
