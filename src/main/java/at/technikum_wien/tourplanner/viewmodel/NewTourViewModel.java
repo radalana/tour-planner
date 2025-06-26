@@ -3,6 +3,7 @@ package at.technikum_wien.tourplanner.viewmodel;
 import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
+import at.technikum_wien.tourplanner.utils.TimeConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -70,10 +71,8 @@ public class NewTourViewModel {
                 double distKm = routeData.getDouble("distance") / 1000.0;
                 double durationSec = routeData.getDouble("duration");
                 //TODO check if model real changed not only variables
-                int hours = (int) durationSec / 3600;
-                int minutes = (int) (durationSec % 3600) / 60;
 
-                String formattedTime = String.format("%02d:%02d", hours, minutes);
+                String formattedTime = TimeConverter.fromDoubleToString(durationSec);
                 Platform.runLater(() -> {
                     distance.set(distKm);
                     estTime.set(formattedTime);

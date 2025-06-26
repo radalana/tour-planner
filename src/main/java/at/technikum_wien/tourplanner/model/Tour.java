@@ -1,6 +1,7 @@
 package at.technikum_wien.tourplanner.model;
 
 import at.technikum_wien.tourplanner.dto.TourDTO;
+import at.technikum_wien.tourplanner.utils.TimeConverter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.*;
@@ -131,20 +132,7 @@ public class Tour {
         dto.setTransportType(getTransportType());
         dto.setDistance(getDistance());
         String estimatedTimeString = getEstimatedTime();
-        if (estimatedTimeString != null) {
-            if (estimatedTimeString.matches("^\\d{1,2}:\\d{2}$")) {
-                String[] parts = estimatedTimeString.split(":");
-                int hours = Integer.parseInt(parts[0]);
-                int minutes = Integer.parseInt(parts[1]);
-
-                double totalMinutes = hours * 60 + minutes;
-                System.out.println("Total minutes: " + totalMinutes);
-                dto.setEstimatedTime(totalMinutes);
-            } else {
-                System.out.println("Invalid time format (expected hh:mm)");
-            }
-        }
-
+        dto.setEstimatedTime(TimeConverter.fromStringToDouble(estimatedTimeString));
         return dto;
     }
     //From data to UI
@@ -157,12 +145,9 @@ public class Tour {
         tour.setTo(dto.getToLocation());
         tour.setTransportType(dto.getTransportType());
         tour.setDistance(dto.getDistance());
-        Double totalMinutes = dto.getEstimatedTime();
-        int hours = (int)(totalMinutes / 60);
-        int minutes = (int)(totalMinutes % 60);
-        String formattedTime = String.format("%02d:%02d", hours, minutes);
+        Double totalSeconds = dto.getEstimatedTime();
 
-        tour.setEstimatedTime(formattedTime);
+        tour.setEstimatedTime(TimeConverter.fromDoubleToString(totalSeconds));
         tour.setPopularity(dto.getPopularity());
         tour.setChildFriendliness(dto.getChildFriendliness());
         return tour;
