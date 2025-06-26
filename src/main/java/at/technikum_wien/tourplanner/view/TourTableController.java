@@ -21,7 +21,7 @@ public class TourTableController {
     @FXML private TableColumn<Tour,String> fromColumn;
     @FXML private TableColumn<Tour,String> toColumn;
     @FXML private TableColumn<Tour,Double> distanceColumn;
-    @FXML private TableColumn<Tour,Double> estimatedTimeColumn;
+    @FXML private TableColumn<Tour,String> estimatedTimeColumn;
 
     private final TourTableViewModel tourTableViewModel;
 
@@ -76,7 +76,7 @@ public class TourTableController {
         transportTypeColumn.setCellValueFactory(cellData -> cellData.getValue().transportTypeProperty());
         fromColumn.setCellValueFactory(cellData -> cellData.getValue().fromProperty());
         toColumn.setCellValueFactory(cellData -> cellData.getValue().toProperty());
-
+        estimatedTimeColumn.setCellValueFactory(cellData -> cellData.getValue().estimatedTimeProperty());
         // Distance column: binds to DoubleProperty but displays 2 decimals
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().distanceProperty().asObject());
         distanceColumn.setCellFactory(column -> new TableCell<>() {
@@ -91,19 +91,6 @@ public class TourTableController {
             }
         });
 
-        // Estimated Time column: binds to DoubleProperty but displays 2 decimals
-        estimatedTimeColumn.setCellValueFactory(cellData -> cellData.getValue().estimatedTimeProperty().asObject());
-        estimatedTimeColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(Double item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("%.2f", item));
-                }
-            }
-        });
     }
 
 }

@@ -17,7 +17,7 @@ public class TourDetailsViewModel {
     private final StringProperty to = new SimpleStringProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
     private final StringProperty transportType = new SimpleStringProperty();
-    private final DoubleProperty estimatedTime = new SimpleDoubleProperty();
+    private final StringProperty estimatedTime = new SimpleStringProperty();
 
     public StringProperty nameProperty() {return name;}
     public StringProperty descriptionProperty() {return description;}
@@ -25,7 +25,7 @@ public class TourDetailsViewModel {
     public StringProperty toProperty() {return to;}
     public DoubleProperty distanceProperty() {return distance;}
     public StringProperty transportTypeProperty() { return transportType; }
-    public DoubleProperty estimatedTimeProperty() {return estimatedTime;}
+    public StringProperty estimatedTimeProperty() {return estimatedTime;}
 
     public TourDetailsViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
         this.mainViewModelViewModel = mainViewModelViewModel;
@@ -43,7 +43,6 @@ public class TourDetailsViewModel {
             to.set(selected.getTo());
             distance.set(selected.getDistance());
             estimatedTime.set(selected.getEstimatedTime());
-
             updateRouteInfo();
         }
     }
@@ -53,23 +52,26 @@ public class TourDetailsViewModel {
         String fromLocation = from.get();
         String toLocation = to.get();
         String transport = transportType.get();
-        /*
+
         tourService.getRouteInfo(fromLocation, toLocation, transport).thenAccept(response -> {
+
             if (response != null) {
                 double distanceKm = response.getDouble("distance") / 1000.0;
-                double durationHrs = response.getDouble("duration") / 3600.0;
+                double durationSec = response.getDouble("duration");
                 //TODO check if model real changed not only variables
+                int hours = (int) durationSec / 3600;
+                int minutes = (int) (durationSec % 3600) / 60;
+
+                String formattedTime = String.format("%02d:%02d", hours, minutes);
                 Platform.runLater(() -> {
                     distance.set(distanceKm);
-                    estimatedTime.set(durationHrs);
+                    estimatedTime.set(formattedTime);
                 });
             }
         }).exceptionally(ex -> {
             ex.printStackTrace();
             return null;
         });
-
-         */
     }
 
     public void deleteTour() {
@@ -104,14 +106,12 @@ public class TourDetailsViewModel {
                     from.get(),
                     to.get(),
                     transportType.get(),
-                    distance.get(),
-                    estimatedTime.get());
+                    distance.get());
             tourService.updateTourAsync(tourUpdateDTO, selected.getId()).thenAccept(editedTourData -> {
                 Platform.runLater(() -> {
                     selected.setId(editedTourData.getId());
                     selected.setTourName(editedTourData.getTourName());
                     selected.setDescription(editedTourData.getDescription());
-                    selected.setEstimatedTime(editedTourData.getEstimatedTime());
                     selected.setTransportType(editedTourData.getTransportType());
                     selected.setFrom(editedTourData.getFromLocation());
                     selected.setTo(editedTourData.getToLocation());

@@ -22,7 +22,7 @@ public class NewTourViewModel {
     private final StringProperty to = new SimpleStringProperty();
     private final StringProperty transportType = new SimpleStringProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
-    private final DoubleProperty estTime = new SimpleDoubleProperty();
+    private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty routInfo = new SimpleStringProperty();
 
     public NewTourViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
@@ -40,7 +40,7 @@ public class NewTourViewModel {
     public StringProperty toProperty() { return to; }
     public StringProperty transportTypeProperty() { return transportType; }
     public DoubleProperty distanceProperty() { return distance; }
-    public DoubleProperty estTimeProperty() { return estTime; }
+    public StringProperty estTimeProperty() { return estTime; }
 
     // Input validation for required fields only
     public boolean validate() {
@@ -68,11 +68,15 @@ public class NewTourViewModel {
         tourService.getRouteInfo(from.get(), to.get(), transportType.get()).thenAccept(routeData -> {
             if (routeData != null) {
                 double distKm = routeData.getDouble("distance") / 1000.0;
-                double timeHrs = routeData.getDouble("duration") / 3600.0;
+                double durationSec = routeData.getDouble("duration");
+                //TODO check if model real changed not only variables
+                int hours = (int) durationSec / 3600;
+                int minutes = (int) (durationSec % 3600) / 60;
 
+                String formattedTime = String.format("%02d:%02d", hours, minutes);
                 Platform.runLater(() -> {
                     distance.set(distKm);
-                    estTime.set(timeHrs);
+                    estTime.set(formattedTime);
 
                     Tour tour = new Tour(
                             name.get(),
@@ -81,7 +85,7 @@ public class NewTourViewModel {
                             to.get(),
                             transportType.get(),
                             distKm,
-                            timeHrs,
+                            formattedTime,
                             ""
                     );
 
@@ -101,7 +105,7 @@ public class NewTourViewModel {
                     to.set("");
                     transportType.set("");
                     distance.set(0);
-                    estTime.set(0);
+                    estTime.set("");
                     routInfo.set("");
                 });
             }

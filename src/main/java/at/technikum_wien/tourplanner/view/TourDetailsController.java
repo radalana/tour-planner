@@ -54,7 +54,7 @@ public class TourDetailsController {
         fromDetails.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
         toDetails.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
         Bindings.bindBidirectional(distanceDetails.textProperty(), tourDetailsViewModel.distanceProperty(), new NumberStringConverter());
-        Bindings.bindBidirectional(estimatedTimeDetails.textProperty(), tourDetailsViewModel.estimatedTimeProperty(), new NumberStringConverter());
+        estimatedTimeDetails.textProperty().bindBidirectional(tourDetailsViewModel.estimatedTimeProperty());
 
         String from = tourDetailsViewModel.fromProperty().get();
         String to = tourDetailsViewModel.toProperty().get();
