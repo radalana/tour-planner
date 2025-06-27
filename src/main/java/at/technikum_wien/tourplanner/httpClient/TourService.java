@@ -134,6 +134,9 @@ public class TourService {
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
                         System.out.println("Updating tour response : " + response.body());
+                        if (response.statusCode() >= 400) {
+                            throw new RuntimeException("Server returned error: " + response.body());
+                        }
                         try {
                             return objectMapper.readValue(response.body(), TourDTO.class);
                         } catch (IOException e) {

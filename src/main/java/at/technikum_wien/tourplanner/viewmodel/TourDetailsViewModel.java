@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 public class TourDetailsViewModel {
@@ -65,39 +66,34 @@ public class TourDetailsViewModel {
         mainViewModelViewModel.openTourLogsView();
     }
 
-    public void updateTour() {
-        //TODO server sends timestamp, tourDTO doesn have this field --- error!
+    public CompletableFuture<Void> updateTour() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
-        System.out.println("Selected tour before: " + selected);
-        System.out.println("FROM: " + selected.getFrom());
-        System.out.println("TO: " + selected.getTo());
-        if (selected != null) {
-            TourUpdateDTO tourUpdateDTO = new TourUpdateDTO(
-                    selected.getTourName(),
-                    selected.getDescription(),
-                    selected.getFrom(),
-                    selected.getTo(),
-                    selected.getTransportType());
-            tourService.updateTourAsync(tourUpdateDTO, selected.getId()).thenAccept(editedTourData -> {
-                System.out.println("Edited tour data: " + editedTourData);
-                Platform.runLater(() -> {
-                    selected.setId(editedTourData.getId());
-                    selected.setTourName(editedTourData.getTourName());
-                    selected.setDescription(editedTourData.getDescription());
-                    selected.setTransportType(editedTourData.getTransportType());
-                    selected.setFrom(editedTourData.getFromLocation());
-                    selected.setTo(editedTourData.getToLocation());
-                    selected.setDistance(editedTourData.getDistance());
-                    selected.setEstimatedTime(TimeConverter.fromLongToString(editedTourData.getEstimatedTime()));
-                    //loadTourData();
-                });
-            }).exceptionally(ex -> {
-                ex.printStackTrace();
-                //show allert?
-                return null;
-            });
+
+        if (selected == null) {
+            return CompletableFuture.completedFuture(null);
         }
 
+        TourUpdateDTO tourUpdateDTO = new TourUpdateDTO(
+                selected.getTourName(),
+                selected.getDescription(),
+                selected.getFrom(),
+                selected.getTo(),
+                selected.getTransportType()
+        );
+
+        return tourService.updateTourAsync(tourUpdateDTO, selected.getId())
+                .thenAccept(editedTourData -> {
+                    Platform.runLater(() -> {
+                        selected.setId(editedTourData.getId());
+                        selected.setTourName(editedTourData.getTourName());
+                        selected.setDescription(editedTourData.getDescription());
+                        selected.setTransportType(editedTourData.getTransportType());
+                        selected.setFrom(editedTourData.getFromLocation());
+                        selected.setTo(editedTourData.getToLocation());
+                        selected.setDistance(editedTourData.getDistance());
+                        selected.setEstimatedTime(TimeConverter.fromLongToString(editedTourData.getEstimatedTime()));
+                    });
+                });
     }
 
     public Long getTourId() {
@@ -107,5 +103,14 @@ public class TourDetailsViewModel {
 
     public List<String> fetchLocationSuggestions(String input) {
         return tourService.fetchLocationSuggestions(input);
+    }
+
+    private String extractMessage(Throwable ex) {
+        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+        String msg = cause.getMessage();
+        if (msg != null && msg.contains("Server returned error:")) {
+            return msg.replace("Server returned error:", "").trim();
+        }
+        return "Unexpected error occurred: " + msg;
     }
 }

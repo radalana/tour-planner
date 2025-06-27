@@ -1,6 +1,7 @@
 package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -104,7 +106,13 @@ public class TourDetailsController {
 
             editButton.setText("UPDATE");
         } else {
-            tourDetailsViewModel.updateTour();
+            tourDetailsViewModel.updateTour()
+                    .exceptionally(ex -> {
+                        Platform.runLater(() -> showAlert(Alert.AlertType.ERROR,
+                                "Update Failed",
+                                extractMessage(ex)));
+                        return null;
+                    });
 
             nameDetails.setEditable(false);
             descriptionDetails.setEditable(false);
@@ -212,5 +220,14 @@ public class TourDetailsController {
         Bounds bounds = inputField.localToScreen(inputField.getBoundsInLocal());
         suggestionsPopup.show(inputField, bounds.getMinX(), bounds.getMaxY());
     }
-
+    private void showAlert(Alert.AlertType type, String title, String msg) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+    private String extractMessage(Throwable ex) {
+        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+        return (cause.getMessage() != null) ? cause.getMessage() : "Unknown error occurred";
+    }
 }
