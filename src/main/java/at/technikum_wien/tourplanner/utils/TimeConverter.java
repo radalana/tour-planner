@@ -9,21 +9,42 @@ public class TimeConverter {
         int hours = (int) seconds / SECONDS_PER_HOUR;
         int minutes = (int) (seconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE;
 
-        return  String.format("%02d:%02d", hours, minutes);
+        StringBuilder sb = new StringBuilder();
+        if (hours > 0) sb.append(hours).append("h");
+        if (minutes > 0) {
+            if (sb.length() > 0) sb.append(" ");
+            sb.append(minutes).append("m");
+        }
+        if (sb.length() == 0) {
+            sb.append("0m");
+        }
+
+        return sb.toString();
     }
 
     public static double fromStringToDouble(String timeString) {
         if (timeString != null) {
-            if (timeString.matches("^\\d{1,2}:\\d{2}$")) {
-                String[] parts = timeString.split(":");
-                int hours = Integer.parseInt(parts[0]);
-                int minutes = Integer.parseInt(parts[1]);
+            timeString = timeString.toLowerCase().replaceAll("\\s+", "");
+            int hours = 0;
+            int minutes = 0;
 
-                return (hours * MINUTES_PER_HOUR + minutes) * SECONDS_PER_MINUTE;
-            } else {
-                System.out.println("Invalid time format (expected hh:mm)");
+            try {
+                if (timeString.contains("h")) {
+                    String[] parts = timeString.split("h");
+                    hours = Integer.parseInt(parts[0]);
+                    timeString = parts.length > 1 ? parts[1] : "";
+                }
+
+                if (timeString.contains("m")) {
+                    String[] parts = timeString.split("m");
+                    minutes = Integer.parseInt(parts[0]);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid time format (expected something like '6h 5m')");
                 return 0.0;
             }
+
+            return (hours * MINUTES_PER_HOUR + minutes) * SECONDS_PER_MINUTE;
         }
         return 0.0;
     }
