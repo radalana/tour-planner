@@ -7,6 +7,8 @@ import at.technikum_wien.tourplanner.utils.TimeConverter;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 
+import java.util.List;
+
 
 public class TourDetailsViewModel {
     private final MainViewModel mainViewModelViewModel;
@@ -129,5 +131,9 @@ public class TourDetailsViewModel {
     public Long getTourId() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
         return (selected != null) ? selected.getId() : null;
+    }
+
+    public List<String> fetchLocationSuggestions(String input) {
+        return tourService.fetchLocationSuggestions(input);
     }
 }

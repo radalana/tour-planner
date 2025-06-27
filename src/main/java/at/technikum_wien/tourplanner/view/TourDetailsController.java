@@ -2,13 +2,20 @@ package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.viewmodel.TourDetailsViewModel;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.web.WebView;
@@ -22,7 +29,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+import java.util.List;
 
 
 public class TourDetailsController {
@@ -40,11 +47,13 @@ public class TourDetailsController {
 
 
     @FXML private Button editButton;
+    private final Popup suggestionsPopup = new Popup();
 
     public TourDetailsController(TourDetailsViewModel tourDetailsViewModel) {
         this.tourDetailsViewModel = tourDetailsViewModel;
     }
     @FXML public void initialize() {
+        initAutocomplete();
         tourDetailsViewModel.loadTourData();
         //one-way binding
         nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
@@ -153,6 +162,56 @@ public class TourDetailsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void initAutocomplete() {
+        fromDetails.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            String input = fromDetails.getText();
+            if (input.length() >= 2) {
+                fetchAndShowPopupSuggestions(input, fromDetails);
+            }
+        });
+        toDetails.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            String input = toDetails.getText();
+            if (input.length() >= 2) fetchAndShowPopupSuggestions(input, toDetails);
+        });
+    }
+
+    private void fetchAndShowPopupSuggestions(String input, TextField textField) {
+        Task<List<String>> task = new Task<>() {
+            @Override
+            protected List<String> call() {
+                return tourDetailsViewModel.fetchLocationSuggestions(input);
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            List<String> suggestions = task.getValue();
+            if (!suggestions.isEmpty()) {
+                showSuggestionsPopup(suggestions, textField);
+            }
+        });
+
+        new Thread(task).start();
+    }
+    private void showSuggestionsPopup(List<String> suggestions, TextField inputField) {
+        ListView<String> suggestionList = new ListView<>();
+
+        suggestionList.getItems().addAll(suggestions);
+        suggestionList.setPrefHeight(Math.min(150, suggestions.size() * 24));
+
+        // 👇 Применяем CSS класс
+        suggestionList.getStyleClass().add("suggestion-list");
+        suggestionList.setOnMouseClicked(event -> {
+            inputField.setText(suggestionList.getSelectionModel().getSelectedItem());
+            suggestionsPopup.hide();
+        });
+
+        suggestionsPopup.getContent().clear();
+        suggestionsPopup.getContent().add(suggestionList);
+        suggestionsPopup.setAutoHide(true);
+
+        Bounds bounds = inputField.localToScreen(inputField.getBoundsInLocal());
+        suggestionsPopup.show(inputField, bounds.getMinX(), bounds.getMaxY());
     }
 
 }

@@ -56,7 +56,7 @@
                         <TextField fx:id="nameDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="readonly-field"/>
                         <TextField fx:id="descriptionDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="readonly-field"/>
                         <TextField fx:id="transportTypeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="readonly-field"/>
-                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="readonly-field"/>
+                        <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"  styleClass="readonly-field"/>
                         <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="readonly-field"/>
                         <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="readonly-field"/>
                         <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="readonly-field"/>
