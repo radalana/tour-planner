@@ -25,6 +25,7 @@ public class HeaderController {
     public HeaderController(HeaderViewModel headerViewModel) {
         this.headerViewModel = headerViewModel;
     }
+
     @FXML
     public void initialize() {
         //initial focus is set away from searchfield

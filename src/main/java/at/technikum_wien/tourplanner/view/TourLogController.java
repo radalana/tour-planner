@@ -3,10 +3,12 @@ package at.technikum_wien.tourplanner.view;
 import at.technikum_wien.tourplanner.model.TourLog;
 import at.technikum_wien.tourplanner.viewmodel.TourLogViewModel;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 
 public class TourLogController {
     private TourLogViewModel viewModel;
@@ -18,13 +20,13 @@ public class TourLogController {
     @FXML private TableColumn<TourLog, String> durationColumn;
     @FXML private TableColumn<TourLog, String> commentColumn;
     @FXML private TableColumn<TourLog, String> difficultyColumn;
-
     @FXML private TextField searchLogTextField;
-
+    @FXML private AnchorPane logsRoot;
 
     public TourLogController(TourLogViewModel viewModel) {
         this.viewModel = viewModel;
     }
+
     @FXML private void initialize() {
         System.out.println("✅ Controller initialized");
         viewModel.syncLogs();
@@ -66,7 +68,9 @@ public class TourLogController {
             });
             return row;
         });
+        Platform.runLater(() -> logsRoot.requestFocus());
     }
+
     @FXML
     private void handleSearchLogs() {
         System.out.println("search logs pressed");
