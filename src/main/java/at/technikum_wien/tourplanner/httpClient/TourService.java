@@ -130,8 +130,10 @@ public class TourService {
                     .header("Content-Type", "application/json")
                     .PUT(HttpRequest.BodyPublishers.ofString(body))
                     .build();
+            System.out.println("Updating tour request : " + body);
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
+                        System.out.println("Updating tour response : " + response.body());
                         try {
                             return objectMapper.readValue(response.body(), TourDTO.class);
                         } catch (IOException e) {
@@ -165,40 +167,6 @@ public class TourService {
                 });
     }
 
-    public CompletableFuture<JSONObject> getRouteInfo(String from, String to, String transportType) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                String url = "http://localhost:8080/api/route?from=" + URLEncoder.encode(from, StandardCharsets.UTF_8)
-                        + "&to=" + URLEncoder.encode(to, StandardCharsets.UTF_8) + "&transport=" + URLEncoder.encode(transportType, StandardCharsets.UTF_8);
-
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(url))
-                        .GET()
-                        .build();
-
-                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                System.out.println("response route info" + response.body());
-                JSONObject json = new JSONObject(response.body());
-
-
-                JSONObject summary = json.getJSONArray("features")
-                        .getJSONObject(0)
-                        .getJSONObject("properties")
-                        .getJSONArray("segments")
-                        .getJSONObject(0);
-
-                JSONObject result = new JSONObject();
-                result.put("distance", summary.getDouble("distance"));
-                result.put("duration", summary.getDouble("duration"));
-                System.out.println("result:  " + result);
-                return result;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        });
-    }
-
     public List<String> fetchLocationSuggestions(String input) {
         try {
             String url = "https://api.openrouteservice.org/geocode/search?api_key=" +
@@ -219,7 +187,9 @@ public class TourService {
 
             for (int i = 0; i < features.length(); i++) {
                 JSONObject props = features.getJSONObject(i).getJSONObject("properties");
-                suggestions.add(props.getString("label"));
+                String label = props.getString("label");
+                String layer = props.optString("layer", "unknown");
+                suggestions.add(label + " (" + layer + ")");
             }
             return suggestions;
 

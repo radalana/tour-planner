@@ -54,7 +54,6 @@ public class TourDetailsController {
     }
     @FXML public void initialize() {
         initAutocomplete();
-        tourDetailsViewModel.loadTourData();
         //one-way binding
         nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         descriptionDetails.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());

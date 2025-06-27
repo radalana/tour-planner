@@ -20,4 +20,20 @@ public class TourDTO {
     private long estimatedTime;
     private int popularity;
     private double childFriendliness;
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id=" + id +
+                ", tourName='" + tourName + '\'' +
+                ", description='" + description + '\'' +
+                ", fromLocation='" + fromLocation + '\'' +
+                ", toLocation='" + toLocation + '\'' +
+                ", transportType='" + transportType + '\'' +
+                ", distance=" + distance +
+                ", estimatedTime=" + estimatedTime +
+                ", popularity=" + popularity +
+                ", childFriendliness=" + childFriendliness +
+                '}';
+    }
 }

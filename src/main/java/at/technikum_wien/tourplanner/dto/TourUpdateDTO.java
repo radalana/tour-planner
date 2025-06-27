@@ -16,12 +16,11 @@ public class TourUpdateDTO {
     private double distance;
     private double estimatedTime;
 
-    public TourUpdateDTO(String tourName, String description, String fromLocation, String toLocation, String transportType, double distance) {
+    public TourUpdateDTO(String tourName, String description, String fromLocation, String toLocation, String transportType) {
         this.tourName = tourName;
         this.description = description;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.transportType = transportType;
-        this.distance = distance;
     }
 }
