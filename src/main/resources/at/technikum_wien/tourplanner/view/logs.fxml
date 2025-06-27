@@ -15,22 +15,29 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="at.technikum_wien.tourplanner.view.TourLogController"
             fx:id="logsRoot"
-            stylesheets="@../style/logs.css">
-    <VBox>
+            stylesheets="@../style/logs.css, @../style/header.css">
+
     <HBox fx:id="searchLogBox"
-          spacing="20.0"
-          alignment="BOTTOM_RIGHT">
-        <HBox.margin>
-            <Insets right="20.0"/>
-        </HBox.margin>
+          spacing="10.0"
+          alignment="CENTER_RIGHT"
+          AnchorPane.rightAnchor="20.0"
+          AnchorPane.topAnchor="20.0">
         <TextField fx:id="searchLogTextField"
+                   id="searchField"
                    maxWidth="250.0"
                    promptText="search logs..."/>
         <Button fx:id="searchLogButton"
+                id="searchButton"
                 onAction="#handleSearchLogs"
                 mnemonicParsing="false"
                 text="Search"/>
     </HBox>
+    <VBox
+        spacing="10"
+        AnchorPane.topAnchor="40.0"
+        AnchorPane.leftAnchor="0.0"
+        AnchorPane.rightAnchor="0.0"
+        AnchorPane.bottomAnchor="0.0">
     <HBox spacing="20"
           alignment="CENTER"
           AnchorPane.leftAnchor="0.0"
