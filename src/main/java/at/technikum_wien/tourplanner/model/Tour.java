@@ -145,7 +145,7 @@ public class Tour {
         tour.setTo(dto.getToLocation());
         tour.setTransportType(dto.getTransportType());
         tour.setDistance(dto.getDistance());
-        Double totalSeconds = dto.getEstimatedTime();
+        long totalSeconds = dto.getEstimatedTime();
 
         tour.setEstimatedTime(TimeConverter.fromDoubleToString(totalSeconds));
         tour.setPopularity(dto.getPopularity());

@@ -5,7 +5,7 @@ public class TimeConverter {
     public static final int SECONDS_PER_MINUTE = 60;
     public static final int MINUTES_PER_HOUR = 60;
 
-    public static String fromDoubleToString(double seconds) {
+    public static String fromLongToString(long seconds) {
         int hours = (int) seconds / SECONDS_PER_HOUR;
         int minutes = (int) (seconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE;
 
@@ -22,7 +22,7 @@ public class TimeConverter {
         return sb.toString();
     }
 
-    public static double fromStringToDouble(String timeString) {
+    public static long fromStringToLong(String timeString) {
         if (timeString != null) {
             timeString = timeString.toLowerCase().replaceAll("\\s+", "");
             int hours = 0;
@@ -41,11 +41,11 @@ public class TimeConverter {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid time format (expected something like '6h 5m')");
-                return 0.0;
+                return 0;
             }
 
-            return (hours * MINUTES_PER_HOUR + minutes) * SECONDS_PER_MINUTE;
+            return ((long) hours * MINUTES_PER_HOUR + minutes) * SECONDS_PER_MINUTE;
         }
-        return 0.0;
+        return 0;
     }
 }

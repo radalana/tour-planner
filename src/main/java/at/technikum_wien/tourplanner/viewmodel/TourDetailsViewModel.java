@@ -60,7 +60,7 @@ public class TourDetailsViewModel {
                 double distanceKm = response.getDouble("distance") / 1000.0;
                 double durationSec = response.getDouble("duration");
                 //TODO check if model real changed not only variables
-                String formattedTime = TimeConverter.fromDoubleToString(durationSec);
+                String formattedTime = TimeConverter.fromLongToString((long )durationSec);
                 Platform.runLater(() -> {
                     distance.set(distanceKm);
                     estimatedTime.set(formattedTime);
