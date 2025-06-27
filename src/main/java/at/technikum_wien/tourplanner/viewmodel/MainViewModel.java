@@ -32,7 +32,6 @@ public class MainViewModel {
     public ObjectProperty<TourLog> selectedLogProperty() { return selectedLog; }
     public TourLog getSelectedLog() { return selectedLog.get(); }
     public void setSelectedLog(TourLog log) {
-        //не вызывается
         System.out.println("[DEBUG] Setting selected log: ] + " + log);
         this.selectedLog.set(log);
     }
@@ -46,7 +45,7 @@ public class MainViewModel {
     public void removeTour(Tour tour) {
         tours.remove(tour);
     }
-    //maybe extract
+
     public void openTourLogsView() {
         try {
             Parent root = FXMLDependencyInjection.load("logs.fxml");

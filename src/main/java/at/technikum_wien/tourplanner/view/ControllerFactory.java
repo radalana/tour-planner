@@ -1,6 +1,5 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.viewmodel.*;
 
 public class ControllerFactory {

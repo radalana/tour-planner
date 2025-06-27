@@ -2,16 +2,12 @@ package at.technikum_wien.tourplanner.viewmodel;
 
 import at.technikum_wien.tourplanner.dto.TourLogUpdateDTO;
 import at.technikum_wien.tourplanner.httpClient.TourLogService;
-import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.application.Platform;
-import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AddLogViewModel {
@@ -57,7 +53,7 @@ public class AddLogViewModel {
         });
     }
 
-    // Convert label to number for backend use
+    // convert label to number for backend use
     public int getNumericDifficulty() {
         return switch (difficulty.get().toLowerCase()) {
             case "easy" -> 1;
@@ -67,7 +63,7 @@ public class AddLogViewModel {
         };
     }
 
-    // Convert number to label for UI display
+    // convert number to label for UI display
     public void setDifficultyFromNumeric(double value) {
         switch ((int) value) {
             case 1 -> difficulty.set("Easy");
@@ -79,9 +75,7 @@ public class AddLogViewModel {
 
     public CompletableFuture<Boolean> addLogAsync() {
         Tour tour = selectedTour.get();
-        //System.out.println("[AddLogViewModel addLog]: selected tour: " + selectedTour.get());
         if (!validateFields()) {
-            //System.out.println("[AddLogViewModel addLog] Invalid fields");
             return CompletableFuture.completedFuture(false);
         }
         TourLog newLog = new TourLog(
@@ -180,6 +174,6 @@ public class AddLogViewModel {
         } else if (value instanceof Number num) {
             return num.doubleValue() != 0.0 && !Double.isNaN(num.doubleValue());
         }
-        return true; // для других типов по умолчанию true, можно уточнить при необходимости
+        return true; //for other types the default is true
     }
 }

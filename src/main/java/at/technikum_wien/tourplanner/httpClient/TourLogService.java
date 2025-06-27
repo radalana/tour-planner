@@ -1,6 +1,5 @@
 package at.technikum_wien.tourplanner.httpClient;
 
-import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.dto.TourLogDTO;
 import at.technikum_wien.tourplanner.dto.TourLogUpdateDTO;
 import at.technikum_wien.tourplanner.model.TourLog;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;

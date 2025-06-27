@@ -1,6 +1,5 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
-import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.application.Platform;
@@ -20,7 +19,7 @@ public class TourTableViewModel {
     public ObservableList<Tour> getTours() {
         return mainViewModelViewModel.getTours();
     }
-    //set new selceted Tour
+    //set new selected Tour
     public void selectTour(Tour tour) {
         mainViewModelViewModel.selectedTourProperty().set(tour);
     }

@@ -1,11 +1,8 @@
 package at.technikum_wien.tourplanner.viewmodel;
 
-import at.technikum_wien.tourplanner.dto.TourDTO;
 import at.technikum_wien.tourplanner.httpClient.TourService;
 import at.technikum_wien.tourplanner.model.Tour;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.util.List;
 import java.util.stream.Collectors;

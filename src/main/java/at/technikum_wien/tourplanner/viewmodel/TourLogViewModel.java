@@ -5,13 +5,11 @@ import at.technikum_wien.tourplanner.model.Tour;
 import at.technikum_wien.tourplanner.model.TourLog;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class TourLogViewModel {
@@ -42,7 +40,6 @@ public class TourLogViewModel {
                     Platform.runLater(() -> {
                         ObservableList<TourLog> logs = tour.getObservableLogs();
                         logs.remove(log);
-                        //mainViewModel.isLogDeletedProperty().set(true);
                         mainViewModel.selectedLogProperty().set(null);
                     });
                 }else {

@@ -5,8 +5,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
 import javafx.stage.FileChooser;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -14,8 +14,6 @@ import java.net.http.HttpResponse;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.awt.Desktop;
-
 
 public class HeaderController {
     private final HeaderViewModel headerViewModel;
@@ -70,7 +68,7 @@ public class HeaderController {
 
     @FXML
     private void handleSearch() {
-        String query = searchTextField.getText(); // ← просто берём текст
+        String query = searchTextField.getText(); //only search text
         headerViewModel.searchTours(query);
     }
 

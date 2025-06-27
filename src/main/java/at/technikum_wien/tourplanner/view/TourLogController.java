@@ -2,11 +2,10 @@ package at.technikum_wien.tourplanner.view;
 
 import at.technikum_wien.tourplanner.model.TourLog;
 import at.technikum_wien.tourplanner.viewmodel.TourLogViewModel;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 
 public class TourLogController {

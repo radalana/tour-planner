@@ -53,10 +53,6 @@ public class NewTourViewModel {
         return true;
     }
 
-    public void cancel() {
-        // No-op placeholder (optional)
-    }
-
     public List<String> fetchLocationSuggestions(String input) {
         return tourService.fetchLocationSuggestions(input);
     }

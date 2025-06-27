@@ -24,7 +24,7 @@ public class Tour {
 
     private StringProperty from = new SimpleStringProperty();
     private StringProperty to = new SimpleStringProperty();
-    private StringProperty transportType = new SimpleStringProperty();//TODO maybe enum
+    private StringProperty transportType = new SimpleStringProperty();
     private DoubleProperty distance = new SimpleDoubleProperty();
     private StringProperty estimatedTime = new SimpleStringProperty();
     private StringProperty routInfo = new SimpleStringProperty();

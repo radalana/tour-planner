@@ -15,7 +15,6 @@ import javafx.scene.web.WebView;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -64,11 +63,11 @@ public class TourDetailsController {
         String mapUrl = "http://localhost:8080/map.html?from=" + from + "&to=" + to + "&transport=" + transport;
         mapView.getEngine().load(mapUrl);
 
-        // Hide the placeholder text once the map loads
+        //hide the placeholder text once the map loads
         mapView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
                 mapView.setVisible(true);
-                mapPlaceholder.setVisible(false); // You need to @FXML inject this too!
+                mapPlaceholder.setVisible(false);
             }
         });
     }

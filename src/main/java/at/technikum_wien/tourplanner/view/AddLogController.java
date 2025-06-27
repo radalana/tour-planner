@@ -2,13 +2,10 @@
 
     import at.technikum_wien.tourplanner.viewmodel.AddLogViewModel;
     import javafx.application.Platform;
-    import javafx.beans.binding.Bindings;
     import javafx.fxml.FXML;
     import javafx.scene.control.*;
-
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
-    import javafx.util.converter.NumberStringConverter;
 
     import java.time.format.DateTimeFormatter;
     import java.util.Objects;
@@ -129,7 +126,7 @@
             distanceTextField.setStyle(ORIGINAL_STYLE);
             commentTextArea.setStyle(ORIGINAL_STYLE);
             difficultyComboBox.setStyle(ORIGINAL_STYLE);
-            //ratingTextField.setStyle(ORIGINAL_STYLE);
+            ratingTextField.setStyle(ORIGINAL_STYLE);
         }
 
         private void clearForm() {

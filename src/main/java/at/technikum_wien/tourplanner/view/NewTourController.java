@@ -1,27 +1,17 @@
 package at.technikum_wien.tourplanner.view;
 
-import at.technikum_wien.tourplanner.dto.TourDTO;
-import at.technikum_wien.tourplanner.httpClient.TourService;
-import at.technikum_wien.tourplanner.model.Tour;
-import at.technikum_wien.tourplanner.viewmodel.MainViewModel;
 import at.technikum_wien.tourplanner.viewmodel.NewTourViewModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
-import javafx.util.converter.NumberStringConverter;
 import lombok.Getter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class NewTourController {

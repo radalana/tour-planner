@@ -48,7 +48,7 @@ public class TourDetailsViewModel {
         }
     }
 
-    // Call backend to get updated distance + estimated time
+    //call backend to get updated distance + estimated time
     public void updateRouteInfo() {
         String fromLocation = from.get();
         String toLocation = to.get();
