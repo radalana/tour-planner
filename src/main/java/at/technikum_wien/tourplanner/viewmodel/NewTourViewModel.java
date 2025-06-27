@@ -61,54 +61,31 @@ public class NewTourViewModel {
         if (!validate()) {
             return false;
         }
-
-        tourService.getRouteInfo(from.get(), to.get(), transportType.get()).thenAccept(routeData -> {
-            if (routeData != null) {
-                double distKm = routeData.getDouble("distance") / 1000.0;
-                double durationSec = routeData.getDouble("duration");
-                //TODO check if model real changed not only variables
-
-                String formattedTime = TimeConverter.fromDoubleToString(durationSec);
-                Platform.runLater(() -> {
-                    distance.set(distKm);
-                    estTime.set(formattedTime);
-
-                    Tour tour = new Tour(
-                            name.get(),
-                            description.get(),
-                            from.get(),
-                            to.get(),
-                            transportType.get(),
-                            distKm,
-                            formattedTime,
-                            ""
-                    );
-
-                    tourService.createTourAsync(tour).thenAccept(addedTour -> {
-                        Platform.runLater(() -> {
-                            mainViewModelViewModel.addTour(addedTour);
-                        });
-                    }).exceptionally(ex -> {
-                        ex.printStackTrace();
-                        return null;
-                    });
-
-                    // Clean form values
-                    name.set("");
-                    description.set("");
-                    from.set("");
-                    to.set("");
-                    transportType.set("");
-                    distance.set(0);
-                    estTime.set("");
-                    routInfo.set("");
-                });
-            }
+        Tour tour = new Tour(
+                name.get(),
+                description.get(),
+                from.get(),
+                to.get(),
+                transportType.get()
+        );
+        tourService.createTourAsync(tour).thenAccept(addedTour -> {
+            Platform.runLater(() -> {
+                mainViewModelViewModel.addTour(addedTour);
+            });
         }).exceptionally(ex -> {
             ex.printStackTrace();
             return null;
         });
 
+        // Clean form values
+        name.set("");
+        description.set("");
+        from.set("");
+        to.set("");
+        transportType.set("");
+        distance.set(0);
+        estTime.set("");
+        routInfo.set("");
         return true;
     }
 

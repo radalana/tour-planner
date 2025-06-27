@@ -76,6 +76,7 @@ public class TourService {
                     .build();
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
+                        System.out.println("Created tour response : " + response.body());
                         try {
                             TourDTO tourDTO = objectMapper.readValue(response.body(), TourDTO.class);
                             return Tour.fromDTO(tourDTO);
@@ -176,7 +177,7 @@ public class TourService {
                         .build();
 
                 HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
+                System.out.println("response route info" + response.body());
                 JSONObject json = new JSONObject(response.body());
 
 
@@ -189,6 +190,7 @@ public class TourService {
                 JSONObject result = new JSONObject();
                 result.put("distance", summary.getDouble("distance"));
                 result.put("duration", summary.getDouble("duration"));
+                System.out.println("result:  " + result);
                 return result;
             } catch (Exception e) {
                 e.printStackTrace();

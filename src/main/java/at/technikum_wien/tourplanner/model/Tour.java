@@ -50,6 +50,14 @@ public class Tour {
         this.estimatedTime = new SimpleStringProperty(estimatedTime);
         this.routInfo = new SimpleStringProperty(routInfo);
     }
+    //For Create from UI without distance and duration, because they are generated from ORS
+    public Tour(String tourName, String description, String from, String to, String transportType) {
+        this.tourName = new SimpleStringProperty(tourName);
+        this.description = new SimpleStringProperty(description);
+        this.from = new SimpleStringProperty(from);
+        this.to = new SimpleStringProperty(to);
+        this.transportType = new SimpleStringProperty(transportType);
+    }
 
     //For Create from POST response (added Id field/not used in UI)
     public Tour(long id, String tourName, String description, String from, String to, String transportType, Double distance, String estimatedTime, String routInfo, Integer popularity) {
@@ -64,6 +72,8 @@ public class Tour {
         this.routInfo = new SimpleStringProperty(routInfo);
         this.popularity = new SimpleIntegerProperty(popularity);
     }
+
+
 
     //for tableView in Controller
     public String getTourName() {return tourName.get();}
@@ -130,9 +140,9 @@ public class Tour {
         dto.setFromLocation(getFrom());
         dto.setToLocation(getTo());
         dto.setTransportType(getTransportType());
-        dto.setDistance(getDistance());
-        String estimatedTimeString = getEstimatedTime();
-        dto.setEstimatedTime(TimeConverter.fromStringToDouble(estimatedTimeString));
+        //dto.setDistance(getDistance());
+        //String estimatedTimeString = getEstimatedTime();
+        //dto.setEstimatedTime(TimeConverter.fromStringToLong(estimatedTimeString));
         return dto;
     }
     //From data to UI
@@ -147,7 +157,7 @@ public class Tour {
         tour.setDistance(dto.getDistance());
         long totalSeconds = dto.getEstimatedTime();
 
-        tour.setEstimatedTime(TimeConverter.fromDoubleToString(totalSeconds));
+        tour.setEstimatedTime(TimeConverter.fromLongToString(totalSeconds));
         tour.setPopularity(dto.getPopularity());
         tour.setChildFriendliness(dto.getChildFriendliness());
         return tour;
