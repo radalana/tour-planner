@@ -49,8 +49,34 @@
             <TextField fx:id="distanceTextField" styleClass="form-input"/>
 
             <Label text="Total Time" styleClass="form-label"/>
-            <TextField fx:id="durationTextField" styleClass="form-input"/>
+             <TextField fx:id="durationTextField" styleClass="form-input"/>
 
+            <HBox styleClass="form-input">
+                <VBox>
+                    <Label text="Days"/>
+                    <Spinner fx:id="daysSpinner"  prefWidth="73.3">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="30" initialValue="0"/>
+                        </valueFactory>
+                    </Spinner>
+                </VBox>
+                <VBox>
+                    <Label text="Hours"/>
+                    <Spinner fx:id="hoursSpinner"  prefWidth="73.3">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="23" initialValue="0" />
+                        </valueFactory>
+                    </Spinner>
+                </VBox>
+                <VBox>
+                    <Label text="Minutes"/>
+                    <Spinner fx:id="minutesSpinner" prefWidth="73.3">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="59" initialValue="0"/>
+                        </valueFactory>
+                    </Spinner>
+                </VBox>
+            </HBox>
             <Label text="Rating" styleClass="form-label"/>
             <StackPane prefHeight="40" prefWidth="260">
                 <TextField fx:id="ratingTextField"
