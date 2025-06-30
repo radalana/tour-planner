@@ -9,6 +9,8 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane prefHeight="650.0"
             prefWidth="1080.0"
             xmlns="http://javafx.com/javafx/23.0.1"
@@ -57,7 +59,18 @@
                         <Label fx:id="nameErrorLabel" textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                         <TextField fx:id="descriptionDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="readonly-field"/>
                         <Label fx:id="descriptionErrorLabel" textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <TextField fx:id="transportTypeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="readonly-field"/>
+                        <TextField fx:id="transportTypeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="readonly-field"
+                        visible="true" managed="true"/>
+                        <ComboBox fx:id="transportTypeComboBox" stylesheets="@../style/newTour.css" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="380" promptText="Select Transport" styleClass="form-input" visible="false" managed="false">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="foot-walking"/>
+                                    <String fx:value="driving-car"/>
+                                    <String fx:value="cycling-regular"/>
+                                    <String fx:value="foot-hiking"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
                         <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"  styleClass="readonly-field"/>
                         <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="readonly-field"/>
                         <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="readonly-field"/>

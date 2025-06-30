@@ -37,6 +37,7 @@ public class TourDetailsController {
     @FXML private TextField nameDetails;
     @FXML private TextField descriptionDetails;
     @FXML private TextField transportTypeDetails;
+    @FXML private ComboBox<String> transportTypeComboBox; //for edit
     @FXML private TextField fromDetails;
     @FXML private TextField toDetails;
     @FXML private TextField distanceDetails;
@@ -120,6 +121,12 @@ public class TourDetailsController {
             distanceDetails.setEditable(true);
             estimatedTimeDetails.setEditable(true);
 
+            transportTypeDetails.setVisible(false);
+            transportTypeDetails.setManaged(false);
+
+            transportTypeComboBox.setVisible(true);
+            transportTypeComboBox.setManaged(true);
+
             editButton.setText("UPDATE");
             if (editButton.getText().equals("UPDATE")) {
                 editButton.disableProperty().bind(tourDetailsViewModel.validFormProperty().not());
@@ -141,6 +148,11 @@ public class TourDetailsController {
             toDetails.setEditable(false);
             distanceDetails.setEditable(false);
             estimatedTimeDetails.setEditable(false);
+            transportTypeDetails.setVisible(true);
+            transportTypeDetails.setManaged(true);
+            transportTypeComboBox.setVisible(false);
+            transportTypeComboBox.setManaged(false);
+
 
             editButton.setText("SAVED");
         }
