@@ -83,7 +83,7 @@ public class TourLogController {
         ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateTimeProperty());
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
-        durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
+        //durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
         commentColumn.setCellValueFactory(commentData -> commentData.getValue().commentProperty());
         difficultyColumn.setCellValueFactory(cellData -> {
             double diff = cellData.getValue().getDifficulty();

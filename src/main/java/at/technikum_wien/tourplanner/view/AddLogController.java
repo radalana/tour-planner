@@ -24,7 +24,13 @@
         //input fields
         @FXML private TextField ratingTextField;
         @FXML private TextField dateTextField;
+
         @FXML private TextField durationTextField;
+
+        @FXML private Spinner<Integer> daysSpinner;
+        @FXML private Spinner<Integer> hoursSpinner;
+        @FXML private Spinner<Integer> minutesSpinner;
+
         @FXML private TextField distanceTextField;
         @FXML private TextArea commentTextArea;
         @FXML private ComboBox<String> difficultyComboBox;
@@ -46,7 +52,13 @@
 
             ratingTextField.textProperty().bindBidirectional(addLogViewModel.ratingProperty());
             dateTextField.textProperty().bindBidirectional(addLogViewModel.dateProperty());
+
             durationTextField.textProperty().bindBidirectional(addLogViewModel.durationProperty());
+
+            daysSpinner.getValueFactory().valueProperty().bindBidirectional(addLogViewModel.durationDaysProperty().asObject());
+            hoursSpinner.getValueFactory().valueProperty().bindBidirectional(addLogViewModel.durationHoursProperty().asObject());
+            minutesSpinner.getValueFactory().valueProperty().bindBidirectional(addLogViewModel.durationMinutesProperty().asObject());
+
             distanceTextField.textProperty().bindBidirectional(addLogViewModel.distanceProperty());
             commentTextArea.textProperty().bindBidirectional(addLogViewModel.commentProperty());
             difficultyComboBox.valueProperty().bindBidirectional(addLogViewModel.difficultyProperty());
@@ -133,7 +145,13 @@
             addLogViewModel.ratingProperty().set("");
             updatePusheenImages(0); // visually reset
             addLogViewModel.dateProperty().set("");
+
             addLogViewModel.durationProperty().set("");
+
+            addLogViewModel.durationDaysProperty().set(0);
+            addLogViewModel.durationHoursProperty().set(0);
+            addLogViewModel.durationMinutesProperty().set(0);
+
             addLogViewModel.distanceProperty().set("");
             addLogViewModel.commentProperty().set("");
             addLogViewModel.difficultyProperty().set(null); // for ComboBox

@@ -19,6 +19,11 @@ public class AddLogViewModel {
     private final StringProperty rating = new SimpleStringProperty();
     private final StringProperty date = new SimpleStringProperty();
     private final StringProperty duration = new SimpleStringProperty();
+
+    private final IntegerProperty durationDays = new SimpleIntegerProperty(0);
+    private final IntegerProperty durationHours = new SimpleIntegerProperty(0);
+    private final IntegerProperty durationMinutes = new SimpleIntegerProperty(0);
+
     private final StringProperty distance = new SimpleStringProperty();
     private final StringProperty comment = new SimpleStringProperty();
     private final StringProperty difficulty = new SimpleStringProperty();
@@ -28,11 +33,26 @@ public class AddLogViewModel {
     }
     public StringProperty ratingProperty() {return rating;}
     public StringProperty dateProperty() {return date;}
+
     public StringProperty durationProperty() {return duration;}
+
+    public IntegerProperty getDurationDaysProperty() {return durationDays;}
+    public IntegerProperty getDurationHoursProperty() {return durationHours;}
+    public IntegerProperty getDurationMinutesProperty() {return durationMinutes;}
+
     public StringProperty distanceProperty() {return distance;}
     public StringProperty commentProperty() {return comment;}
     public StringProperty difficultyProperty() {return difficulty;}
+    public IntegerProperty durationDaysProperty() {
+        return durationDays;
+    }
 
+    public IntegerProperty durationHoursProperty() {
+        return durationHours;
+    }
+    public IntegerProperty durationMinutesProperty() {
+        return durationMinutes;
+    }
     public AddLogViewModel(MainViewModel mainViewModel, TourLogService tourLogService) {
         // TODO selectedTOUr should not be field of class, bcs object handle a lot of tours
         this.selectedTour = mainViewModel.getSelectedTour();
@@ -43,7 +63,8 @@ public class AddLogViewModel {
             if(newValue != null) {
                 rating.set(newValue.getRating());
                 date.set(newValue.getDate());
-                duration.set(newValue.getTotalTime());
+                //duration.set(newValue.getTotalTime());
+                durationDays.set(newValue.getDurationDays());
                 distance.set(newValue.getTotalDistance());
                 comment.set(newValue.getComment());
                 setDifficultyFromNumeric(newValue.getDifficulty());
@@ -83,7 +104,9 @@ public class AddLogViewModel {
                 comment.get(),
                 getNumericDifficulty(),
                 distance.get(),
-                duration.get(),
+                1,
+                1,
+                1,
                 rating.get()
         );
 
@@ -126,7 +149,7 @@ public class AddLogViewModel {
                             selectedTourLog.setId(editedLog.getId());
                             selectedTourLog.setRating(editedLog.getRating());
                             selectedTourLog.setDate(editedLog.getDate());
-                            selectedTourLog.setTotalTime(editedLog.getTotalTime());
+                            //selectedTourLog.setTotalTime(editedLog.getTotalTime());
                             selectedTourLog.setTotalDistance(editedLog.getTotalDistance());
                             selectedTourLog.setComment(editedLog.getComment());
                             selectedTourLog.setDifficulty(editedLog.getDifficulty());
