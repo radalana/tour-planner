@@ -10,10 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -47,6 +44,9 @@ public class TourDetailsController {
     @FXML private WebView mapView;
     @FXML private Text mapPlaceholder;
 
+    @FXML private Label nameErrorLabel;
+    @FXML private Label descriptionErrorLabel;
+
 
     @FXML private Button editButton;
     private final Popup suggestionsPopup = new Popup();
@@ -56,14 +56,28 @@ public class TourDetailsController {
     }
     @FXML public void initialize() {
         initAutocomplete();
-        //one-way binding
-        nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
-        descriptionDetails.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());
-        transportTypeDetails.textProperty().bindBidirectional(tourDetailsViewModel.transportTypeProperty());
-        fromDetails.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
-        toDetails.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
-        Bindings.bindBidirectional(distanceDetails.textProperty(), tourDetailsViewModel.distanceProperty(), new NumberStringConverter());
-        estimatedTimeDetails.textProperty().bindBidirectional(tourDetailsViewModel.estimatedTimeProperty());
+        //binding
+        bind();
+
+        tourDetailsViewModel.nameProperty().addListener((observable, oldValue, newValue) -> {
+            tourDetailsViewModel.validate();
+                if (newValue.trim().isEmpty()) {
+                    //nameErrorLabel.setVisible(true);
+                    nameErrorLabel.setText("Name cannot be empty");
+                } else {
+                    nameErrorLabel.setText("");
+                }
+        });
+
+        tourDetailsViewModel.descriptionProperty().addListener((observable, oldValue, newValue) -> {
+            tourDetailsViewModel.validate();
+            if (newValue.trim().isEmpty()) {
+                //nameErrorLabel.setVisible(true);
+                descriptionErrorLabel.setText("Description cannot be empty");
+            } else {
+                descriptionErrorLabel.setText("");
+            }
+        });
 
         String from = tourDetailsViewModel.fromProperty().get();
         String to = tourDetailsViewModel.toProperty().get();
@@ -80,6 +94,8 @@ public class TourDetailsController {
                 mapPlaceholder.setVisible(false);
             }
         });
+
+
     }
 
 
@@ -105,6 +121,10 @@ public class TourDetailsController {
             estimatedTimeDetails.setEditable(true);
 
             editButton.setText("UPDATE");
+            if (editButton.getText().equals("UPDATE")) {
+                editButton.disableProperty().bind(tourDetailsViewModel.validFormProperty().not());
+            }
+            tourDetailsViewModel.validate();
         } else {
             tourDetailsViewModel.updateTour()
                     .exceptionally(ex -> {
@@ -229,5 +249,15 @@ public class TourDetailsController {
     private String extractMessage(Throwable ex) {
         Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
         return (cause.getMessage() != null) ? cause.getMessage() : "Unknown error occurred";
+    }
+
+    private void bind() {
+        nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
+        descriptionDetails.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());
+        transportTypeDetails.textProperty().bindBidirectional(tourDetailsViewModel.transportTypeProperty());
+        fromDetails.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
+        toDetails.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
+        Bindings.bindBidirectional(distanceDetails.textProperty(), tourDetailsViewModel.distanceProperty(), new NumberStringConverter());
+        estimatedTimeDetails.textProperty().bindBidirectional(tourDetailsViewModel.estimatedTimeProperty());
     }
 }

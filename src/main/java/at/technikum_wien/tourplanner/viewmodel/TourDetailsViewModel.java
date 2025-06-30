@@ -23,28 +23,14 @@ public class TourDetailsViewModel {
     public StringProperty transportTypeProperty() { return mainViewModelViewModel.getSelectedTour().get().transportTypeProperty(); }
     public StringProperty estimatedTimeProperty() {return mainViewModelViewModel.getSelectedTour().get().estimatedTimeProperty();}
 
+    private final BooleanProperty validForm = new SimpleBooleanProperty(true);
+    public BooleanProperty validFormProperty() {
+        return validForm;
+    }
     public TourDetailsViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
         this.mainViewModelViewModel = mainViewModelViewModel;
         this.tourService = tourService;
     }
-
-
-    //is it data-binding
-    /*
-    public void loadTourData() {
-        Tour selected = mainViewModelViewModel.getSelectedTour().get();
-        if (selected != null) {
-            name.set(selected.getTourName());
-            description.set(selected.getDescription());
-            transportType.set(selected.getTransportType());
-            from.set(selected.getFrom());
-            to.set(selected.getTo());
-            distance.set(selected.getDistance());
-            estimatedTime.set(selected.getEstimatedTime());
-        }
-    }
-
-     */
 
     public void deleteTour() {
         Tour selected = mainViewModelViewModel.getSelectedTour().get();
@@ -105,12 +91,14 @@ public class TourDetailsViewModel {
         return tourService.fetchLocationSuggestions(input);
     }
 
-    private String extractMessage(Throwable ex) {
-        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-        String msg = cause.getMessage();
-        if (msg != null && msg.contains("Server returned error:")) {
-            return msg.replace("Server returned error:", "").trim();
-        }
-        return "Unexpected error occurred: " + msg;
+    public void validate() {
+        boolean valid =
+                nameProperty().get() != null && !nameProperty().get().isBlank() &&
+                        descriptionProperty().get() != null && !descriptionProperty().get().isBlank() &&
+                        fromProperty().get() != null && !fromProperty().get().isBlank() &&
+                        toProperty().get() != null && !toProperty().get().isBlank() &&
+                        transportTypeProperty().get() != null && !transportTypeProperty().get().isBlank();
+
+        validForm.set(valid);
     }
 }

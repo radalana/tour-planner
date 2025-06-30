@@ -183,11 +183,11 @@ public class TourService {
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("fetchLocationSuggestions: " + response.body());
             JSONObject json = new JSONObject(response.body());
 
             JSONArray features = json.getJSONArray("features");
             List<String> suggestions = new ArrayList<>();
-
             for (int i = 0; i < features.length(); i++) {
                 JSONObject props = features.getJSONObject(i).getJSONObject("properties");
                 String label = props.getString("label");
