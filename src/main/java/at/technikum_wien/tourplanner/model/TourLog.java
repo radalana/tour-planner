@@ -14,7 +14,6 @@ public class TourLog {
     private StringProperty comment = new SimpleStringProperty();
     private IntegerProperty difficulty = new SimpleIntegerProperty();
     private StringProperty totalDistance= new SimpleStringProperty();
-    //private StringProperty totalTime= new SimpleStringProperty();
     private IntegerProperty durationDays = new SimpleIntegerProperty();
     private IntegerProperty durationHours = new SimpleIntegerProperty();
     private IntegerProperty durationMinutes = new SimpleIntegerProperty();
@@ -25,7 +24,6 @@ public class TourLog {
         this.comment = new SimpleStringProperty(comment);
         this.difficulty = new SimpleIntegerProperty(difficulty);
         this.totalDistance = new SimpleStringProperty(totalDistance);
-        //this.totalTime = new SimpleStringProperty(totalTime);
         this.durationDays = new SimpleIntegerProperty(days);
         this.durationHours = new SimpleIntegerProperty(hours);
         this.durationMinutes = new SimpleIntegerProperty(minutes);
@@ -36,7 +34,6 @@ public class TourLog {
     public StringProperty commentProperty() {return this.comment;}
     public IntegerProperty difficultyProperty() {return this.difficulty;}
     public StringProperty totalDistanceProperty() {return this.totalDistance;}
-    //public StringProperty totalTimeProperty() {return this.totalTime;}
     public IntegerProperty durationDaysProperty() {return this.durationDays;}
     public IntegerProperty durationHoursProperty() {return this.durationHours;}
     public IntegerProperty durationMinutesProperty() {return this.durationMinutes;}

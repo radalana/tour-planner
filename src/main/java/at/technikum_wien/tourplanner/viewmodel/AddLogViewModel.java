@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.concurrent.CompletableFuture;
 
 public class AddLogViewModel {
@@ -18,11 +19,10 @@ public class AddLogViewModel {
 
     private final StringProperty rating = new SimpleStringProperty();
     private final StringProperty date = new SimpleStringProperty();
-    private final StringProperty duration = new SimpleStringProperty();
 
-    private final IntegerProperty durationDays = new SimpleIntegerProperty(0);
-    private final IntegerProperty durationHours = new SimpleIntegerProperty(0);
-    private final IntegerProperty durationMinutes = new SimpleIntegerProperty(0);
+    private final IntegerProperty durationDays = new SimpleIntegerProperty();
+    private final IntegerProperty durationHours = new SimpleIntegerProperty();
+    private final IntegerProperty durationMinutes = new SimpleIntegerProperty();
 
     private final StringProperty distance = new SimpleStringProperty();
     private final StringProperty comment = new SimpleStringProperty();
@@ -34,25 +34,13 @@ public class AddLogViewModel {
     public StringProperty ratingProperty() {return rating;}
     public StringProperty dateProperty() {return date;}
 
-    public StringProperty durationProperty() {return duration;}
-
-    public IntegerProperty getDurationDaysProperty() {return durationDays;}
-    public IntegerProperty getDurationHoursProperty() {return durationHours;}
-    public IntegerProperty getDurationMinutesProperty() {return durationMinutes;}
-
     public StringProperty distanceProperty() {return distance;}
     public StringProperty commentProperty() {return comment;}
     public StringProperty difficultyProperty() {return difficulty;}
-    public IntegerProperty durationDaysProperty() {
-        return durationDays;
-    }
+    public IntegerProperty durationDaysProperty() {return durationDays;}
 
-    public IntegerProperty durationHoursProperty() {
-        return durationHours;
-    }
-    public IntegerProperty durationMinutesProperty() {
-        return durationMinutes;
-    }
+    public IntegerProperty durationHoursProperty() {return durationHours;}
+    public IntegerProperty durationMinutesProperty() {return durationMinutes;}
     public AddLogViewModel(MainViewModel mainViewModel, TourLogService tourLogService) {
         // TODO selectedTOUr should not be field of class, bcs object handle a lot of tours
         this.selectedTour = mainViewModel.getSelectedTour();
@@ -61,10 +49,12 @@ public class AddLogViewModel {
 
         mainViewModel.selectedLogProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {
+                System.out.println("New value of Selected log: " + newValue);
                 rating.set(newValue.getRating());
                 date.set(newValue.getDate());
-                //duration.set(newValue.getTotalTime());
                 durationDays.set(newValue.getDurationDays());
+                durationHours.set(newValue.getDurationHours());
+                durationMinutes.set(newValue.getDurationMinutes());
                 distance.set(newValue.getTotalDistance());
                 comment.set(newValue.getComment());
                 setDifficultyFromNumeric(newValue.getDifficulty());
@@ -95,8 +85,10 @@ public class AddLogViewModel {
     }
 
     public CompletableFuture<Boolean> addLogAsync() {
+        System.out.println("Log added asynchronously");
         Tour tour = selectedTour.get();
         if (!validateFields()) {
+            System.out.println("Fields are not valid");
             return CompletableFuture.completedFuture(false);
         }
         TourLog newLog = new TourLog(
@@ -104,9 +96,9 @@ public class AddLogViewModel {
                 comment.get(),
                 getNumericDifficulty(),
                 distance.get(),
-                1,
-                1,
-                1,
+                durationDays.get(),
+                durationHours.get(),
+                durationMinutes.get(),
                 rating.get()
         );
 
@@ -117,6 +109,7 @@ public class AddLogViewModel {
                 tourLogs.add(tourLog);
                 clearForm();
             });
+
             return true;
         }).exceptionally(ex -> {
             Platform.runLater(() -> {
@@ -133,14 +126,14 @@ public class AddLogViewModel {
 
         if (selectedTourLog != null) {
             double newDistance = Double.parseDouble(distance.get());
-            double newDuration = Double.parseDouble(duration.get());
+            long newDurationInSec = (long) durationDays.get() * 60 * 60 * 24 + durationHours.get() * 60 * 60 + durationMinutes.get() * 60;
             int newRating = Integer.parseInt(rating.get());
             TourLogUpdateDTO editedLogData = new TourLogUpdateDTO(
                     date.get(),
                     comment.get(),
                     getNumericDifficulty(),
                     newDistance,
-                    newDuration,
+                    newDurationInSec,
                     newRating
             );
             tourLogService.updateLogAsync(editedLogData, selectedTourLog.getId(), tour.getId())
@@ -149,7 +142,11 @@ public class AddLogViewModel {
                             selectedTourLog.setId(editedLog.getId());
                             selectedTourLog.setRating(editedLog.getRating());
                             selectedTourLog.setDate(editedLog.getDate());
-                            //selectedTourLog.setTotalTime(editedLog.getTotalTime());
+
+                            selectedTourLog.setDurationDays(editedLog.getDurationDays());
+                            selectedTourLog.setDurationHours(editedLog.getDurationHours());
+                            selectedTourLog.setDurationMinutes(editedLog.getDurationMinutes());
+
                             selectedTourLog.setTotalDistance(editedLog.getTotalDistance());
                             selectedTourLog.setComment(editedLog.getComment());
                             selectedTourLog.setDifficulty(editedLog.getDifficulty());
@@ -176,17 +173,30 @@ public class AddLogViewModel {
     public void clearForm() {
         rating.set("");
         date.set("");
-        duration.set("");
+        durationDays.set(0);
+        durationHours.set(0);
+        durationMinutes.set(0);
         distance.set("");
         comment.set("");
         difficulty.set("");
     }
     private boolean validateFields() {
-        return isNotEmpty(date.get()) &&
-                isNotEmpty(duration.get()) &&
-                isNotEmpty(distance.get()) &&
-                isNotEmpty(comment.get()) &&
-                isNotEmpty(difficulty.get());
+        boolean validDate = isNotEmpty(date.get());
+        boolean validDuration = durationDays.get() != 0 || durationHours.get() != 0 || durationMinutes.get() != 0;
+        boolean validDistance = isNotEmpty(distance.get());
+        boolean validComment = isNotEmpty(comment.get());
+        boolean validDifficulty = isNotEmpty(difficulty.get());
+
+        System.out.println("validDate: " + validDate);
+        System.out.println("validDuration: " + validDuration);
+        System.out.println("days" + durationDays.get());
+        System.out.println("hours" + durationHours.get());
+        System.out.println("minutes" + durationMinutes.get());
+        System.out.println("validDistance: " + validDistance);
+        System.out.println("validComment: " + validComment);
+        System.out.println("validDifficulty: " + validDifficulty);
+
+        return validDate && validDuration && validDistance && validComment && validDifficulty;
     }
 
     private boolean isNotEmpty(Object value) {

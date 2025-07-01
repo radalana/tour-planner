@@ -2,6 +2,7 @@
 
     import at.technikum_wien.tourplanner.viewmodel.AddLogViewModel;
     import javafx.application.Platform;
+    import javafx.beans.property.IntegerProperty;
     import javafx.fxml.FXML;
     import javafx.scene.control.*;
     import javafx.scene.image.Image;
@@ -25,8 +26,6 @@
         @FXML private TextField ratingTextField;
         @FXML private TextField dateTextField;
 
-        @FXML private TextField durationTextField;
-
         @FXML private Spinner<Integer> daysSpinner;
         @FXML private Spinner<Integer> hoursSpinner;
         @FXML private Spinner<Integer> minutesSpinner;
@@ -47,61 +46,54 @@
         }
 
         @FXML public void initialize() {
-            activeImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/technikum_wien/tourplanner/images/pusheen_active.png")));
-            inactiveImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/technikum_wien/tourplanner/images/pusheen_inactive.png")));
+                activeImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/technikum_wien/tourplanner/images/pusheen_active.png")));
+                inactiveImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/technikum_wien/tourplanner/images/pusheen_inactive.png")));
 
-            ratingTextField.textProperty().bindBidirectional(addLogViewModel.ratingProperty());
-            dateTextField.textProperty().bindBidirectional(addLogViewModel.dateProperty());
+                //Total Time
+                initializeDurationInputs();
+                //Bind all
+                bindBidirectional();
+                dateTextField.setOnMouseClicked(e -> hiddenDatePicker.show());
 
-            durationTextField.textProperty().bindBidirectional(addLogViewModel.durationProperty());
+                difficultyComboBox.getItems().addAll("Easy", "Moderate", "Hard");
 
-            daysSpinner.getValueFactory().valueProperty().bindBidirectional(addLogViewModel.durationDaysProperty().asObject());
-            hoursSpinner.getValueFactory().valueProperty().bindBidirectional(addLogViewModel.durationHoursProperty().asObject());
-            minutesSpinner.getValueFactory().valueProperty().bindBidirectional(addLogViewModel.durationMinutesProperty().asObject());
-
-            distanceTextField.textProperty().bindBidirectional(addLogViewModel.distanceProperty());
-            commentTextArea.textProperty().bindBidirectional(addLogViewModel.commentProperty());
-            difficultyComboBox.valueProperty().bindBidirectional(addLogViewModel.difficultyProperty());
-            dateTextField.setOnMouseClicked(e -> hiddenDatePicker.show());
-
-            difficultyComboBox.getItems().addAll("Easy", "Moderate", "Hard");
-
-            addLogViewModel.selectedTourLogProperty().addListener((obs, oldLog, newLog) -> {
-                if (newLog != null) {
-                    addLogButton.setText("Update");
-                    titleLabel.setText("EDIT LOG");
-                } else {
-                    addLogButton.setText("Add Log");
-                    titleLabel.setText(ADD_LOG_TITLE);
-                }
-            });
-            //when date is selected- update ViewModel
-            hiddenDatePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
-                if (newDate != null) {
-                    addLogViewModel.dateProperty().set(formatter.format(newDate));
-                }
-            });
-
-            pusheenViews = new ImageView[] { pusheen1, pusheen2, pusheen3, pusheen4, pusheen5 };
-            updatePusheenImages(0);
-            //click listeners
-            for (int i = 0; i < pusheenViews.length; i++) {
-                final int ratingValue = i + 1;
-                pusheenViews[i].setOnMouseClicked(e -> {
-                    addLogViewModel.ratingProperty().set(String.valueOf(ratingValue));
-                    ratingTextField.setText(String.valueOf(ratingValue));
-                    updatePusheenImages(ratingValue);
+                addLogViewModel.selectedTourLogProperty().addListener((obs, oldLog, newLog) -> {
+                    if (newLog != null) {
+                        addLogButton.setText("Update");
+                        titleLabel.setText("EDIT LOG");
+                    } else {
+                        addLogButton.setText("Add Log");
+                        titleLabel.setText(ADD_LOG_TITLE);
+                    }
                 });
-            }
-            //update image view when rating changes
-            addLogViewModel.ratingProperty().addListener((obs3, oldVal, newVal) -> {
-                try {
-                    int rating = Integer.parseInt(newVal);
-                    updatePusheenImages(rating);
-                } catch (NumberFormatException e) {
-                    updatePusheenImages(0);
+                //when date is selected- update ViewModel
+                hiddenDatePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
+                    if (newDate != null) {
+                        addLogViewModel.dateProperty().set(formatter.format(newDate));
+                    }
+                });
+
+                pusheenViews = new ImageView[] { pusheen1, pusheen2, pusheen3, pusheen4, pusheen5 };
+                updatePusheenImages(0);
+                //click listeners
+                for (int i = 0; i < pusheenViews.length; i++) {
+                    final int ratingValue = i + 1;
+                    pusheenViews[i].setOnMouseClicked(e -> {
+                        addLogViewModel.ratingProperty().set(String.valueOf(ratingValue));
+                        ratingTextField.setText(String.valueOf(ratingValue));
+                        updatePusheenImages(ratingValue);
+                    });
                 }
-            });
+                //update image view when rating changes
+                addLogViewModel.ratingProperty().addListener((obs3, oldVal, newVal) -> {
+                    try {
+                        int rating = Integer.parseInt(newVal);
+                        updatePusheenImages(rating);
+                    } catch (NumberFormatException e) {
+                        updatePusheenImages(0);
+                    }
+                });
+
         }
 
         private void updatePusheenImages(int rating) {
@@ -122,6 +114,11 @@
             }
         }
         private void handleAddLog() {
+            System.out.println("Before addLogAsync:");
+            System.out.println("DAYS in VM: " + addLogViewModel.durationDaysProperty().get());
+            System.out.println("HOURS in VM: " + addLogViewModel.durationHoursProperty().get());
+            System.out.println("MINUTES in VM: " + addLogViewModel.durationMinutesProperty().get());
+
             resetFieldStyles();
             addLogViewModel.addLogAsync().thenAccept(success -> {
                 Platform.runLater(() -> {
@@ -134,7 +131,6 @@
 
         private void resetFieldStyles() {
             dateTextField.setStyle(ORIGINAL_STYLE);
-            durationTextField.setStyle(ORIGINAL_STYLE);
             distanceTextField.setStyle(ORIGINAL_STYLE);
             commentTextArea.setStyle(ORIGINAL_STYLE);
             difficultyComboBox.setStyle(ORIGINAL_STYLE);
@@ -142,11 +138,10 @@
         }
 
         private void clearForm() {
+            System.out.println("calls clearForm");
             addLogViewModel.ratingProperty().set("");
             updatePusheenImages(0); // visually reset
             addLogViewModel.dateProperty().set("");
-
-            addLogViewModel.durationProperty().set("");
 
             addLogViewModel.durationDaysProperty().set(0);
             addLogViewModel.durationHoursProperty().set(0);
@@ -159,7 +154,6 @@
 
         private void highlightInvalidFields() {
             highlightField(dateTextField, addLogViewModel.dateProperty().get());
-            highlightField(durationTextField, addLogViewModel.durationProperty().get());
             highlightField(distanceTextField, addLogViewModel.distanceProperty().get());
             highlightField(commentTextArea, addLogViewModel.commentProperty().get());
             highlightField(difficultyComboBox, addLogViewModel.difficultyProperty().get());
@@ -184,6 +178,39 @@
             } else {
                 field.setStyle(ORIGINAL_STYLE);
             }
+        }
+
+        private void initializeDurationInputs() {
+            daysSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 30, 0));
+            hoursSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
+            minutesSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        }
+
+        private void bindBidirectional() {
+            ratingTextField.textProperty().bindBidirectional(addLogViewModel.ratingProperty());
+            dateTextField.textProperty().bindBidirectional(addLogViewModel.dateProperty());
+            bindSpinnerToProperty(daysSpinner, addLogViewModel.durationDaysProperty());
+            bindSpinnerToProperty(hoursSpinner, addLogViewModel.durationHoursProperty());
+            bindSpinnerToProperty(minutesSpinner, addLogViewModel.durationMinutesProperty());
+            distanceTextField.textProperty().bindBidirectional(addLogViewModel.distanceProperty());
+            commentTextArea.textProperty().bindBidirectional(addLogViewModel.commentProperty());
+            difficultyComboBox.valueProperty().bindBidirectional(addLogViewModel.difficultyProperty());
+        }
+
+        private void bindSpinnerToProperty(Spinner<Integer> spinner, IntegerProperty property) {
+            // Spinner → ViewModel
+            spinner.valueProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal != null) {
+                    property.set(newVal);
+                }
+            });
+
+            // ViewModel → Spinner
+            property.addListener((obs, oldVal, newVal) -> {
+                if (newVal != null && !newVal.equals(spinner.getValue())) {
+                    spinner.getValueFactory().setValue(newVal.intValue());
+                }
+            });
         }
 
     }
