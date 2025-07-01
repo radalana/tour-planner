@@ -27,20 +27,51 @@ public class AddLogViewModel {
     private final StringProperty distance = new SimpleStringProperty();
     private final StringProperty comment = new SimpleStringProperty();
     private final StringProperty difficulty = new SimpleStringProperty();
+
+    private final BooleanProperty validForm = new SimpleBooleanProperty(true);
+
+
     //for binding
     public ObjectProperty<TourLog> selectedTourLogProperty() {
         return mainViewModel.selectedLogProperty();
     }
-    public StringProperty ratingProperty() {return rating;}
-    public StringProperty dateProperty() {return date;}
 
-    public StringProperty distanceProperty() {return distance;}
-    public StringProperty commentProperty() {return comment;}
-    public StringProperty difficultyProperty() {return difficulty;}
-    public IntegerProperty durationDaysProperty() {return durationDays;}
+    public StringProperty ratingProperty() {
+        return rating;
+    }
 
-    public IntegerProperty durationHoursProperty() {return durationHours;}
-    public IntegerProperty durationMinutesProperty() {return durationMinutes;}
+    public StringProperty dateProperty() {
+        return date;
+    }
+
+    public StringProperty distanceProperty() {
+        return distance;
+    }
+
+    public StringProperty commentProperty() {
+        return comment;
+    }
+
+    public StringProperty difficultyProperty() {
+        return difficulty;
+    }
+
+    public IntegerProperty durationDaysProperty() {
+        return durationDays;
+    }
+
+    public IntegerProperty durationHoursProperty() {
+        return durationHours;
+    }
+
+    public IntegerProperty durationMinutesProperty() {
+        return durationMinutes;
+    }
+
+    public BooleanProperty validFormProperty() {
+        return validForm;
+    }
+
     public AddLogViewModel(MainViewModel mainViewModel, TourLogService tourLogService) {
         // TODO selectedTOUr should not be field of class, bcs object handle a lot of tours
         this.selectedTour = mainViewModel.getSelectedTour();
@@ -48,7 +79,7 @@ public class AddLogViewModel {
         this.tourLogService = tourLogService;
 
         mainViewModel.selectedLogProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue != null) {
+            if (newValue != null) {
                 System.out.println("New value of Selected log: " + newValue);
                 rating.set(newValue.getRating());
                 date.set(newValue.getDate());
@@ -58,10 +89,23 @@ public class AddLogViewModel {
                 distance.set(newValue.getTotalDistance());
                 comment.set(newValue.getComment());
                 setDifficultyFromNumeric(newValue.getDifficulty());
-            }else {
+            } else {
                 clearForm();
             }
         });
+
+        date.addListener((obs, old, newVal) -> updateFormValidity());
+        distance.addListener((obs, old, newVal) -> updateFormValidity());
+        comment.addListener((obs, old, newVal) -> updateFormValidity());
+        difficulty.addListener((obs, old, newVal) -> updateFormValidity());
+        rating.addListener((obs, old, newVal) -> updateFormValidity());
+
+        durationDays.addListener((obs, old, newVal) -> updateFormValidity());
+        durationHours.addListener((obs, old, newVal) -> updateFormValidity());
+        durationMinutes.addListener((obs, old, newVal) -> updateFormValidity());
+
+        // начальная проверка
+        updateFormValidity();
     }
 
     // convert label to number for backend use
@@ -166,6 +210,7 @@ public class AddLogViewModel {
     public void setSelectedTourLog(TourLog tourLog) {
         mainViewModel.setSelectedLog(tourLog);
     }
+
     public TourLog getSelectedTourLog() {
         return mainViewModel.getSelectedLog();
     }
@@ -180,23 +225,16 @@ public class AddLogViewModel {
         comment.set("");
         difficulty.set("");
     }
+
     private boolean validateFields() {
-        boolean validDate = isNotEmpty(date.get());
-        boolean validDuration = durationDays.get() != 0 || durationHours.get() != 0 || durationMinutes.get() != 0;
-        boolean validDistance = isNotEmpty(distance.get());
-        boolean validComment = isNotEmpty(comment.get());
-        boolean validDifficulty = isNotEmpty(difficulty.get());
+        boolean allValid = isValidDate() &&
+                isValidDuration() &&
+                isValidDistance() &&
+                isValidComment() &&
+                isValidDifficulty();
 
-        System.out.println("validDate: " + validDate);
-        System.out.println("validDuration: " + validDuration);
-        System.out.println("days" + durationDays.get());
-        System.out.println("hours" + durationHours.get());
-        System.out.println("minutes" + durationMinutes.get());
-        System.out.println("validDistance: " + validDistance);
-        System.out.println("validComment: " + validComment);
-        System.out.println("validDifficulty: " + validDifficulty);
-
-        return validDate && validDuration && validDistance && validComment && validDifficulty;
+        validForm.set(allValid);
+        return allValid;
     }
 
     private boolean isNotEmpty(Object value) {
@@ -209,4 +247,51 @@ public class AddLogViewModel {
         }
         return true; //for other types the default is true
     }
+
+    private boolean isValidNumber(String value) {
+        if (value == null || value.trim().isEmpty()) return false;
+        String sanitized = value.trim().replace(",", ".");
+        if (sanitized.endsWith(".")) sanitized += "0";
+        try {
+            Double.parseDouble(sanitized);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public boolean isValidDate() {
+        return isNotEmpty(date.get());
+    }
+
+    public boolean isValidDuration() {
+        return durationDays.get() != 0 || durationHours.get() != 0 || durationMinutes.get() != 0;
+    }
+
+    public boolean isValidDistance() {
+        return isValidNumber(distance.get());
+    }
+
+    public boolean isValidComment() {
+        return isNotEmpty(comment.get());
+    }
+
+    public boolean isValidDifficulty() {
+        return isNotEmpty(difficulty.get());
+    }
+
+    public boolean isValidRating() {
+        return isNotEmpty(rating.get());
+    }
+
+    private void updateFormValidity() {
+        validForm.set(
+                isValidDate() &&
+                        isValidDuration() &&
+                        isValidDistance() &&
+                        isValidComment() &&
+                        isValidDifficulty()
+        );
+    }
+
 }

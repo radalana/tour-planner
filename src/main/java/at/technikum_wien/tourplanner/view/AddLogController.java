@@ -136,7 +136,6 @@
         }
 
         private void clearForm() {
-            System.out.println("calls clearForm");
             addLogViewModel.ratingProperty().set("");
             updatePusheenImages(0); // visually reset
             addLogViewModel.dateProperty().set("");
@@ -151,29 +150,16 @@
         }
 
         private void highlightInvalidFields() {
-            highlightField(dateTextField, addLogViewModel.dateProperty().get());
-            highlightField(distanceTextField, addLogViewModel.distanceProperty().get());
-            highlightField(commentTextArea, addLogViewModel.commentProperty().get());
-            highlightField(durationHbox, addLogViewModel.durationDaysProperty().get(), addLogViewModel.durationHoursProperty().get(), addLogViewModel.durationMinutesProperty().get());
-            highlightField(difficultyComboBox, addLogViewModel.difficultyProperty().get());
-            highlightField(ratingTextField, addLogViewModel.ratingProperty().get());
+            highlightField(dateTextField, !addLogViewModel.isValidDate());
+            highlightField(distanceTextField, !addLogViewModel.isValidDistance());
+            highlightField(commentTextArea, !addLogViewModel.isValidComment());
+            highlightField(durationHbox, !addLogViewModel.isValidDuration());
+            highlightField(difficultyComboBox, !addLogViewModel.isValidDifficulty());
+            highlightField(ratingTextField, !addLogViewModel.isValidRating());
         }
 
-        private void highlightField(Control field, Object value) {
-            boolean invalid = isInvalid(value);
+        private void highlightField(Region field, boolean invalid) {
             applyFieldStyle(field, invalid);
-        }
-
-        private void highlightField(HBox field, int days, int hours, int minutes) {
-            boolean invalid = days == 0 && hours == 0 && minutes == 0;
-            applyFieldStyle(field, invalid);
-        }
-
-        private boolean isInvalid(Object value) {
-            if (value == null) return true;
-            if (value instanceof String str) return str.trim().isEmpty();
-            if (value instanceof Double dbl) return dbl.isNaN();
-            return true; // default: unknown type treated as invalid
         }
 
         private void applyFieldStyle(Region field, boolean invalid) {
@@ -200,6 +186,7 @@
             distanceTextField.textProperty().bindBidirectional(addLogViewModel.distanceProperty());
             commentTextArea.textProperty().bindBidirectional(addLogViewModel.commentProperty());
             difficultyComboBox.valueProperty().bindBidirectional(addLogViewModel.difficultyProperty());
+            addLogButton.disableProperty().bind(addLogViewModel.validFormProperty().not());
         }
 
         private void bindSpinnerToProperty(Spinner<Integer> spinner, IntegerProperty property) {
