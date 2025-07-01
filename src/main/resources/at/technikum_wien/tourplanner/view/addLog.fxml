@@ -48,7 +48,7 @@
             <Label text="Total Distance" styleClass="form-label"/>
             <TextField fx:id="distanceTextField" styleClass="form-input"/>
             <Label text="Total Time" styleClass="form-label"/>
-            <HBox styleClass="form-input">
+            <HBox fx:id="durationHbox" styleClass="form-input">
                 <VBox>
                     <Label text="Days"/>
                     <Spinner fx:id="daysSpinner"  prefWidth="73.3"/>

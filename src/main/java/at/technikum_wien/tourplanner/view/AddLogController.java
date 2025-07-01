@@ -7,6 +7,8 @@
     import javafx.scene.control.*;
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
+    import javafx.scene.layout.HBox;
+    import javafx.scene.layout.Region;
 
     import java.time.format.DateTimeFormatter;
     import java.util.Objects;
@@ -33,6 +35,7 @@
         @FXML private TextField distanceTextField;
         @FXML private TextArea commentTextArea;
         @FXML private ComboBox<String> difficultyComboBox;
+        @FXML private HBox durationHbox;
         @FXML private DatePicker hiddenDatePicker;
 
         @FXML private ImageView pusheen1, pusheen2, pusheen3, pusheen4, pusheen5;
@@ -114,11 +117,6 @@
             }
         }
         private void handleAddLog() {
-            System.out.println("Before addLogAsync:");
-            System.out.println("DAYS in VM: " + addLogViewModel.durationDaysProperty().get());
-            System.out.println("HOURS in VM: " + addLogViewModel.durationHoursProperty().get());
-            System.out.println("MINUTES in VM: " + addLogViewModel.durationMinutesProperty().get());
-
             resetFieldStyles();
             addLogViewModel.addLogAsync().thenAccept(success -> {
                 Platform.runLater(() -> {
@@ -156,29 +154,36 @@
             highlightField(dateTextField, addLogViewModel.dateProperty().get());
             highlightField(distanceTextField, addLogViewModel.distanceProperty().get());
             highlightField(commentTextArea, addLogViewModel.commentProperty().get());
+            highlightField(durationHbox, addLogViewModel.durationDaysProperty().get(), addLogViewModel.durationHoursProperty().get(), addLogViewModel.durationMinutesProperty().get());
             highlightField(difficultyComboBox, addLogViewModel.difficultyProperty().get());
             highlightField(ratingTextField, addLogViewModel.ratingProperty().get());
         }
 
-        private void highlightField(javafx.scene.control.Control field, Object value) {
-            boolean invalid;
+        private void highlightField(Control field, Object value) {
+            boolean invalid = isInvalid(value);
+            applyFieldStyle(field, invalid);
+        }
 
-            if (value == null) {
-                invalid = true;
-            } else if (value instanceof String str) {
-                invalid = str.trim().isEmpty();
-            } else if (value instanceof Double dbl) {
-                invalid = dbl.isNaN();
-            } else {
-                invalid = true;
-            }
+        private void highlightField(HBox field, int days, int hours, int minutes) {
+            boolean invalid = days == 0 && hours == 0 && minutes == 0;
+            applyFieldStyle(field, invalid);
+        }
 
+        private boolean isInvalid(Object value) {
+            if (value == null) return true;
+            if (value instanceof String str) return str.trim().isEmpty();
+            if (value instanceof Double dbl) return dbl.isNaN();
+            return true; // default: unknown type treated as invalid
+        }
+
+        private void applyFieldStyle(Region field, boolean invalid) {
             if (invalid) {
                 field.setStyle(ORIGINAL_STYLE + "-fx-border-color: red;");
             } else {
                 field.setStyle(ORIGINAL_STYLE);
             }
         }
+
 
         private void initializeDurationInputs() {
             daysSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 30, 0));
