@@ -24,11 +24,6 @@ public class TourLogViewModel {
         this.tourLogService = tourLogService;
     }
 
-    public ObservableList<TourLog> getLogs() {
-        Tour tour = selectedTour.get();
-        return tour != null ? tour.getObservableLogs() : FXCollections.emptyObservableList();
-    }
-
     public void deleteLog(TourLog log) {
         Tour tour = selectedTour.get();
         System.out.println("[DEBUG delete log] " + tour);

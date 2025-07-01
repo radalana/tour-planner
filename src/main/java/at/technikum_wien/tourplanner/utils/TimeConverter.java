@@ -48,4 +48,16 @@ public class TimeConverter {
         }
         return 0;
     }
+
+    public static int[] convertSecondsToDHMS(long totalSeconds) {
+        int days = (int) (totalSeconds / 86400);
+        long remainder = totalSeconds % 86400;
+
+        int hours = (int) (remainder / 3600);
+        remainder = remainder % 3600;
+
+        int minutes = (int) (remainder / 60);
+
+        return new int[]{days, hours, minutes};
+    }
 }

@@ -4,6 +4,8 @@ import at.technikum_wien.tourplanner.model.TourLog;
 import at.technikum_wien.tourplanner.viewmodel.TourLogViewModel;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -28,16 +30,12 @@ public class TourLogController {
     }
 
     @FXML private void initialize() {
-        System.out.println("✅ Controller initialized");
         viewModel.syncLogs();
         if (viewModel.getSelectedTour().get() != null) {
             logsTableView.setItems(viewModel.getSelectedTour().get().getObservableLogs());
         }
-
-        logsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         //binding
         bindTableColumnsToProperties();
-
 
         //right-click
         logsTableView.setRowFactory(tv -> {
@@ -83,7 +81,12 @@ public class TourLogController {
         ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateTimeProperty());
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
-        //durationColumn.setCellValueFactory(cellData -> cellData.getValue().totalTimeProperty());
+        durationColumn.setCellValueFactory(cellData -> {
+            int days = cellData.getValue().durationDaysProperty().get();
+            int hours = cellData.getValue().durationHoursProperty().get();
+            int minutes = cellData.getValue().durationMinutesProperty().get();
+            return  new SimpleStringProperty(String.format("%02d days %02d:%02d", days, hours, minutes));
+        });
         commentColumn.setCellValueFactory(commentData -> commentData.getValue().commentProperty());
         difficultyColumn.setCellValueFactory(cellData -> {
             double diff = cellData.getValue().getDifficulty();

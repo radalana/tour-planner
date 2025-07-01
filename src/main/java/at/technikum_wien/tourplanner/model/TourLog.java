@@ -1,6 +1,7 @@
 package at.technikum_wien.tourplanner.model;
 
 import at.technikum_wien.tourplanner.dto.TourLogDTO;
+import at.technikum_wien.tourplanner.utils.TimeConverter;
 import javafx.beans.property.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -103,13 +104,11 @@ public class TourLog {
         tourLog.setTotalDistance(String.valueOf(tourLogDTO.getTotalDistance()));
 
         //tourLog.setTotalTime(String.valueOf(tourLogDTO.getTotalDuration()));
-        int days = 1;
-        int hours = 2;
-        int minutes = 3;
+        int[] dhm = TimeConverter.convertSecondsToDHMS((long)tourLogDTO.getTotalDuration());
 
-        tourLog.setDurationDays(days);
-        tourLog.setDurationHours(hours);
-        tourLog.setDurationMinutes(minutes);
+        tourLog.setDurationDays(dhm[0]);
+        tourLog.setDurationHours(dhm[1]);
+        tourLog.setDurationMinutes(dhm[2]);
 
         tourLog.setRating(String.valueOf(tourLogDTO.getRating()));
         return tourLog;
