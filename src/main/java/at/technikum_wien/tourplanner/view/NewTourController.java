@@ -26,12 +26,15 @@ public class NewTourController {
     @FXML private TextField toTextField;
     @FXML private ComboBox<String> transportTypeComboBox;
 
+    @FXML private Button saveButton;
+
     // Custom autocomplete views
     @FXML private ListView<String> fromSuggestions;
     @FXML private ListView<String> toSuggestions;
 
     private final ObservableList<String> fromSuggestionList = FXCollections.observableArrayList();
     private final ObservableList<String> toSuggestionList = FXCollections.observableArrayList();
+
 
 
     private static final String ORIGINAL_STYLE = "-fx-background-color: #DEDBD6;" +
@@ -55,6 +58,28 @@ public class NewTourController {
                 resetForm();
             }
         });
+        attachValidationTriggers();
+        fromSuggestions.setOnMouseClicked(e -> {
+            String selected = fromSuggestions.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                fromTextField.setText(selected);
+                fromSuggestions.setVisible(false);
+                newTourViewModel.fromSelectedFromListProperty().set(true);
+                newTourViewModel.validateForm();
+            }
+        });
+
+        toSuggestions.setOnMouseClicked(e -> {
+            String selected = toSuggestions.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                toTextField.setText(selected);
+                toSuggestions.setVisible(false);
+                newTourViewModel.toSelectedFromListProperty().set(true);
+                newTourViewModel.validateForm();
+            }
+        });
+
+
     }
 
     private void resetForm() {
@@ -66,7 +91,8 @@ public class NewTourController {
 
         fromSuggestions.setVisible(false);
         toSuggestions.setVisible(false);
-
+        newTourViewModel.fromSelectedFromListProperty().set(false);
+        newTourViewModel.toSelectedFromListProperty().set(false);
         resetFieldStyles();
     }
 
@@ -76,6 +102,7 @@ public class NewTourController {
         fromTextField.textProperty().bindBidirectional(newTourViewModel.fromProperty());
         toTextField.textProperty().bindBidirectional(newTourViewModel.toProperty());
         transportTypeComboBox.valueProperty().bindBidirectional(newTourViewModel.transportTypeProperty());
+        saveButton.disableProperty().bind(newTourViewModel.validFormProperty().not());
     }
 
     private void initAutocomplete() {
@@ -185,5 +212,22 @@ public class NewTourController {
         fromTextField.setStyle(ORIGINAL_STYLE);
         toTextField.setStyle(ORIGINAL_STYLE);
         transportTypeComboBox.setStyle(ORIGINAL_STYLE);
+    }
+
+    private void attachValidationTriggers() {
+        nameTextField.textProperty().addListener((obs, oldVal, newVal) -> newTourViewModel.validateForm());
+        descriptionTextArea.textProperty().addListener((obs, oldVal, newVal) -> newTourViewModel.validateForm());
+
+        fromTextField.textProperty().addListener((obs, oldVal, newVal) -> {
+            newTourViewModel.fromSelectedFromListProperty().set(false);
+            newTourViewModel.validateForm();
+        });
+
+        toTextField.textProperty().addListener((obs, oldVal, newVal) -> {
+            newTourViewModel.toSelectedFromListProperty().set(false);
+            newTourViewModel.validateForm();
+        });
+
+        transportTypeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> newTourViewModel.validateForm());
     }
 }

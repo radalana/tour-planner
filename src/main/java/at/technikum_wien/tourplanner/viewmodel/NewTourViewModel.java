@@ -26,6 +26,10 @@ public class NewTourViewModel {
     private final StringProperty estTime = new SimpleStringProperty();
     private final StringProperty routInfo = new SimpleStringProperty();
 
+    private final BooleanProperty validForm = new SimpleBooleanProperty(true);
+    private final BooleanProperty fromSelectedFromList = new SimpleBooleanProperty(false);
+    private final BooleanProperty toSelectedFromList = new SimpleBooleanProperty(false);
+
     public NewTourViewModel(MainViewModel mainViewModelViewModel, TourService tourService) {
         this.mainViewModelViewModel = mainViewModelViewModel;
         this.tourService = tourService;
@@ -43,6 +47,11 @@ public class NewTourViewModel {
     public DoubleProperty distanceProperty() { return distance; }
     public StringProperty estTimeProperty() { return estTime; }
 
+    public BooleanProperty validFormProperty() { return validForm; }
+    //check if user choosed real location
+    public BooleanProperty fromSelectedFromListProperty() { return fromSelectedFromList; }
+    public BooleanProperty toSelectedFromListProperty() { return toSelectedFromList; }
+
     // Input validation for required fields only
     public boolean validate() {
         if (name.get() == null || name.get().trim().isEmpty()) return false;
@@ -51,6 +60,18 @@ public class NewTourViewModel {
         if (to.get() == null || to.get().trim().isEmpty()) return false;
         if (transportType.get() == null || transportType.get().trim().isEmpty()) return false;
         return true;
+    }
+
+    public void validateForm() {
+        boolean valid =
+                nameProperty().get() != null && !nameProperty().get().isBlank() &&
+                        descriptionProperty().get() != null && !descriptionProperty().get().isBlank() &&
+                        fromProperty().get() != null && !fromProperty().get().isBlank() &&
+                        toProperty().get() != null && !toProperty().get().isBlank() &&
+                        transportTypeProperty().get() != null && !transportTypeProperty().get().isBlank() &&
+                        fromSelectedFromList.get();
+
+        validForm.set(valid);
     }
 
     public List<String> fetchLocationSuggestions(String input) {

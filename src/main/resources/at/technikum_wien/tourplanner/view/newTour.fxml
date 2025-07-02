@@ -62,7 +62,7 @@
         </VBox>
 
         <VBox spacing="10" alignment="CENTER">
-            <Button onAction="#saveNewTour" text="SAVE" prefHeight="50" prefWidth="220" styleClass="primary-button"/>
+            <Button fx:id = "saveButton" onAction="#saveNewTour" text="SAVE" prefHeight="50" prefWidth="220" styleClass="primary-button"/>
             <Button onAction="#closeNewTour" text="CANCEL" prefHeight="50" prefWidth="220" styleClass="secondary-button"/>
         </VBox>
     </VBox>
