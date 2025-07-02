@@ -47,6 +47,8 @@ public class TourDetailsController {
 
     @FXML private Label nameErrorLabel;
     @FXML private Label descriptionErrorLabel;
+    @FXML private Label fromErrorLabel;
+    @FXML private Label toErrorLabel;
 
 
     @FXML private Button editButton;
@@ -79,6 +81,26 @@ public class TourDetailsController {
                 descriptionErrorLabel.setText("");
             }
         });
+
+        tourDetailsViewModel.fromProperty().addListener((observable, oldValue, newValue) -> {
+            tourDetailsViewModel.validate();
+            if (newValue.trim().isEmpty()) {
+                fromErrorLabel.setText("start point cannot be empty");
+            }else {
+                fromErrorLabel.setText("");
+            }
+        });
+
+        tourDetailsViewModel.toProperty().addListener((observable, oldValue, newValue) -> {
+            tourDetailsViewModel.validate();
+            if (newValue.trim().isEmpty()) {
+                toErrorLabel.setText("End point cannot be empty");
+            }else {
+                toErrorLabel.setText("");
+            }
+        });
+
+
 
         String from = tourDetailsViewModel.fromProperty().get();
         String to = tourDetailsViewModel.toProperty().get();
@@ -118,8 +140,7 @@ public class TourDetailsController {
             transportTypeDetails.setEditable(true);
             fromDetails.setEditable(true);
             toDetails.setEditable(true);
-            distanceDetails.setEditable(true);
-            estimatedTimeDetails.setEditable(true);
+
 
             transportTypeDetails.setVisible(false);
             transportTypeDetails.setManaged(false);
@@ -238,7 +259,6 @@ public class TourDetailsController {
         suggestionList.getItems().addAll(suggestions);
         suggestionList.setPrefHeight(Math.min(150, suggestions.size() * 24));
 
-        // 👇 Применяем CSS класс
         suggestionList.getStyleClass().add("suggestion-list");
         suggestionList.setOnMouseClicked(event -> {
             inputField.setText(suggestionList.getSelectionModel().getSelectedItem());
@@ -264,6 +284,7 @@ public class TourDetailsController {
     }
 
     private void bind() {
+        editButton.disableProperty().bind(tourDetailsViewModel.validFormProperty().not());
         nameDetails.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         descriptionDetails.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());
         transportTypeDetails.textProperty().bindBidirectional(tourDetailsViewModel.transportTypeProperty());

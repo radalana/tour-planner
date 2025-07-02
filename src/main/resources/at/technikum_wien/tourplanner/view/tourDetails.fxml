@@ -72,7 +72,9 @@
                             </items>
                         </ComboBox>
                         <TextField fx:id="fromDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"  styleClass="readonly-field"/>
+                        <Label fx:id="fromErrorLabel" textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <TextField fx:id="toDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="readonly-field"/>
+                        <Label fx:id="toErrorLabel" textFill="red" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                         <TextField fx:id="distanceDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="readonly-field"/>
                         <TextField fx:id="estimatedTimeDetails" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="readonly-field"/>
                     </children>
