@@ -67,8 +67,11 @@ public class TourService {
     }
 
     public CompletableFuture<Tour> createTourAsync(Tour tour) {
+        return createTourAsync(tour.toDTO());
+    }
+    public CompletableFuture<Tour> createTourAsync(TourDTO data) {
         try {
-            String body = objectMapper.writeValueAsString(tour.toDTO());
+            String body = objectMapper.writeValueAsString(data);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl))
                     .header("Content-Type", "application/json")
@@ -89,26 +92,6 @@ public class TourService {
         }
     }
 
-    public CompletableFuture<TourDTO> addTourAsync(TourDTO tourDTO) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                String json = objectMapper.writeValueAsString(tourDTO);
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(baseUrl))
-                        .header("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(json))
-                        .build();
-
-                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                if (response.statusCode() == 200 || response.statusCode() == 201) {
-                    return objectMapper.readValue(response.body(), TourDTO.class);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        });
-    }
 
 
     public CompletableFuture<Boolean> deleteTourAsync(Tour tour) {

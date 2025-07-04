@@ -117,10 +117,9 @@ public class NewTourViewModel {
                 TourDTO importedTour = objectMapper.readValue(file, TourDTO.class);
 
                 // Call backend to save tour
-                tourService.addTourAsync(importedTour).thenAccept(savedDTO -> {
-                    if (savedDTO != null) {
+                tourService.createTourAsync(importedTour).thenAccept(tour -> {
+                    if (tour != null) {
                         Platform.runLater(() -> {
-                            Tour tour = Tour.fromDTO(savedDTO);
                             mainViewModelViewModel.addTour(tour);
                         });
                     }

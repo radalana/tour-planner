@@ -68,14 +68,14 @@ public class NewTourViewModelTest {
         viewModel.transportTypeProperty().set("car");
 
         Tour createdTour = new Tour("Tour A", "Nice tour", "Vienna", "Linz", "car");
-        when(tourService.createTourAsync(any())).thenReturn(CompletableFuture.completedFuture(createdTour));
+        when(tourService.createTourAsync(any(Tour.class))).thenReturn(CompletableFuture.completedFuture(createdTour));
 
         boolean result = viewModel.createTour();
 
         Thread.sleep(100); //let Platform.runLater execute
 
         assertTrue(result);
-        verify(tourService).createTourAsync(any());
+        verify(tourService).createTourAsync(any(Tour.class));
         verify(mainViewModel).addTour(any());
 
         assertEquals("", viewModel.nameProperty().get());
@@ -97,7 +97,7 @@ public class NewTourViewModelTest {
         boolean result = viewModel.createTour();
 
         assertFalse(result);
-        verify(tourService, never()).createTourAsync(any());
+        verify(tourService, never()).createTourAsync(any(Tour.class));
         verify(mainViewModel, never()).addTour(any());
     }
 
